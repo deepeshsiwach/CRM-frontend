@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Lead - DERIVION</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <h2>DERIVION</h2>
+
+        <a href="dashboard.html">Dashboard</a>
+        <a href="leads.html">Leads</a>
+        <a href="lead-assignments.html">Lead Assignments</a>
+
+        <button id="logoutButton">Logout</button>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Header -->
+        <div class="top-bar">
+
+            <h1>Add New Lead</h1>
+
+            <span id="userName"></span>
+
+        </div>
+
+
+        <!-- Add Lead Form -->
+        <div class="form-container">
+
+            <form id="addLeadForm">
+
+                <div class="form-group">
+
+                    <label for="fullName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone
+                    </label>
+
+                    <input
+                        type="text"
+                        id="phone"
+                        name="phone"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="courseInterested">
+                        Course Interested
+                    </label>
+
+                    <input
+                        type="text"
+                        id="courseInterested"
+                        name="courseInterested"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="leadSource">
+                        Lead Source
+                    </label>
+
+                    <input
+                        type="text"
+                        id="leadSource"
+                        name="leadSource"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="status">
+                        Status
+                    </label>
+
+                    <select id="status" name="status">
+
+                       <option value="NEW">NEW</option>
+<option value="CONTACTED">CONTACTED</option>
+<option value="INTERESTED">INTERESTED</option>
+<option value="FOLLOW_UP">FOLLOW_UP</option>
+<option value="COUNSELLING">COUNSELLING</option>
+<option value="ENROLLED">ENROLLED</option>
+<option value="NOT_INTERESTED">NOT_INTERESTED</option>
+<option value="WRONG_NUMBER">WRONG_NUMBER</option>
+<option value="NO_RESPONSE">NO_RESPONSE</option>
+<option value="LOST">LOST</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="priority">
+                        Priority
+                    </label>
+
+                    <select id="priority" name="priority">
+
+                        <option value="LOW">
+                            LOW
+                        </option>
+
+                        <option value="MEDIUM" selected>
+                            MEDIUM
+                        </option>
+
+                        <option value="HIGH">
+                            HIGH
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="city">
+                        City
+                    </label>
+
+                    <input
+                        type="text"
+                        id="city"
+                        name="city"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="campaignId">
+                        Campaign ID
+                    </label>
+
+                    <input
+                        type="number"
+                        id="campaignId"
+                        name="campaignId"
+                    >
+
+                </div>
+
+
+                <button type="submit">
+    Add Lead
+</button>
+
+<button
+    type="reset">
+    Clear
+</button>
+
+<button
+    type="button"
+    onclick="window.location.href='leads.html'">
+    Cancel
+</button>
+
+
+                <p id="addLeadMessage"></p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+<script src="config.js"></script>
+
+<script src="notifications.js"></script>
+    <script src="add-lead.js"></script>
+
+<script src="access-control.js"></script>
+
+</body>
+
+</html>

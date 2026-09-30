@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Campaigns</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Header -->
+
+    <header class="dashboard-header">
+
+        <h1 class="brand-logo">
+    <img src="assets/derivion_logo.png" alt="DERIVION">
+</h1>
+
+        <div class="user-info">
+
+            <span id="userName">
+                Admin
+            </span>
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- Main Layout -->
+
+    <div class="dashboard-layout">
+
+
+        <!-- Sidebar -->
+
+        <aside class="sidebar">
+
+            <h2>Menu</h2>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="leads.html">
+                    Leads
+                </a>
+
+                <a href="lead-assignments.html">
+                    Lead Assignments
+                </a>
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+                <a href="call-logs.html">
+                    Call Logs
+                </a>
+
+                <a href="follow-ups.html">
+                    Follow-ups
+                </a>
+
+                <a href="notes.html">
+                    Notes
+                </a>
+
+                <a href="users.html">
+                    Users
+                </a>
+
+                <a href="teams.html">
+                    Teams
+                </a>
+
+                <a href="courses.html">
+                    Courses
+                </a>
+
+                <a
+                    href="campaigns.html"
+                    class="active">
+                    Campaigns
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- Content -->
+
+        <main class="dashboard-content">
+
+            <div class="campaigns-page">
+
+
+                <!-- Page Header -->
+
+                <div class="campaigns-page-header">
+
+                    <div>
+
+                        <h2>
+                            Campaigns
+                        </h2>
+
+                        <p>
+                            Manage marketing campaigns and admission sources.
+                        </p>
+
+                    </div>
+
+
+                    <div class="campaigns-header-actions">
+
+                        <button
+                            type="button"
+                            onclick="window.location.href='dashboard.html'">
+
+                            ← Dashboard
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="primary-button"
+                            onclick="window.location.href='add-campaign.html'">
+
+                            + Add Campaign
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Message -->
+
+                <div id="message"></div>
+
+
+                <!-- Toolbar -->
+
+                <div class="campaigns-toolbar">
+
+                    <input
+                        type="text"
+                        id="searchCampaign"
+                        placeholder="Search campaigns...">
+
+
+                    <button
+                        type="button"
+                        id="refreshCampaigns">
+
+                        Refresh
+
+                    </button>
+
+                </div>
+
+
+                <!-- Campaign Table -->
+
+                <div class="campaigns-table-container">
+
+                    <table class="campaigns-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Campaign Name</th>
+
+                                <th>Description</th>
+
+                                <th>Source</th>
+
+                                <th>Course ID</th>
+
+                                <th>Start Date</th>
+
+                                <th>End Date</th>
+
+                                <th>Status</th>
+
+                                <th>Created At</th>
+
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="campaignsTableBody">
+
+                            <!-- Campaigns will load here -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="config.js"></script>
+<script src="notifications.js"></script>
+<script src="campaigns.js"></script>
+
+<script src="access-control.js"></script>
+
+</body>
+
+</html>

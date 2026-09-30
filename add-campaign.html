@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Add Campaign</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Header -->
+
+    <header class="dashboard-header">
+
+        <h1 class="brand-logo">
+    <img src="assets/derivion_logo.png" alt="DERIVION">
+</h1>
+
+        <div class="user-info">
+
+            <span id="userName">
+                Admin
+            </span>
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- Main Layout -->
+
+    <div class="dashboard-layout">
+
+
+        <!-- Sidebar -->
+
+        <aside class="sidebar">
+
+            <h2>Menu</h2>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="leads.html">
+                    Leads
+                </a>
+
+                <a href="lead-assignments.html">
+                    Lead Assignments
+                </a>
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+                <a href="call-logs.html">
+                    Call Logs
+                </a>
+
+                <a href="follow-ups.html">
+                    Follow-ups
+                </a>
+
+                <a href="notes.html">
+                    Notes
+                </a>
+
+                <a href="users.html">
+                    Users
+                </a>
+
+                <a href="teams.html">
+                    Teams
+                </a>
+
+                <a href="courses.html">
+                    Courses
+                </a>
+
+                <a
+                    href="campaigns.html"
+                    class="active">
+                    Campaigns
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- Content -->
+
+        <main class="dashboard-content">
+
+            <div class="add-campaign-page">
+
+
+                <!-- Page Header -->
+
+                <div class="page-header">
+
+                    <div>
+
+                        <h2>
+                            Add Campaign
+                        </h2>
+
+                        <p>
+                            Create a new marketing or admission campaign.
+                        </p>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        onclick="window.location.href='campaigns.html'">
+
+                        ← Back to Campaigns
+
+                    </button>
+
+                </div>
+
+
+                <!-- Message -->
+
+                <div id="message"></div>
+
+
+                <!-- Form Card -->
+
+                <div class="form-card">
+
+                    <form id="addCampaignForm">
+
+
+                        <!-- Campaign Name -->
+
+                        <div class="form-group">
+
+                            <label for="campaignName">
+                                Campaign Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="campaignName"
+                                name="campaignName"
+                                placeholder="Enter campaign name"
+                                required>
+
+                        </div>
+
+
+                        <!-- Description -->
+
+                        <div class="form-group">
+
+                            <label for="description">
+                                Description
+                            </label>
+
+                            <textarea
+                                id="description"
+                                name="description"
+                                rows="4"
+                                placeholder="Enter campaign description"></textarea>
+
+                        </div>
+
+
+                        <!-- Source -->
+
+                        <div class="form-group">
+
+                            <label for="source">
+                                Source
+                            </label>
+
+                            <input
+                                type="text"
+                                id="source"
+                                name="source"
+                                placeholder="e.g. Google Ads, Instagram, Facebook">
+
+                        </div>
+
+
+                        <!-- Course -->
+
+                        <div class="form-group">
+
+                            <label for="courseId">
+                                Course
+                            </label>
+
+                            <select
+                                id="courseId"
+                                name="courseId">
+
+                                <option value="">
+                                    Select Course
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Start Date -->
+
+                        <div class="form-group">
+
+                            <label for="startDate">
+                                Start Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="startDate"
+                                name="startDate">
+
+                        </div>
+
+
+                        <!-- End Date -->
+
+                        <div class="form-group">
+
+                            <label for="endDate">
+                                End Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="endDate"
+                                name="endDate">
+
+                        </div>
+
+
+                        <!-- Status -->
+
+                        <div class="form-group">
+
+                            <label for="status">
+                                Status
+                            </label>
+
+                            <select
+                                id="status"
+                                name="status">
+
+                                <option value="DRAFT">
+                                    DRAFT
+                                </option>
+
+                                <option value="ACTIVE">
+                                    ACTIVE
+                                </option>
+
+                                <option value="PAUSED">
+                                    PAUSED
+                                </option>
+
+                                <option value="COMPLETED">
+                                    COMPLETED
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Buttons -->
+
+                        <div class="form-actions">
+
+                            <button
+                                type="button"
+                                onclick="window.location.href='campaigns.html'">
+
+                                Cancel
+
+                            </button>
+
+                            <button
+                                type="submit"
+                                class="primary-button">
+
+                                Create Campaign
+
+                            </button>
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="config.js"></script>
+
+<script src="notifications.js"></script>
+<script src="add-campaign.js"></script>
+
+<script src="access-control.js"></script>
+
+</body>
+
+</html>

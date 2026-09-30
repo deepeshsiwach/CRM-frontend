@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Edit Course</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+        <h1>
+            DERIVION
+        </h1>
+
+        <div class="user-info">
+
+            <span id="userName">
+                Admin
+            </span>
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <div class="dashboard-layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <h2>
+                Menu
+            </h2>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="leads.html">
+                    Leads
+                </a>
+
+                <a href="lead-assignments.html">
+                    Lead Assignments
+                </a>
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+                <a href="call-logs.html">
+                    Call Logs
+                </a>
+
+                <a href="follow-ups.html">
+                    Follow-ups
+                </a>
+
+                <a href="notes.html">
+                    Notes
+                </a>
+
+                <a href="users.html">
+                    Users
+                </a>
+
+                <a href="teams.html">
+                    Teams
+                </a>
+
+                <a href="courses.html"
+                   class="active">
+                    Courses
+                </a>
+
+                <a href="#">
+                    Campaigns
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="dashboard-content">
+
+            <div class="edit-course-page">
+
+
+                <!-- PAGE HEADER -->
+
+                <div class="page-header">
+
+                    <div>
+
+                        <h2>
+                            Edit Course
+                        </h2>
+
+                        <p>
+                            Update CRM course information.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        onclick="window.location.href='courses.html'">
+
+                        ← Back to Courses
+
+                    </button>
+
+                </div>
+
+
+                <!-- MESSAGE -->
+
+                <div id="message"></div>
+
+
+                <!-- FORM -->
+
+                <div class="form-card">
+
+                    <form id="editCourseForm">
+
+
+                        <!-- COURSE ID -->
+
+                        <div class="form-group">
+
+                            <label for="courseId">
+                                Course ID
+                            </label>
+
+                            <input
+                                type="text"
+                                id="courseId"
+                                readonly>
+
+                        </div>
+
+
+                        <!-- COURSE NAME -->
+
+                        <div class="form-group">
+
+                            <label for="courseName">
+                                Course Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="courseName"
+                                placeholder="Enter course name"
+                                required>
+
+                        </div>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="form-group">
+
+                            <label for="description">
+                                Description
+                            </label>
+
+                            <textarea
+                                id="description"
+                                rows="5"
+                                placeholder="Enter course description"></textarea>
+
+                        </div>
+
+
+                        <!-- DURATION -->
+
+                        <div class="form-group">
+
+                            <label for="durationMonths">
+                                Duration (Months)
+                            </label>
+
+                            <input
+                                type="number"
+                                id="durationMonths"
+                                min="1"
+                                placeholder="Enter duration in months">
+
+                        </div>
+
+
+                        <!-- STATUS -->
+
+                        <div class="form-group">
+
+                            <label for="status">
+                                Status
+                            </label>
+
+                            <select id="status">
+
+                                <option value="ACTIVE">
+                                    ACTIVE
+                                </option>
+
+                                <option value="INACTIVE">
+                                    INACTIVE
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- BUTTONS -->
+
+                        <div class="form-actions">
+
+                            <button
+                                type="button"
+                                onclick="window.location.href='courses.html'">
+
+                                Cancel
+
+                            </button>
+
+
+                            <button
+                                type="submit">
+
+                                Save Changes
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="config.js"></script>
+<script src="notifications.js"></script>
+<script src="edit-course.js"></script>
+
+
+<script src="access-control.js"></script>
+</body>
+
+</html>

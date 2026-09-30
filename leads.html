@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Leads</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+
+<body>
+
+
+<div class="dashboard-container">
+
+
+    <!-- ================================
+         HEADER
+         ================================ -->
+
+    <header class="dashboard-header">
+
+        <h1 class="brand-logo">
+
+            <img
+                src="assets/derivion_logo.png"
+                alt="DERIVION">
+
+        </h1>
+
+
+        <div class="user-info">
+
+            <span id="userName">
+                Admin
+            </span>
+
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <div class="dashboard-layout">
+
+
+        <!-- ================================
+             SIDEBAR
+             ================================ -->
+
+        <aside class="sidebar">
+
+            <h2>Menu</h2>
+
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+
+                <a
+                    href="leads.html"
+                    class="active">
+                    Leads
+                </a>
+
+
+                <a href="lead-assignments.html">
+                    Lead Assignments
+                </a>
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+
+                <a href="call-logs.html">
+                    Call Logs
+                </a>
+
+
+                <a href="follow-ups.html">
+                    Follow-ups
+                </a>
+
+
+                <a href="notes.html">
+                    Notes
+                </a>
+
+
+                <a href="users.html">
+                    Users
+                </a>
+
+
+                <a href="teams.html">
+                    Teams
+                </a>
+
+
+                <a href="courses.html">
+                    Courses
+                </a>
+
+
+                <a href="campaigns.html">
+                    Campaigns
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+
+        <!-- ================================
+             MAIN CONTENT
+             ================================ -->
+
+        <main class="dashboard-content">
+
+
+            <h2>
+                Leads
+            </h2>
+
+
+
+            <!-- ================================
+                 ADD / IMPORT BUTTONS
+                 ================================ -->
+
+            <button
+                type="button"
+                class="add-lead-button"
+                onclick="window.location.href='add-lead.html'">
+
+                + Add Lead
+
+            </button>
+
+
+            <button
+                type="button"
+                class="import-lead-button"
+                onclick="openExcelImport()">
+
+                📊 Import Excel
+
+            </button>
+
+
+
+            <!-- ================================
+                 EXCEL IMPORT SECTION
+                 ================================ -->
+
+            <div
+                id="excelImportSection"
+                class="excel-import-section"
+                style="display: none;">
+
+
+                <div class="excel-import-header">
+
+
+                    <div>
+
+                        <h3>
+                            Import Leads from Excel
+                        </h3>
+
+
+                        <p>
+                            Upload an Excel file to import multiple leads into the CRM.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="excel-close-button"
+                        onclick="closeExcelImport()">
+
+                        ✕
+
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- EXCEL UPLOAD -->
+
+                <div class="excel-upload-area">
+
+
+                    <div class="excel-upload-icon">
+                        📊
+                    </div>
+
+
+                    <h4>
+                        Select Excel File
+                    </h4>
+
+
+                    <p>
+                        Supported format: .xlsx
+                    </p>
+
+
+                    <input
+                        type="file"
+                        id="excelFile"
+                        accept=".xlsx">
+
+
+                    <div
+                        id="excelFileName"
+                        class="excel-file-name">
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- EXCEL ACTIONS -->
+
+                <div class="excel-import-actions">
+
+
+                    <button
+                        type="button"
+                        class="primary-button"
+                        onclick="previewExcelFile()">
+
+                        Preview Excel
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        onclick="closeExcelImport()">
+
+                        Cancel
+
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- EXCEL PREVIEW -->
+
+                <div
+                    id="excelPreviewSection"
+                    class="excel-preview-section"
+                    style="display: none;">
+
+
+                    <div class="excel-preview-header">
+
+
+                        <div>
+
+                            <h4>
+                                Excel Preview
+                            </h4>
+
+
+                            <p id="excelPreviewInfo">
+
+                                Review the data before importing.
+
+                            </p>
+
+                        </div>
+
+
+
+                        <!-- COLUMN MAPPING -->
+
+                        <div
+                            id="excelMappingSection"
+                            class="excel-mapping-section"
+                            style="display: none;">
+
+
+                            <div class="excel-preview-header">
+
+
+                                <div>
+
+                                    <h4>
+                                        Column Mapping
+                                    </h4>
+
+
+                                    <p>
+
+                                        Match your Excel columns with CRM lead fields
+                                        before importing.
+
+                                    </p>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div
+                                id="excelMappingContainer"
+                                class="excel-mapping-container">
+                            </div>
+
+
+                            <div class="excel-mapping-note">
+
+
+                                <strong>
+                                    Note:
+                                </strong>
+
+
+                                <span>
+
+                                    Columns such as S No can be ignored.
+                                    Required CRM fields will be validated before import.
+
+                                </span>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- EXCEL PREVIEW TABLE -->
+
+                    <div class="excel-preview-table-container">
+
+
+                        <table class="excel-preview-table">
+
+
+                            <thead
+                                id="excelPreviewHead">
+                            </thead>
+
+
+                            <tbody
+                                id="excelPreviewBody">
+                            </tbody>
+
+
+                        </table>
+
+
+                    </div>
+
+
+
+                    <!-- EXCEL MESSAGE -->
+
+                    <div
+                        id="excelImportMessage"
+                        class="excel-import-message">
+                    </div>
+
+
+
+                    <!-- VALIDATE -->
+
+                    <button
+                        type="button"
+                        id="validateExcelImport"
+                        class="secondary-button"
+                        onclick="validateExcelLeads()">
+
+                        ✓ Validate Data
+
+                    </button>
+
+
+
+                    <!-- IMPORT -->
+
+                    <button
+                        type="button"
+                        id="confirmExcelImport"
+                        class="primary-button"
+                        onclick="importExcelLeads()">
+
+                        Import Leads
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================================
+                 LEAD FILTERS
+                 ================================ -->
+
+            <div class="leads-toolbar">
+
+
+                <!-- SEARCH -->
+
+                <input
+                    type="text"
+                    id="searchLead"
+                    placeholder="Search leads...">
+
+
+
+                <!-- STATUS -->
+
+                <select id="filterStatus">
+
+                    <option value="">
+                        All Status
+                    </option>
+
+
+                    <option value="NEW">
+                        NEW
+                    </option>
+
+
+                    <option value="CONTACTED">
+                        CONTACTED
+                    </option>
+
+
+                    <option value="INTERESTED">
+                        INTERESTED
+                    </option>
+
+
+                    <option value="FOLLOW_UP">
+                        FOLLOW_UP
+                    </option>
+
+
+                    <option value="COUNSELLING">
+                        COUNSELLING
+                    </option>
+
+
+                    <option value="ENROLLED">
+                        ENROLLED
+                    </option>
+
+
+                    <option value="NOT_INTERESTED">
+                        NOT_INTERESTED
+                    </option>
+
+
+                    <option value="WRONG_NUMBER">
+                        WRONG_NUMBER
+                    </option>
+
+
+                    <option value="NO_RESPONSE">
+                        NO_RESPONSE
+                    </option>
+
+
+                    <option value="LOST">
+                        LOST
+                    </option>
+
+                </select>
+
+
+
+                <!-- PRIORITY -->
+
+                <select id="filterPriority">
+
+                    <option value="">
+                        All Priority
+                    </option>
+
+
+                    <option value="HIGH">
+                        HIGH
+                    </option>
+
+
+                    <option value="MEDIUM">
+                        MEDIUM
+                    </option>
+
+
+                    <option value="LOW">
+                        LOW
+                    </option>
+
+                </select>
+
+
+
+                <!-- SOURCE -->
+
+                <select id="filterSource">
+
+                    <option value="">
+                        All Sources
+                    </option>
+
+
+                    <option value="Website">
+                        Website
+                    </option>
+
+
+                    <option value="LinkedIn">
+                        LinkedIn
+                    </option>
+
+
+                    <option value="Instagram">
+                        Instagram
+                    </option>
+
+
+                    <option value="Facebook">
+                        Facebook
+                    </option>
+
+
+                    <option value="Referral">
+                        Referral
+                    </option>
+
+
+                    <option value="Walk-in">
+                        Walk-in
+                    </option>
+
+                </select>
+
+
+
+                <!-- COURSE -->
+
+                <select id="filterCourse">
+
+                    <option value="">
+                        All Courses
+                    </option>
+
+                </select>
+
+
+
+                <!-- REFRESH -->
+
+                <button id="refreshLeads">
+
+                    Refresh
+
+                </button>
+
+
+
+                <!-- CLEAR FILTERS -->
+
+                <button id="clearLeadFilters">
+
+                    Clear Filters
+
+                </button>
+
+
+            </div>
+
+
+
+            <!-- ================================
+                 LEADS TABLE
+                 ================================ -->
+
+            <div class="table-container">
+
+
+                <table class="leads-table">
+
+
+                    <thead>
+
+
+                        <tr>
+
+
+                            <th
+                                class="sortable"
+                                data-sort="id">
+
+                                ID ↕
+
+                            </th>
+
+
+                            <th
+                                class="sortable"
+                                data-sort="fullName">
+
+                                Name ↕
+
+                            </th>
+
+
+                            <th>
+
+                                Email
+
+                            </th>
+
+
+                            <th>
+
+                                Phone
+
+                            </th>
+
+
+                            <th>
+
+                                Course
+
+                            </th>
+
+
+                            <th>
+
+                                Source
+
+                            </th>
+
+
+                            <th
+                                class="sortable"
+                                data-sort="status">
+
+                                Status ↕
+
+                            </th>
+
+
+                            <th
+                                class="sortable"
+                                data-sort="priority">
+
+                                Priority ↕
+
+                            </th>
+
+
+                            <th>
+
+                                City
+
+                            </th>
+
+
+                            <th>
+
+                                Action
+
+                            </th>
+
+
+                        </tr>
+
+
+                    </thead>
+
+
+
+                    <tbody id="leadsTableBody">
+
+                        <!-- Leads will be loaded here -->
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+
+            <!-- ================================
+                 LEAD PAGINATION
+                 ================================ -->
+
+            <div class="lead-pagination">
+
+
+                <!-- PAGINATION INFO -->
+
+                <div class="pagination-info">
+
+                    Showing
+
+                    <span id="paginationStart">
+                        0
+                    </span>
+
+                    -
+
+                    <span id="paginationEnd">
+                        0
+                    </span>
+
+                    of
+
+                    <span id="paginationTotal">
+                        0
+                    </span>
+
+                    leads
+
+                </div>
+
+
+
+                <!-- PREVIOUS / NEXT -->
+
+                <div class="pagination-controls">
+
+
+                    <button
+                        type="button"
+                        id="previousPage">
+
+                        Previous
+
+                    </button>
+
+
+                    <span id="paginationPage">
+
+                        Page 1
+
+                    </span>
+
+
+                    <button
+                        type="button"
+                        id="nextPage">
+
+                        Next
+
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- PAGE SIZE -->
+
+                <div class="pagination-size">
+
+
+                    <label for="pageSize">
+
+                        Show:
+
+                    </label>
+
+
+                    <select id="pageSize">
+
+
+                        <option value="10">
+
+                            10
+
+                        </option>
+
+
+                        <option
+                            value="25"
+                            selected>
+
+                            25
+
+                        </option>
+
+
+                        <option value="50">
+
+                            50
+
+                        </option>
+
+
+                        <option value="100">
+
+                            100
+
+                        </option>
+
+
+                    </select>
+
+
+                </div>
+
+
+            </div>
+
+
+        </main>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ================================
+     JAVASCRIPT
+     ================================ -->
+
+<script src="config.js"></script>
+
+<script src="notifications.js"></script>
+
+<script src="leads.js"></script>
+
+<script src="access-control.js"></script>
+
+
+</body>
+
+</html>

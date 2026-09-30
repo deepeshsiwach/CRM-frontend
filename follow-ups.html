@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Follow-ups</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- Header -->
+        <header class="dashboard-header">
+
+            <h1 class="brand-logo">
+    <img src="assets/derivion_logo.png" alt="DERIVION">
+</h1>
+
+            <div class="user-info">
+
+                <span id="userName">Admin</span>
+
+                <button id="logoutButton">
+                    Logout
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <div class="dashboard-layout">
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+
+                <h2>Menu</h2>
+
+                <nav>
+
+                    <a href="dashboard.html">
+                        Dashboard
+                    </a>
+
+                    <a href="leads.html">
+                        Leads
+                    </a>
+
+                    <a href="lead-assignments.html">
+                        Lead Assignments
+                    </a>
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+                    <a href="call-logs.html">
+                        Call Logs
+                    </a>
+
+                    <a href="follow-ups.html" class="active">
+                        Follow-ups
+                    </a>
+
+                    <a href="notes.html">Notes</a>
+
+                    <a href="users.html">
+			    Users
+			</a>
+
+                    <a href="teams.html">
+			    Teams
+			</a>
+                    <a href="courses.html">
+    Courses
+</a>
+
+                    <a href="campaigns.html">
+			    Campaigns
+			</a>
+
+                </nav>
+
+            </aside>
+
+
+            <!-- Main Content -->
+            <main class="dashboard-content">
+
+                <h2>Follow-ups</h2>
+			<button
+    type="button"
+    class="add-followup-button"
+    onclick="window.location.href='add-follow-up.html'">
+    + Add Follow-up
+</button>
+
+
+                <!-- Toolbar -->
+                <div class="leads-toolbar">
+
+    <input
+        type="text"
+        id="searchFollowUp"
+        placeholder="Search follow-ups..."
+    >
+
+    <select id="followUpDueFilter">
+        <option value="ALL">All Follow-ups</option>
+        <option value="OVERDUE">Overdue</option>
+        <option value="TODAY">Today</option>
+        <option value="UPCOMING">Upcoming</option>
+    </select>
+
+    <button id="refreshFollowUps">
+        Refresh
+    </button>
+
+</div>
+
+
+                <!-- Message -->
+                <p id="followUpMessage"></p>
+
+
+                <!-- Follow-ups Table -->
+                <div class="table-container">
+
+                    <table class="leads-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Lead ID</th>
+
+                                <th>Agent ID</th>
+
+                                <th>Follow-up Date</th>
+
+                                <th>Follow-up Time</th>
+
+                                <th>Status</th>
+
+                                <th>Remarks</th>
+
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="followUpsTableBody">
+
+                            <!-- Follow-ups will be loaded here -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+	<script src="config.js"></script>
+<script src="notifications.js"></script>
+    <script src="follow-ups.js"></script>
+
+<script src="access-control.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Campaign Details</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Header -->
+
+    <header class="dashboard-header">
+
+        <h1 class="brand-logo">
+    <img src="assets/derivion_logo.png" alt="DERIVION">
+</h1>
+
+        <div class="user-info">
+
+            <span id="userName">
+                Admin
+            </span>
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- Main Layout -->
+
+    <div class="dashboard-layout">
+
+
+        <!-- Sidebar -->
+
+        <aside class="sidebar">
+
+            <h2>Menu</h2>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="leads.html">
+                    Leads
+                </a>
+
+                <a href="lead-assignments.html">
+                    Lead Assignments
+                </a>
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+                <a href="call-logs.html">
+                    Call Logs
+                </a>
+
+                <a href="follow-ups.html">
+                    Follow-ups
+                </a>
+
+                <a href="notes.html">
+                    Notes
+                </a>
+
+                <a href="users.html">
+                    Users
+                </a>
+
+                <a href="teams.html">
+                    Teams
+                </a>
+
+                <a href="courses.html">
+                    Courses
+                </a>
+
+                <a
+                    href="campaigns.html"
+                    class="active">
+                    Campaigns
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- Content -->
+
+        <main class="dashboard-content">
+
+            <div class="campaign-details-page">
+
+
+                <!-- Page Header -->
+
+                <div class="page-header">
+
+                    <div>
+
+                        <h2>
+                            Campaign Details
+                        </h2>
+
+                        <p>
+                            View complete campaign information.
+                        </p>
+
+                    </div>
+
+                    <div class="page-header-actions">
+
+                        <button
+                            type="button"
+                            onclick="window.location.href='campaigns.html'">
+
+                            ← Back to Campaigns
+
+                        </button>
+
+                        <button
+                            type="button"
+                            id="editCampaignButton"
+                            class="primary-button">
+
+                            Edit Campaign
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Message -->
+
+                <div id="message"></div>
+
+
+                <!-- Details Card -->
+
+                <div class="details-card">
+
+		<!-- ==============================
+     Campaign Analytics
+============================== -->
+
+<div class="campaign-analytics">
+
+    <div class="analytics-header">
+        <div>
+            <h2>Campaign Analytics</h2>
+            <p>Performance overview for this campaign</p>
+        </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="analytics-kpi-grid">
+
+        <div class="analytics-kpi-card">
+            <span>Total Leads</span>
+            <strong id="analyticsTotalLeads">0</strong>
+        </div>
+
+        <div class="analytics-kpi-card">
+            <span>New Leads</span>
+            <strong id="analyticsNewLeads">0</strong>
+        </div>
+
+        <div class="analytics-kpi-card">
+            <span>Interested</span>
+            <strong id="analyticsInterestedLeads">0</strong>
+        </div>
+
+        <div class="analytics-kpi-card">
+            <span>Enrolled</span>
+            <strong id="analyticsEnrolledLeads">0</strong>
+        </div>
+
+    </div>
+
+<!-- ==============================
+     Call Analytics KPI
+============================== -->
+
+<div class="analytics-kpi-grid">
+
+    <div class="analytics-kpi-card">
+        <span>Total Calls</span>
+        <strong id="analyticsTotalCalls">0</strong>
+    </div>
+
+    <div class="analytics-kpi-card">
+        <span>Answered Calls</span>
+        <strong id="analyticsAnsweredCalls">0</strong>
+    </div>
+
+    <div class="analytics-kpi-card">
+        <span>Not Answered</span>
+        <strong id="analyticsNotAnsweredCalls">0</strong>
+    </div>
+
+    <div class="analytics-kpi-card">
+        <span>Avg. Call Duration</span>
+        <strong id="analyticsAverageCallDuration">0 sec</strong>
+    </div>
+
+</div>
+
+    <!-- Charts -->
+    <div class="analytics-chart-grid">
+
+        <div class="analytics-chart-card">
+            <h3>Lead Status Distribution</h3>
+            <canvas id="campaignLeadStatusChart"></canvas>
+        </div>
+
+        <div class="analytics-chart-card">
+            <h3>Leads by City</h3>
+            <canvas id="campaignCityChart"></canvas>
+        </div>
+
+    </div>
+
+
+<!-- ==============================
+     Call Analytics Charts
+============================== -->
+
+<div class="analytics-chart-grid">
+
+    <div class="analytics-chart-card">
+        <h3>Call Status Distribution</h3>
+
+        <div id="campaignCallStatusEmpty"
+             class="analytics-empty-state">
+            No call activity yet
+        </div>
+
+        <canvas id="campaignCallStatusChart"></canvas>
+    </div>
+
+    <div class="analytics-chart-card">
+        <h3>Call Outcome Distribution</h3>
+
+        <div id="campaignCallOutcomeEmpty"
+             class="analytics-empty-state">
+            No call activity yet
+        </div>
+
+        <canvas id="campaignCallOutcomeChart"></canvas>
+    </div>
+
+</div>
+
+
+
+
+</div>
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Campaign ID
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="campaignId">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Campaign Name
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="campaignName">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Description
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="description">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Source
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="source">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Course ID
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="courseId">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Start Date
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="startDate">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            End Date
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="endDate">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Status
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="status">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Created At
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="createdAt">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Updated At
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="updatedAt">
+                            -
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="config.js"></script>
+<script src="notifications.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="campaign-details.js"></script>
+
+<script src="access-control.js"></script>
+
+</body>
+
+</html>

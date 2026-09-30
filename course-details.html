@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Course Details</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+        <h1 class="brand-logo">
+    <img src="assets/derivion_logo.png" alt="DERIVION">
+</h1>
+
+        <div class="user-info">
+
+            <span id="userName">
+                Admin
+            </span>
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <div class="dashboard-layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <h2>Menu</h2>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="leads.html">
+                    Leads
+                </a>
+
+                <a href="lead-assignments.html">
+                    Lead Assignments
+                </a>
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+                <a href="call-logs.html">
+                    Call Logs
+                </a>
+
+                <a href="follow-ups.html">
+                    Follow-ups
+                </a>
+
+                <a href="notes.html">
+                    Notes
+                </a>
+
+                <a href="users.html">
+                    Users
+                </a>
+
+                <a href="teams.html">
+                    Teams
+                </a>
+
+                <a href="courses.html"
+                   class="active">
+                    Courses
+                </a>
+
+                <a href="#">
+                    Campaigns
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="dashboard-content">
+
+            <div class="course-details-page">
+
+                <div class="course-details-page-header">
+
+                    <div>
+
+                        <h2>
+                            Course Details
+                        </h2>
+
+                        <p>
+                            View CRM course information.
+                        </p>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        onclick="window.location.href='courses.html'">
+
+                        ← Back to Courses
+
+                    </button>
+
+                </div>
+
+
+                <!-- MESSAGE -->
+
+                <div id="message"></div>
+
+
+                <!-- DETAILS CARD -->
+
+                <div class="course-details-card">
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Course ID
+                        </div>
+
+                        <div
+                            class="detail-value"
+                            id="courseId">
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Course Name
+                        </div>
+
+                        <div
+                            class="detail-value"
+                            id="courseName">
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Description
+                        </div>
+
+                        <div
+                            class="detail-value"
+                            id="description">
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Duration
+                        </div>
+
+                        <div
+                            class="detail-value"
+                            id="durationMonths">
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Status
+                        </div>
+
+                        <div
+                            class="detail-value"
+                            id="status">
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Created At
+                        </div>
+
+                        <div
+                            class="detail-value"
+                            id="createdAt">
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Updated At
+                        </div>
+
+                        <div
+                            class="detail-value"
+                            id="updatedAt">
+                            -
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="config.js"></script>
+<script src="notifications.js"></script>
+<script src="course-details.js"></script>
+
+<script src="access-control.js"></script>
+
+</body>
+
+</html>

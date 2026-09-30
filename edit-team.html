@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Edit Team</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+        <h1 class="brand-logo">
+    <img src="assets/derivion_logo.png" alt="DERIVION">
+</h1>
+
+        <div class="user-info">
+
+            <span id="userName">
+                Admin
+            </span>
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <div class="dashboard-layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <h2>Menu</h2>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="leads.html">
+                    Leads
+                </a>
+
+                <a href="lead-assignments.html">
+                    Lead Assignments
+                </a>
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+
+
+                <a href="call-logs.html">
+                    Call Logs
+                </a>
+
+                <a href="follow-ups.html">
+                    Follow-ups
+                </a>
+
+                <a href="notes.html">
+                    Notes
+                </a>
+
+                <a href="users.html">
+                    Users
+                </a>
+
+                <a href="teams.html"
+                   class="active">
+                    Teams
+                </a>
+
+                <a href="#">
+                    Courses
+                </a>
+
+                <a href="#">
+                    Campaigns
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="dashboard-content">
+
+            <div class="edit-team-page">
+
+                <div class="edit-team-page-header">
+
+                    <div>
+
+                        <h2>
+                            Edit Team
+                        </h2>
+
+                        <p>
+                            Update CRM team information.
+                        </p>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        onclick="window.location.href='teams.html'">
+
+                        ← Back to Teams
+
+                    </button>
+
+                </div>
+
+
+                <!-- MESSAGE -->
+
+                <div id="message"></div>
+
+
+                <!-- FORM -->
+
+                <div class="edit-team-form-container">
+
+                    <form id="editTeamForm">
+
+                        <div class="form-group">
+
+                            <label for="teamId">
+                                Team ID
+                            </label>
+
+                            <input
+                                type="text"
+                                id="teamId"
+                                readonly>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="teamName">
+                                Team Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="teamName"
+                                name="teamName"
+                                placeholder="Enter team name"
+                                required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="description">
+                                Description
+                            </label>
+
+                            <textarea
+                                id="description"
+                                name="description"
+                                rows="5"
+                                placeholder="Enter team description"></textarea>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="status">
+                                Status
+                            </label>
+
+                            <select
+                                id="status"
+                                name="status"
+                                required>
+
+                                <option value="ACTIVE">
+                                    ACTIVE
+                                </option>
+
+                                <option value="INACTIVE">
+                                    INACTIVE
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-actions">
+
+                            <button
+                                type="button"
+                                onclick="window.location.href='teams.html'">
+
+                                Cancel
+
+                            </button>
+
+                            <button
+                                type="submit">
+
+                                Save Changes
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="config.js"></script>
+<script src="notifications.js"></script>
+<script src="edit-team.js"></script>
+
+<script src="access-control.js"></script>
+
+</body>
+
+</html>

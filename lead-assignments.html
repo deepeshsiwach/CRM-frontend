@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Lead Assignments</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+        <h1 class="brand-logo">
+            <img src="assets/derivion_logo.png" alt="DERIVION">
+        </h1>
+
+        <div class="user-info">
+
+            <span id="userName">Admin</span>
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- DASHBOARD LAYOUT -->
+
+    <div class="dashboard-layout">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <h2>Menu</h2>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="leads.html">
+                    Leads
+                </a>
+
+                <a href="lead-assignments.html"
+                   class="active">
+                    Lead Assignments
+                </a>
+
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+                <a href="call-logs.html">
+                    Call Logs
+                </a>
+
+                <a href="follow-ups.html">
+                    Follow-ups
+                </a>
+
+                <a href="notes.html">
+                    Notes
+                </a>
+
+                <a href="users.html">
+                    Users
+                </a>
+
+                <a href="teams.html">
+                    Teams
+                </a>
+
+                <a href="courses.html">
+                    Courses
+                </a>
+
+                <a href="campaigns.html">
+                    Campaigns
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="dashboard-content lead-assignments-page">
+
+            <h2>Lead Assignments</h2>
+
+
+            <!-- ========================================= -->
+            <!-- BULK LEAD ASSIGNMENT -->
+            <!-- ========================================= -->
+
+            <div class="bulk-assignment-section">
+
+                <h3>Bulk Lead Assignment</h3>
+
+                <p class="bulk-assignment-description">
+                    Select multiple unassigned leads and assign them to an agent.
+                </p>
+
+
+                <!-- AGENT + TEAM -->
+
+                <div class="bulk-assignment-controls">
+
+                    <!-- AGENT -->
+
+                    <div class="bulk-assignment-field">
+
+                        <label for="bulkAgentSelect">
+                            Agent
+                        </label>
+
+                        <select id="bulkAgentSelect">
+
+                            <option value="">
+                                Select Agent
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- TEAM -->
+
+                    <div class="bulk-assignment-field">
+
+                        <label for="bulkTeamSelect">
+                            Team
+                        </label>
+
+                        <select id="bulkTeamSelect">
+
+                            <option value="">
+                                No Team
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ========================================= -->
+                <!-- SELECTION OPTIONS -->
+                <!-- ========================================= -->
+
+                <div class="bulk-selection-toolbar">
+
+                    <!-- SELECT ALL -->
+
+                    <label class="bulk-select-all">
+
+                        <input
+                            type="checkbox"
+                            id="selectAllBulkLeads"
+                        >
+
+                        <span>
+                            Select All Unassigned Leads
+                        </span>
+
+                    </label>
+
+
+                    <!-- QUANTITY -->
+
+                    <div class="bulk-quantity-control">
+
+                        <label for="bulkQuantitySelect">
+                            Select Quantity
+                        </label>
+
+                        <select id="bulkQuantitySelect">
+
+                            <option value="">
+                                Select Quantity
+                            </option>
+
+                            <option value="10">
+                                10 Leads
+                            </option>
+
+                            <option value="20">
+                                20 Leads
+                            </option>
+
+                            <option value="30">
+                                30 Leads
+                            </option>
+
+                            <option value="50">
+                                50 Leads
+                            </option>
+
+                            <option value="100">
+                                100 Leads
+                            </option>
+
+                            <option value="custom">
+                                Custom Quantity
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- CUSTOM QUANTITY -->
+
+                    <div
+                        id="customQuantityContainer"
+                        class="bulk-custom-quantity"
+                        style="display: none;"
+                    >
+
+                        <label for="bulkCustomQuantity">
+                            Custom
+                        </label>
+
+                        <input
+                            type="number"
+                            id="bulkCustomQuantity"
+                            min="1"
+                            placeholder="Enter quantity"
+                        >
+
+                    </div>
+
+
+                    <!-- SELECTED COUNT -->
+
+                    <span
+                        id="bulkSelectedCount"
+                        class="bulk-selected-count"
+                    >
+                        Selected Leads: 0
+                    </span>
+
+                </div>
+
+
+                <!-- ========================================= -->
+                <!-- LEAD SELECTION -->
+                <!-- ========================================= -->
+
+                <div
+                    id="bulkLeadSelection"
+                    class="bulk-lead-selection"
+                >
+
+                    <p>
+                        Loading leads...
+                    </p>
+
+                </div>
+
+
+                <!-- ========================================= -->
+                <!-- FOOTER -->
+                <!-- ========================================= -->
+
+                <div class="bulk-assignment-footer">
+
+                    <span
+                        id="bulkAssignmentMessage"
+                        class="bulk-assignment-message"
+                    ></span>
+
+
+                    <button
+                        type="button"
+                        id="bulkAssignButton"
+                        class="bulk-assign-button"
+                    >
+                        Assign Selected Leads
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================= -->
+            <!-- EXISTING ASSIGNMENTS -->
+            <!-- ========================================= -->
+
+
+            <!-- TOOLBAR -->
+
+            <div class="leads-toolbar">
+
+                <input
+                    type="text"
+                    id="searchAssignment"
+                    placeholder="Search assignments..."
+                >
+
+                <button id="refreshAssignments">
+                    Refresh
+                </button>
+
+            </div>
+
+
+            <!-- ASSIGNMENTS TABLE -->
+
+            <div class="table-container">
+
+                <table class="leads-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Lead ID</th>
+
+                            <th>Agent</th>
+
+                            <th>Team ID</th>
+
+                            <th>Assigned At</th>
+
+                            <th>Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="assignmentsTableBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <p id="assignmentMessage"></p>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="config.js"></script>
+<script src="notifications.js"></script>
+<script src="lead-assignments.js"></script>
+
+
+<script src="access-control.js"></script>
+</body>
+
+</html>

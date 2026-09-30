@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Edit User</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+        <h1 class="brand-logo">
+    <img src="assets/derivion_logo.png" alt="DERIVION">
+</h1>
+
+        <div class="user-info">
+
+            <span id="userName">
+                Admin
+            </span>
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN LAYOUT -->
+
+    <div class="dashboard-layout">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <h2>Menu</h2>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="leads.html">
+                    Leads
+                </a>
+
+                <a href="lead-assignments.html">
+                    Lead Assignments
+                </a>
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+
+
+                <a href="call-logs.html">
+                    Call Logs
+                </a>
+
+                <a href="follow-ups.html">
+                    Follow-ups
+                </a>
+
+                <a href="notes.html">
+                    Notes
+                </a>
+
+                <a href="users.html"
+                   class="active">
+                    Users
+                </a>
+
+                <a href="#">
+                    Teams
+                </a>
+
+                <a href="#">
+                    Courses
+                </a>
+
+                <a href="#">
+                    Campaigns
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- PAGE CONTENT -->
+
+        <main class="dashboard-content">
+
+
+            <div class="edit-user-page">
+
+
+                <!-- PAGE HEADER -->
+
+                <div class="edit-user-page-header">
+
+                    <div>
+
+                        <h2>Edit User</h2>
+
+                        <p>
+                            Update CRM user information.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        onclick="window.location.href='users.html'">
+
+                        ← Back to Users
+
+                    </button>
+
+                </div>
+
+
+                <!-- MESSAGE -->
+
+                <div id="message">
+
+                </div>
+
+
+                <!-- FORM -->
+
+                <div class="edit-user-form-container">
+
+                    <form id="editUserForm">
+
+
+                        <!-- USER ID -->
+
+                        <div class="form-group">
+
+                            <label for="userId">
+                                User ID
+                            </label>
+
+                            <input
+                                type="text"
+                                id="userId"
+                                readonly>
+
+                        </div>
+
+
+                        <!-- FULL NAME -->
+
+                        <div class="form-group">
+
+                            <label for="fullName">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="fullName"
+                                name="fullName"
+                                placeholder="Enter full name"
+                                required>
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter email address"
+                                required>
+
+                        </div>
+
+
+                        <!-- ROLE -->
+
+                        <div class="form-group">
+
+                            <label for="role">
+                                Role
+                            </label>
+
+                            <select
+                                id="role"
+                                name="role"
+                                required>
+
+                                <option value="">
+                                    Select Role
+                                </option>
+
+                                <option value="ADMIN">
+                                    ADMIN
+                                </option>
+
+                                <option value="MANAGER">
+                                    MANAGER
+                                </option>
+
+                                <option value="AGENT">
+                                    AGENT
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- STATUS -->
+
+                        <div class="form-group">
+
+                            <label for="status">
+                                Status
+                            </label>
+
+                            <select
+                                id="status"
+                                name="status"
+                                required>
+
+                                <option value="ACTIVE">
+                                    ACTIVE
+                                </option>
+
+                                <option value="INACTIVE">
+                                    INACTIVE
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+
+                        <div class="form-group">
+
+                            <label for="password">
+                                New Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Leave blank to keep current password">
+
+                        </div>
+
+
+                        <!-- BUTTONS -->
+
+                        <div class="form-actions">
+
+
+                            <button
+                                type="button"
+                                onclick="window.location.href='users.html'">
+
+                                Cancel
+
+                            </button>
+
+
+                            <button
+                                type="submit">
+
+                                Save Changes
+
+                            </button>
+
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+
+            </div>
+
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="config.js"></script>
+<script src="notifications.js"></script>
+<script src="edit-user.js"></script>
+
+
+<script src="access-control.js"></script>
+
+</body>
+
+</html>

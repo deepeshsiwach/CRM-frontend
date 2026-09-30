@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Call Logs</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- Header -->
+        <header class="dashboard-header">
+
+            <h1 class="brand-logo">
+    <img src="assets/derivion_logo.png" alt="DERIVION">
+</h1>
+
+            <div class="user-info">
+
+                <span id="userName">Admin</span>
+
+                <button id="logoutButton">
+                    Logout
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <div class="dashboard-layout">
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+
+                <h2>Menu</h2>
+
+                <nav>
+
+                    <a href="dashboard.html">
+                        Dashboard
+                    </a>
+
+                    <a href="leads.html">
+                        Leads
+                    </a>
+
+                    <a href="lead-assignments.html">
+                        Lead Assignments
+                    </a>
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+                    <a href="call-logs.html" class="active">
+                        Call Logs
+                    </a>
+
+                    <a href="follow-ups.html">
+			    Follow-ups
+				</a>
+
+                    <a href="notes.html">Notes</a>
+
+                    <a href="users.html">
+			    Users
+			</a>
+
+                    <a href="teams.html">
+			    Teams
+			</a>
+
+                    <a href="courses.html">
+    Courses
+</a>
+
+                    <a href="campaigns.html">
+			    Campaigns
+			</a>
+
+                </nav>
+
+            </aside>
+
+
+            <!-- Main Content -->
+            <main class="dashboard-content">
+
+                <h2>Call Logs</h2>
+
+
+                <!-- Toolbar -->
+                <div class="leads-toolbar">
+
+                    <input
+                        type="text"
+                        id="searchCallLog"
+                        placeholder="Search call logs..."
+                    >
+
+                    <button id="refreshCallLogs">
+                        Refresh
+                    </button>
+
+                </div>
+
+
+                <!-- Message -->
+                <p id="callLogMessage"></p>
+
+
+                <!-- Call Logs Table -->
+                <div class="table-container">
+
+                    <table class="leads-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Lead ID</th>
+
+                                <th>Agent ID</th>
+
+                                <th>Start Time</th>
+
+                                <th>End Time</th>
+
+                                <th>Duration</th>
+
+                                <th>Call Status</th>
+
+                                <th>Outcome</th>
+
+                                <th>Remarks</th>
+
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="callLogsTableBody">
+
+                            <!-- Call logs will be loaded here -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+	<script src="config.js"></script>
+
+<script src="notifications.js"></script>
+    <script src="call-logs.js"></script>
+
+
+<script src="access-control.js"></script>
+</body>
+
+</html>

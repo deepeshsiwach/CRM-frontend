@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>DERIVION CRM</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+<div class="dashboard-container">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="dashboard-header">
+
+        <h1 class="brand-logo">
+
+            <img
+                src="assets/derivion_logo.png"
+                alt="DERIVION"
+            >
+
+        </h1>
+
+
+        <div class="user-info">
+
+            <span id="userName">
+                Admin
+            </span>
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         DASHBOARD LAYOUT
+         ===================================================== -->
+
+    <div class="dashboard-layout">
+
+
+        <!-- =================================================
+             SIDEBAR
+             ================================================= -->
+
+        <aside class="sidebar">
+
+            <h2>Menu</h2>
+
+
+            <nav>
+
+
+                <!-- ===============================
+                     DASHBOARD
+                     ALL USERS
+                     =============================== -->
+
+                <a
+                    href="#"
+                    class="active"
+                    data-roles="ADMIN,MANAGER,AGENT"
+                >
+                    Dashboard
+                </a>
+
+
+                <!-- ===============================
+                     LEADS
+                     ALL USERS
+                     =============================== -->
+
+                <a
+                    href="leads.html"
+                    data-roles="ADMIN,MANAGER,AGENT"
+                >
+                    Leads
+                </a>
+
+
+                <!-- ===============================
+                     LEAD ASSIGNMENTS
+                     ADMIN + MANAGER
+                     =============================== -->
+
+                <a
+                    href="lead-assignments.html"
+                    data-roles="ADMIN,MANAGER"
+                >
+                    Lead Assignments
+                </a>
+
+
+                <!-- ===============================
+                     CLOSED / DISPOSED LEADS
+                     ALL USERS
+                     =============================== -->
+
+                <a
+                    href="closed-leads.html"
+                    data-roles="ADMIN,MANAGER,AGENT"
+                >
+                    Closed / Disposed Leads
+                </a>
+
+
+                <!-- ===============================
+                     CALL LOGS
+                     ALL USERS
+                     =============================== -->
+
+                <a
+                    href="call-logs.html"
+                    data-roles="ADMIN,MANAGER,AGENT"
+                >
+                    Call Logs
+                </a>
+
+
+                <!-- ===============================
+                     FOLLOW-UPS
+                     ALL USERS
+                     =============================== -->
+
+                <a
+                    href="follow-ups.html"
+                    data-roles="ADMIN,MANAGER,AGENT"
+                >
+                    Follow-ups
+                </a>
+
+
+                <!-- ===============================
+                     NOTES
+                     ALL USERS
+                     =============================== -->
+
+                <a
+                    href="notes.html"
+                    data-roles="ADMIN,MANAGER,AGENT"
+                >
+                    Notes
+                </a>
+
+
+                <!-- ===============================
+                     USERS
+                     ADMIN ONLY
+                     =============================== -->
+
+                <a
+                    href="users.html"
+                    data-roles="ADMIN"
+                >
+                    Users
+                </a>
+
+
+                <!-- ===============================
+                     TEAMS
+                     ADMIN + MANAGER
+                     =============================== -->
+
+                <a
+                    href="teams.html"
+                    data-roles="ADMIN,MANAGER"
+                >
+                    Teams
+                </a>
+
+
+                <!-- ===============================
+                     COURSES
+                     ADMIN + MANAGER
+                     =============================== -->
+
+                <a
+                    href="courses.html"
+                    data-roles="ADMIN,MANAGER"
+                >
+                    Courses
+                </a>
+
+
+                <!-- ===============================
+                     CAMPAIGNS
+                     ADMIN + MANAGER
+                     =============================== -->
+
+                <a
+                    href="campaigns.html"
+                    data-roles="ADMIN,MANAGER"
+                >
+                    Campaigns
+                </a>
+
+
+            </nav>
+
+        </aside>
+
+
+        <!-- =================================================
+             MAIN DASHBOARD
+             ================================================= -->
+
+        <main class="dashboard-content">
+
+
+            <h2>
+                Dashboard
+            </h2>
+
+
+            <!-- =================================================
+                 ADD LEAD
+                 ================================================= -->
+
+            <button
+                type="button"
+                class="add-lead-button"
+                onclick="window.location.href='add-lead.html'"
+            >
+                + Add Lead
+            </button>
+
+
+            <!-- =================================================
+                 DASHBOARD CARDS
+                 ================================================= -->
+
+            <div class="dashboard-cards">
+
+
+                <!-- TOTAL LEADS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon">
+                        👥
+                    </div>
+
+                    <h3>
+                        Total Leads
+                    </h3>
+
+                    <p id="totalLeads">
+                        0
+                    </p>
+
+                    <span class="card-label">
+                        All CRM leads
+                    </span>
+
+                </div>
+
+
+                <!-- ASSIGNED LEADS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon">
+                        🎯
+                    </div>
+
+                    <h3>
+                        Assigned Leads
+                    </h3>
+
+                    <p id="assignedLeads">
+                        0
+                    </p>
+
+                    <span class="card-label">
+                        Currently assigned
+                    </span>
+
+                </div>
+
+
+                <!-- FOLLOW-UPS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon">
+                        📅
+                    </div>
+
+                    <h3>
+                        Follow-ups
+                    </h3>
+
+                    <p id="totalFollowUps">
+                        0
+                    </p>
+
+                    <span class="card-label">
+                        Scheduled activities
+                    </span>
+
+                </div>
+
+
+                <!-- CALL LOGS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon">
+                        📞
+                    </div>
+
+                    <h3>
+                        Call Logs
+                    </h3>
+
+                    <p id="totalCalls">
+                        0
+                    </p>
+
+                    <span class="card-label">
+                        Recorded calls
+                    </span>
+
+                </div>
+
+
+                <!-- PENDING FOLLOW-UPS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon">
+                        ⏳
+                    </div>
+
+                    <h3>
+                        Pending Follow-ups
+                    </h3>
+
+                    <p id="pendingFollowUps">
+                        0
+                    </p>
+
+                    <span class="card-label">
+                        Waiting for action
+                    </span>
+
+                </div>
+
+
+                <!-- COMPLETED FOLLOW-UPS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon">
+                        ✅
+                    </div>
+
+                    <h3>
+                        Completed Follow-ups
+                    </h3>
+
+                    <p id="completedFollowUps">
+                        0
+                    </p>
+
+                    <span class="card-label">
+                        Successfully completed
+                    </span>
+
+                </div>
+
+
+                <!-- MISSED FOLLOW-UPS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon">
+                        ⚠️
+                    </div>
+
+                    <h3>
+                        Missed Follow-ups
+                    </h3>
+
+                    <p id="missedFollowUps">
+                        0
+                    </p>
+
+                    <span class="card-label">
+                        Require attention
+                    </span>
+
+                </div>
+
+
+                <!-- CANCELLED FOLLOW-UPS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon">
+                        ❌
+                    </div>
+
+                    <h3>
+                        Cancelled Follow-ups
+                    </h3>
+
+                    <p id="cancelledFollowUps">
+                        0
+                    </p>
+
+                    <span class="card-label">
+                        Cancelled activities
+                    </span>
+
+                </div>
+
+
+                <!-- TODAY'S FOLLOW-UPS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon">
+                        📆
+                    </div>
+
+                    <h3>
+                        Today's Follow-ups
+                    </h3>
+
+                    <p id="todayFollowUps">
+                        0
+                    </p>
+
+                    <span class="card-label">
+                        Due today
+                    </span>
+
+                </div>
+
+
+                <!-- UNASSIGNED LEADS -->
+
+                <div class="dashboard-card"
+			id="unassignedLeadsCard">
+
+                    <div class="card-icon">
+                        📥
+                    </div>
+
+                    <h3>
+                        Unassigned Leads
+                    </h3>
+
+                    <p id="unassignedLeads">
+                        0
+                    </p>
+
+                    <span class="card-label">
+                        Open leads awaiting assignment
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 ANALYTICS AREA
+                 ================================================= -->
+
+            <div class="dashboard-analytics">
+
+
+                <!-- =============================================
+                     LEAD OVERVIEW
+                     ============================================= -->
+
+                <div class="analytics-card analytics-large">
+
+                    <div class="analytics-header">
+
+                        <div>
+
+                            <h3>
+                                Lead Overview
+                            </h3>
+
+                            <p>
+                                Current lead distribution
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart-container">
+
+                        <canvas
+                            id="leadOverviewChart"
+                        ></canvas>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     CRM ACTIVITY
+                     ============================================= -->
+
+                <div class="analytics-card">
+
+                    <div class="analytics-header">
+
+                        <div>
+
+                            <h3>
+                                CRM Activity
+                            </h3>
+
+                            <p>
+                                Current activity summary
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart-container">
+
+                        <canvas
+                            id="crmActivityChart"
+                        ></canvas>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     AGENT LEAD DISTRIBUTION
+                     ============================================= -->
+
+                <div class="analytics-card analytics-large"
+			id="agentLeadDistributionSection">
+
+                    <div class="analytics-header">
+
+                        <div>
+
+                            <h3>
+                                Agent Lead Distribution
+                            </h3>
+
+                            <p>
+                                Currently assigned leads by agent
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart-container">
+
+                        <canvas
+                            id="agentLeadDistributionChart"
+                        ></canvas>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     AGENT PERFORMANCE
+                     ============================================= -->
+
+                <div
+                    class="analytics-card analytics-large"
+                    id="agentPerformanceSection"
+                >
+
+                    <div class="analytics-header">
+
+                        <div>
+
+                            <h3>
+                                Agent Performance
+                            </h3>
+
+                            <p>
+                                Current agent activity and conversion
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div style="overflow-x:auto;">
+
+                        <table
+                            id="agentPerformanceTable"
+                            style="
+                                width:100%;
+                                border-collapse:collapse;
+                                margin-top:10px;
+                            "
+                        >
+
+                            <thead>
+
+                                <tr>
+
+                                    <th
+                                        style="
+                                            text-align:left;
+                                            padding:12px;
+                                        "
+                                    >
+                                        Agent
+                                    </th>
+
+                                    <th
+                                        style="
+                                            text-align:center;
+                                            padding:12px;
+                                        "
+                                    >
+                                        Active Leads
+                                    </th>
+
+                                    <th
+                                        style="
+                                            text-align:center;
+                                            padding:12px;
+                                        "
+                                    >
+                                        Total Calls
+                                    </th>
+
+                                    <th
+                                        style="
+                                            text-align:center;
+                                            padding:12px;
+                                        "
+                                    >
+                                        Enrolled
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody
+                                id="agentPerformanceTableBody"
+                            >
+
+                                <tr>
+
+                                    <td
+                                        colspan="4"
+                                        style="
+                                            text-align:center;
+                                            padding:20px;
+                                        "
+                                    >
+                                        Loading...
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     CAMPAIGN PERFORMANCE
+                     ============================================= -->
+
+                <div
+                    class="analytics-card analytics-large"
+                    id="campaignPerformanceSection"
+                >
+
+                    <div class="analytics-header">
+
+                        <div>
+
+                            <h3>
+                                Campaign Performance
+                            </h3>
+
+                            <p>
+                                Leads and enrollments by campaign
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div style="overflow-x:auto;">
+
+                        <table
+                            id="campaignPerformanceTable"
+                            style="
+                                width:100%;
+                                border-collapse:collapse;
+                                margin-top:10px;
+                            "
+                        >
+
+                            <thead>
+
+                                <tr>
+
+                                    <th
+                                        style="
+                                            text-align:left;
+                                            padding:12px;
+                                        "
+                                    >
+                                        Campaign
+                                    </th>
+
+                                    <th
+                                        style="
+                                            text-align:left;
+                                            padding:12px;
+                                        "
+                                    >
+                                        Source
+                                    </th>
+
+                                    <th
+                                        style="
+                                            text-align:center;
+                                            padding:12px;
+                                        "
+                                    >
+                                        Status
+                                    </th>
+
+                                    <th
+                                        style="
+                                            text-align:center;
+                                            padding:12px;
+                                        "
+                                    >
+                                        Total Leads
+                                    </th>
+
+                                    <th
+                                        style="
+                                            text-align:center;
+                                            padding:12px;
+                                        "
+                                    >
+                                        Enrolled
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody
+                                id="campaignPerformanceTableBody"
+                            >
+
+                                <tr>
+
+                                    <td
+                                        colspan="5"
+                                        style="
+                                            text-align:center;
+                                            padding:20px;
+                                        "
+                                    >
+                                        Loading...
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     LEAD SOURCE PERFORMANCE
+                     ============================================= -->
+
+                <div
+                    class="analytics-card analytics-large"
+                    id="leadSourcePerformanceSection"
+                >
+
+                    <div class="analytics-header">
+
+                        <div>
+
+                            <h3>
+                                Lead Source Performance
+                            </h3>
+
+                            <p>
+                                Leads and enrollments by lead source
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div style="overflow-x:auto;">
+
+                        <table
+                            id="leadSourcePerformanceTable"
+                            style="
+                                width:100%;
+                                border-collapse:collapse;
+                                margin-top:10px;
+                            "
+                        >
+
+                            <thead>
+
+                                <tr>
+
+                                    <th
+                                        style="
+                                            text-align:left;
+                                            padding:12px;
+                                        "
+                                    >
+                                        Lead Source
+                                    </th>
+
+                                    <th
+                                        style="
+                                            text-align:center;
+                                            padding:12px;
+                                        "
+                                    >
+                                        Total Leads
+                                    </th>
+
+                                    <th
+                                        style="
+                                            text-align:center;
+                                            padding:12px;
+                                        "
+                                    >
+                                        Enrolled
+                                    </th>
+
+                                    <th
+                                        style="
+                                            text-align:center;
+                                            padding:12px;
+                                        "
+                                    >
+                                        Conversion Rate
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody
+                                id="leadSourcePerformanceTableBody"
+                            >
+
+                                <tr>
+
+                                    <td
+                                        colspan="4"
+                                        style="
+                                            text-align:center;
+                                            padding:20px;
+                                        "
+                                    >
+                                        Loading...
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     CONFIG
+     ========================================================= -->
+
+<script src="config.js"></script>
+<script src="notifications.js"></script>
+
+<script src="access-control.js"></script>
+
+
+<!-- =========================================================
+     DASHBOARD JAVASCRIPT
+     ========================================================= -->
+
+<script src="dashboard.js"></script>
+
+
+<!-- =========================================================
+     ROLE-BASED MENU
+     ========================================================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const userRole =
+            localStorage.getItem("userRole");
+
+        const menuLinks =
+            document.querySelectorAll(
+                ".sidebar nav a[data-roles]"
+            );
+
+
+        // ==========================================
+        // CHECK LOGIN ROLE
+        // ==========================================
+
+        if (!userRole) {
+
+            window.location.href =
+                "index.html";
+
+            return;
+
+        }
+
+
+        // ==========================================
+        // SHOW / HIDE MENU ITEMS
+        // ==========================================
+
+        menuLinks.forEach(
+            function (link) {
+
+                const allowedRoles =
+                    link
+                        .getAttribute("data-roles")
+                        .split(",")
+                        .map(
+                            function (role) {
+                                return role.trim();
+                            }
+                        );
+
+
+                if (
+                    !allowedRoles.includes(
+                        userRole
+                    )
+                ) {
+
+                    link.style.display =
+                        "none";
+
+                } else {
+
+                    link.style.display =
+                        "";
+
+                }
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

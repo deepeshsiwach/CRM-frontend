@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Call Log Details</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- Header -->
+        <header class="dashboard-header">
+
+            <h1 class="brand-logo">
+    <img src="assets/derivion_logo.png" alt="DERIVION">
+</h1>
+
+            <div class="user-info">
+
+                <span id="userName">Admin</span>
+
+                <button id="logoutButton">
+                    Logout
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <div class="dashboard-layout">
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+
+                <h2>Menu</h2>
+
+                <nav>
+
+                    <a href="dashboard.html">
+                        Dashboard
+                    </a>
+
+                    <a href="leads.html">
+                        Leads
+                    </a>
+
+                    <a href="lead-assignments.html">
+                        Lead Assignments
+                    </a>
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+                    <a href="call-logs.html" class="active">
+                        Call Logs
+                    </a>
+
+                    <a href="follow-ups.html">
+			    Follow-ups
+			</a>
+
+                    <a href="#">
+                        Notes
+                    </a>
+
+                    <a href="#">
+                        Users
+                    </a>
+
+                    <a href="#">
+                        Teams
+                    </a>
+
+                    <a href="#">
+                        Courses
+                    </a>
+
+                    <a href="#">
+                        Campaigns
+                    </a>
+
+                </nav>
+
+            </aside>
+
+
+            <!-- Main Content -->
+            <main class="dashboard-content">
+
+                <h2>Call Log Details</h2>
+
+
+                <div class="details-container">
+
+                    <p>
+                        <strong>Call Log ID:</strong>
+                        <span id="callLogId">-</span>
+                    </p>
+
+                    <p>
+                        <strong>Lead ID:</strong>
+                        <span id="leadId">-</span>
+                    </p>
+
+                    <p>
+                        <strong>Agent ID:</strong>
+                        <span id="agentId">-</span>
+                    </p>
+
+                    <p>
+                        <strong>Start Time:</strong>
+                        <span id="startTime">-</span>
+                    </p>
+
+                    <p>
+                        <strong>End Time:</strong>
+                        <span id="endTime">-</span>
+                    </p>
+
+                    <p>
+                        <strong>Duration:</strong>
+                        <span id="duration">-</span>
+                    </p>
+
+                    <p>
+                        <strong>Call Status:</strong>
+                        <span id="callStatus">-</span>
+                    </p>
+
+                    <p>
+                        <strong>Outcome:</strong>
+                        <span id="outcome">-</span>
+                    </p>
+
+                    <p>
+                        <strong>Remarks:</strong>
+                        <span id="remarks">-</span>
+                    </p>
+
+                </div>
+
+
+                <br>
+
+
+                <button
+                    type="button"
+                    onclick="window.location.href='call-logs.html'">
+                    Back to Call Logs
+                </button>
+
+            </main>
+
+        </div>
+
+    </div>
+
+	<script src="config.js"></script>
+
+<script src="notifications.js"></script>
+    <script src="call-log-details.js"></script>
+
+
+<script src="access-control.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Add Follow-up</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- Header -->
+        <header class="dashboard-header">
+
+            <h1 class="brand-logo">
+    <img src="assets/derivion_logo.png" alt="DERIVION">
+</h1>
+
+            <div class="user-info">
+
+                <span id="userName">Admin</span>
+
+                <button id="logoutButton">
+                    Logout
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <div class="dashboard-layout">
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+
+                <h2>Menu</h2>
+
+                <nav>
+
+                    <a href="dashboard.html">
+                        Dashboard
+                    </a>
+
+                    <a href="leads.html">
+                        Leads
+                    </a>
+
+                    <a href="lead-assignments.html">
+                        Lead Assignments
+                    </a>
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+                    <a href="call-logs.html">
+                        Call Logs
+                    </a>
+
+                    <a href="follow-ups.html" class="active">
+                        Follow-ups
+                    </a>
+
+                    <a href="#">
+                        Notes
+                    </a>
+
+                    <a href="#">
+                        Users
+                    </a>
+
+                    <a href="#">
+                        Teams
+                    </a>
+
+                    <a href="#">
+                        Courses
+                    </a>
+
+                    <a href="#">
+                        Campaigns
+                    </a>
+
+                </nav>
+
+            </aside>
+
+
+            <!-- Main Content -->
+            <main class="dashboard-content">
+
+                <h2>Add Follow-up</h2>
+
+
+                <div class="form-container">
+
+                    <form id="addFollowUpForm">
+
+
+                        <!-- Lead ID -->
+                        <div class="form-group">
+
+                            <label for="leadId">
+                                Lead ID
+                            </label>
+
+                            <input
+                                type="number"
+                                id="leadId"
+                                name="leadId"
+                                min="1"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Agent -->
+                        <div class="form-group">
+
+                            <label for="agentId">
+                                Agent
+                            </label>
+
+                            <select
+                                id="agentId"
+                                name="agentId"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Agent
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Follow-up Date & Time -->
+                        <div class="form-group">
+
+                            <label for="followUpDate">
+                                Follow-up Date & Time
+                            </label>
+
+                            <input
+                                type="datetime-local"
+                                id="followUpDate"
+                                name="followUpDate"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Purpose -->
+                        <div class="form-group">
+
+                            <label for="purpose">
+                                Purpose
+                            </label>
+
+                            <input
+                                type="text"
+                                id="purpose"
+                                name="purpose"
+                                maxlength="255"
+                                placeholder="Example: Course counselling"
+                            >
+
+                        </div>
+
+
+                        <!-- Status -->
+                        <div class="form-group">
+
+                            <label for="status">
+                                Status
+                            </label>
+
+                            <select
+                                id="status"
+                                name="status"
+                                required
+                            >
+
+                                <option value="PENDING">
+                                    PENDING
+                                </option>
+
+                                <option value="COMPLETED">
+                                    COMPLETED
+                                </option>
+
+                                <option value="CANCELLED">
+                                    CANCELLED
+                                </option>
+
+                                <option value="MISSED">
+                                    MISSED
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Remarks -->
+                        <div class="form-group">
+
+                            <label for="remarks">
+                                Remarks
+                            </label>
+
+                            <textarea
+                                id="remarks"
+                                name="remarks"
+                                rows="4"
+                                placeholder="Enter follow-up remarks..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <!-- Buttons -->
+                        <button type="submit">
+                            Add Follow-up
+                        </button>
+
+                        <button type="reset">
+                            Clear
+                        </button>
+
+                        <button
+                            type="button"
+                            onclick="window.location.href='follow-ups.html'">
+                            Cancel
+                        </button>
+
+
+                        <!-- Message -->
+                        <p id="addFollowUpMessage"></p>
+
+                    </form>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+<script src="config.js"></script>
+<script src="notifications.js"></script>
+    <script src="add-follow-up.js"></script>
+
+<script src="access-control.js"></script>
+
+</body>
+
+</html>

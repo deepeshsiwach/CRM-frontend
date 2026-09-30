@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Courses</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+        <h1 class="brand-logo">
+    <img src="assets/derivion_logo.png" alt="DERIVION">
+</h1>
+
+        <div class="user-info">
+
+            <span id="userName">
+                Admin
+            </span>
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <div class="dashboard-layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <h2>Menu</h2>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="leads.html">
+                    Leads
+                </a>
+
+                <a href="lead-assignments.html">
+                    Lead Assignments
+                </a>
+
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+                <a href="call-logs.html">
+                    Call Logs
+                </a>
+
+                <a href="follow-ups.html">
+                    Follow-ups
+                </a>
+
+                <a href="notes.html">
+                    Notes
+                </a>
+
+                <a href="users.html">
+                    Users
+                </a>
+
+                <a href="teams.html">
+                    Teams
+                </a>
+
+                <a href="courses.html"
+                   class="active">
+                    Courses
+                </a>
+
+                <a href="campaigns.html">
+    			Campaigns
+				</a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="dashboard-content">
+
+            <div class="courses-page">
+
+                <div class="courses-page-header">
+
+                    <div>
+
+                        <h2>
+                            Courses
+                        </h2>
+
+                        <p>
+                            Manage CRM courses and programs.
+                        </p>
+
+                    </div>
+
+                    <div class="courses-header-actions">
+
+                        <button
+                            type="button"
+                            onclick="window.location.href='dashboard.html'">
+
+                            ← Dashboard
+
+                        </button>
+
+                        <button
+    type="button"
+    class="primary-button"
+    onclick="window.location.href='add-course.html'">
+
+    + Add Course
+
+</button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MESSAGE -->
+
+                <div id="message"></div>
+
+
+                <!-- TOOLBAR -->
+
+                <div class="courses-toolbar">
+
+                    <input
+                        type="text"
+                        id="searchCourse"
+                        placeholder="Search courses...">
+
+                    <button
+                        type="button"
+                        id="refreshCourses">
+
+                        Refresh
+
+                    </button>
+
+                </div>
+
+
+                <!-- TABLE -->
+
+                <div class="courses-table-container">
+
+                    <table class="courses-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    ID
+                                </th>
+
+                                <th>
+                                    Course Name
+                                </th>
+
+                                <th>
+                                    Description
+                                </th>
+
+                                <th>
+                                    Duration
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Created At
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="coursesTableBody">
+
+                            <!-- Courses will load here -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="config.js"></script>
+<script src="notifications.js"></script>
+<script src="courses.js"></script>
+
+
+<script src="access-control.js"></script>
+</body>
+
+</html>

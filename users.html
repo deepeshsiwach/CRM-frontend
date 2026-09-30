@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Users</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+        <h1 class="brand-logo">
+    <img src="assets/derivion_logo.png" alt="DERIVION">
+</h1>
+
+        <div class="user-info">
+
+            <span id="userName">
+                Admin
+            </span>
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN LAYOUT -->
+
+    <div class="dashboard-layout">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <h2>Menu</h2>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="leads.html">
+                    Leads
+                </a>
+
+                <a href="lead-assignments.html">
+                    Lead Assignments
+                </a>
+
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+
+                <a href="call-logs.html">
+                    Call Logs
+                </a>
+
+                <a href="follow-ups.html">
+                    Follow-ups
+                </a>
+
+                <a href="notes.html">
+                    Notes
+                </a>
+
+                <a href="users.html"
+                   class="active">
+                    Users
+                </a>
+
+                <a href="teams.html">
+			    Teams
+			</a>
+
+                <a href="courses.html">
+    Courses
+</a>
+
+                <a href="campaigns.html">
+			    Campaigns
+			</a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- PAGE CONTENT -->
+
+        <main class="dashboard-content users-page">
+
+
+            <!-- PAGE HEADER -->
+
+            <div class="users-page-header">
+
+                <div>
+
+                    <h2>Users</h2>
+
+                    <p class="page-description">
+                        Manage CRM users, roles and account status.
+                    </p>
+
+                </div>
+
+
+                <div class="users-header-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        onclick="window.location.href='dashboard.html'">
+
+                        ← Back to Dashboard
+
+                    </button>
+
+
+                    <button
+    type="button"
+    class="primary-button"
+    onclick="window.location.href='add-user.html'">
+
+    + Add User
+
+</button>
+
+                </div>
+
+            </div>
+
+
+            <!-- SEARCH TOOLBAR -->
+
+            <div class="users-toolbar">
+
+                <input
+                    type="text"
+                    id="searchUser"
+                    placeholder="Search users...">
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="refreshUsers">
+
+                    Refresh
+
+                </button>
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <div id="message"
+                 class="page-message">
+
+            </div>
+
+
+            <!-- USERS TABLE -->
+
+            <div class="users-table-container">
+
+                <table class="users-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Name</th>
+
+                            <th>Email</th>
+
+                            <th>Role</th>
+
+                            <th>Status</th>
+
+                            <th>Created At</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="usersTableBody">
+
+                        <!-- Users will appear here later -->
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- JavaScript will be connected later -->
+
+</body>
+<script src="config.js"></script>
+<script src="notifications.js"></script>
+<script src="users.js"></script>
+
+
+<script src="access-control.js"></script>
+</html>

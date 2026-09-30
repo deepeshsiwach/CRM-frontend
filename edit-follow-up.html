@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Edit Follow-up</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Header -->
+    <header class="dashboard-header">
+
+        <h1 class="brand-logo">
+    <img src="assets/derivion_logo.png" alt="DERIVION">
+</h1>
+
+        <div>
+
+            <span id="userName"></span>
+
+            <button onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <div class="dashboard-layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <h2>Menu</h2>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="leads.html">
+                Leads
+            </a>
+
+            <a href="lead-assignments.html">
+                Lead Assignments
+            </a>
+
+
+<a href="closed-leads.html">
+    Closed / Disposed Leads
+</a>
+
+
+            <a href="call-logs.html">
+                Call Logs
+            </a>
+
+            <a href="follow-ups.html">
+                Follow-ups
+            </a>
+
+            <a href="#">
+                Notes
+            </a>
+
+            <a href="#">
+                Users
+            </a>
+
+            <a href="#">
+                Teams
+            </a>
+
+            <a href="#">
+                Courses
+            </a>
+
+            <a href="#">
+                Campaigns
+            </a>
+
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+
+            <h2>Edit Follow-up</h2>
+
+            <div id="message"></div>
+
+
+            <form id="editFollowUpForm">
+
+                <!-- Lead ID -->
+                <div>
+
+                    <label for="leadId">
+                        Lead ID
+                    </label>
+
+                    <input
+                        type="number"
+                        id="leadId"
+                        readonly>
+
+                </div>
+
+                <br>
+
+
+                <!-- Agent ID -->
+                <div>
+
+                    <label for="agentId">
+                        Agent ID
+                    </label>
+
+                    <input
+                        type="number"
+                        id="agentId"
+                        readonly>
+
+                </div>
+
+                <br>
+
+
+                <!-- Follow-up Date -->
+                <div>
+
+                    <label for="followUpDate">
+                        Follow-up Date & Time
+                    </label>
+
+                    <input
+                        type="datetime-local"
+                        id="followUpDate"
+                        required>
+
+                </div>
+
+                <br>
+
+
+                <!-- Purpose -->
+                <div>
+
+                    <label for="purpose">
+                        Purpose
+                    </label>
+
+                    <input
+                        type="text"
+                        id="purpose"
+                        placeholder="Example: Course counselling">
+
+                </div>
+
+                <br>
+
+
+                <!-- Status -->
+                <div>
+
+                    <label for="status">
+                        Status
+                    </label>
+
+                    <select id="status">
+
+                        <option value="PENDING">
+                            PENDING
+                        </option>
+
+                        <option value="COMPLETED">
+                            COMPLETED
+                        </option>
+
+                        <option value="CANCELLED">
+                            CANCELLED
+                        </option>
+
+                        <option value="MISSED">
+                            MISSED
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <br>
+
+
+                <!-- Remarks -->
+                <div>
+
+                    <label for="remarks">
+                        Remarks
+                    </label>
+
+                    <br>
+
+                    <textarea
+                        id="remarks"
+                        rows="5"
+                        cols="40"
+                        placeholder="Enter follow-up remarks..."></textarea>
+
+                </div>
+
+                <br>
+
+
+                <!-- Buttons -->
+                <button type="submit">
+                    Update Follow-up
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="window.location.href='follow-ups.html'">
+
+                    Cancel
+
+                </button>
+
+            </form>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- JavaScript -->
+<script src="config.js"></script>
+<script src="notifications.js"></script>
+<script src="edit-follow-up.js"></script>
+
+<script src="access-control.js"></script>
+
+</body>
+
+</html>

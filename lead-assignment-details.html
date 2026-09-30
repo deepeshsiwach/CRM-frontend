@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DERIVION - Assignment Details</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+        <h1 class="brand-logo">
+    <img src="assets/derivion_logo.png" alt="DERIVION">
+</h1>
+
+        <div class="user-info">
+
+            <span id="userName">
+                Admin
+            </span>
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- LAYOUT -->
+
+    <div class="dashboard-layout">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <h2>Menu</h2>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="leads.html">
+                    Leads
+                </a>
+
+                <a href="lead-assignments.html"
+                   class="active">
+                    Lead Assignments
+                </a>
+
+                <a href="#">
+                    Call Logs
+                </a>
+
+                <a href="#">
+                    Follow-ups
+                </a>
+
+                <a href="#">
+                    Notes
+                </a>
+
+                <a href="#">
+                    Users
+                </a>
+
+                <a href="#">
+                    Teams
+                </a>
+
+                <a href="#">
+                    Courses
+                </a>
+
+                <a href="#">
+                    Campaigns
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="dashboard-content">
+
+            <h2>
+                Assignment Details
+            </h2>
+
+
+            <!-- CURRENT ASSIGNMENT -->
+
+            <div class="table-container">
+
+                <table class="leads-table">
+
+                    <tbody>
+
+                        <tr>
+                            <th>
+                                Assignment ID
+                            </th>
+
+                            <td id="assignmentId">
+                                -
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <th>
+                                Lead ID
+                            </th>
+
+                            <td id="leadId">
+                                -
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <th>
+                                Current Agent ID
+                            </th>
+
+                            <td id="currentAgentId">
+                                -
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <th>
+                                Current Team ID
+                            </th>
+
+                            <td id="currentTeamId">
+                                -
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <th>
+                                Assigned At
+                            </th>
+
+                            <td id="assignedAt">
+                                -
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <th>
+                                Status
+                            </th>
+
+                            <td id="assignmentStatus">
+                                -
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- REASSIGN SECTION -->
+
+            <div class="table-container"
+                 style="margin-top: 25px; padding: 20px;">
+
+                <h3>
+                    Reassign Lead
+                </h3>
+
+
+                <form id="reassignForm">
+
+
+                    <!-- AGENT -->
+
+                    <div style="margin-bottom: 15px;">
+
+                        <label for="agentSelect">
+                            New Agent
+                        </label>
+
+                        <br>
+
+                        <select id="agentSelect"
+                                required
+                                style="margin-top: 6px; padding: 10px; width: 300px;">
+
+                            <option value="">
+                                Select Agent
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- TEAM -->
+
+                    <div style="margin-bottom: 15px;">
+
+                        <label for="teamSelect">
+                            New Team
+                        </label>
+
+                        <br>
+
+                        <select id="teamSelect"
+                                required
+                                style="margin-top: 6px; padding: 10px; width: 300px;">
+
+                            <option value="">
+                                Select Team
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <button type="submit">
+                        Reassign Lead
+                    </button>
+
+
+                </form>
+
+
+                <p id="reassignMessage"></p>
+
+
+            </div>
+
+
+            <!-- BACK -->
+
+            <div style="margin-top: 20px;">
+
+                <button
+                    onclick="window.location.href='lead-assignments.html'">
+
+                    Back to Assignments
+
+                </button>
+
+            </div>
+
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="config.js"></script>
+<script src="notifications.js"></script>
+<script src="lead-assignment-details.js"></script>
+
+
+<script src="access-control.js"></script>
+</body>
+
+</html>
