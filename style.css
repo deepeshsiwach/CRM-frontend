@@ -8208,3 +8208,28 @@ body:has(.login-container)::after {
         width: 100%;
     }
 }
+
+
+/* ==========================================
+   HEADER USER NAME + LOGOUT COLORS
+   ========================================== */
+
+/* User name */
+.user-info #userName {
+    color: #38bdf8;
+    font-weight: 700;
+}
+
+/* Logout button */
+.user-info #logoutButton {
+    color: #ffffff;
+    background-color: #dc2626;
+    border: 1px solid #dc2626;
+    font-weight: 600;
+}
+
+/* Logout hover */
+.user-info #logoutButton:hover {
+    background-color: #b91c1c;
+    border-color: #b91c1c;
+}
