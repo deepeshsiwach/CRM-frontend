@@ -168,43 +168,61 @@
                 <form id="callLogForm">
 
 
-                    <!-- LEAD ID -->
+                    <!-- ================================
+                         LEAD
+                         ================================= -->
 
                     <div class="form-group">
 
-                        <label for="leadId">
-                            Lead ID
+                        <label for="leadDisplay">
+                            Lead
                         </label>
 
                         <input
-                            type="number"
+                            type="text"
+                            id="leadDisplay"
+                            readonly
+                            placeholder="Loading lead...">
+
+                        <!-- Hidden actual Lead ID -->
+                        <input
+                            type="hidden"
                             id="leadId"
-                            name="leadId"
-                            readonly>
+                            name="leadId">
 
                     </div>
 
 
 
-                    <!-- AGENT ID -->
+                    <!-- ================================
+                         AGENT
+                         ================================= -->
 
                     <div class="form-group">
 
-                        <label for="agentId">
-                            Agent ID
+                        <label for="agentDisplay">
+                            Agent
                         </label>
 
                         <input
-                            type="number"
+                            type="text"
+                            id="agentDisplay"
+                            readonly
+                            placeholder="Loading agent...">
+
+                        <!-- Hidden actual Agent ID -->
+                        <input
+                            type="hidden"
                             id="agentId"
-                            name="agentId"
-                            required>
+                            name="agentId">
 
                     </div>
 
 
 
-                    <!-- CALL START -->
+                    <!-- ================================
+                         CALL START
+                         ================================= -->
 
                     <div class="form-group">
 
@@ -222,7 +240,9 @@
 
 
 
-                    <!-- CALL END -->
+                    <!-- ================================
+                         CALL END
+                         ================================= -->
 
                     <div class="form-group">
 
@@ -239,7 +259,9 @@
 
 
 
-                    <!-- DURATION -->
+                    <!-- ================================
+                         DURATION
+                         ================================= -->
 
                     <div class="form-group">
 
@@ -258,7 +280,9 @@
 
 
 
-                    <!-- CALL STATUS -->
+                    <!-- ================================
+                         CALL STATUS
+                         ================================= -->
 
                     <div class="form-group">
 
@@ -297,7 +321,9 @@
 
 
 
-                    <!-- CALL OUTCOME -->
+                    <!-- ================================
+                         CALL OUTCOME
+                         ================================= -->
 
                     <div class="form-group">
 
@@ -414,7 +440,9 @@
 
 
 
-                    <!-- REMARKS -->
+                    <!-- ================================
+                         REMARKS
+                         ================================= -->
 
                     <div class="form-group">
 
@@ -432,7 +460,9 @@
 
 
 
-                    <!-- MESSAGE -->
+                    <!-- ================================
+                         MESSAGE
+                         ================================= -->
 
                     <div
                         id="message"
@@ -441,7 +471,9 @@
 
 
 
-                    <!-- ACTIONS -->
+                    <!-- ================================
+                         ACTIONS
+                         ================================= -->
 
                     <div class="form-actions">
 

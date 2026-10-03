@@ -1,10 +1,21 @@
 const token = localStorage.getItem("jwtToken");
 
+
+// ==========================================
+// CHECK LOGIN
+// ==========================================
+
 if (!token) {
     window.location.href = "index.html";
 }
 
-const userName = localStorage.getItem("userName");
+
+// ==========================================
+// SHOW LOGGED-IN USER
+// ==========================================
+
+const userName =
+    localStorage.getItem("userName");
 
 const userNameElement =
     document.getElementById("userName");
@@ -23,15 +34,28 @@ let allFollowUps = [];
 
 
 // ==========================================
+// NAME MAPS
+// ==========================================
+
+let leadNameMap = {};
+
+let userNameMap = {};
+
+
+// ==========================================
 // LOGOUT
 // ==========================================
 
 function logout() {
 
     localStorage.removeItem("jwtToken");
+
     localStorage.removeItem("userId");
+
     localStorage.removeItem("userName");
+
     localStorage.removeItem("userEmail");
+
     localStorage.removeItem("userRole");
 
     window.location.href = "index.html";
@@ -50,8 +74,165 @@ function showMessage(message) {
         );
 
     if (messageElement) {
-        messageElement.textContent = message;
+
+        messageElement.textContent =
+            message;
     }
+}
+
+
+// ==========================================
+// LOAD LEAD NAME MAP
+// ==========================================
+
+async function loadLeadNames() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE_URL}/api/leads`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Authorization":
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+
+        if (!response.ok) {
+
+            console.warn(
+                "Unable to load leads for name mapping."
+            );
+
+            return;
+        }
+
+
+        const leads =
+            await response.json();
+
+
+        leadNameMap = {};
+
+
+        leads.forEach(function (lead) {
+
+            leadNameMap[
+                String(lead.id)
+            ] =
+                lead.fullName ||
+                lead.name ||
+                "Unknown Lead";
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Error loading lead names:",
+            error
+        );
+    }
+}
+
+
+// ==========================================
+// LOAD USER / AGENT NAME MAP
+// ==========================================
+
+async function loadUserNames() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE_URL}/api/users`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Authorization":
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+
+        if (!response.ok) {
+
+            console.warn(
+                "Unable to load users for name mapping."
+            );
+
+            return;
+        }
+
+
+        const users =
+            await response.json();
+
+
+        userNameMap = {};
+
+
+        users.forEach(function (user) {
+
+            userNameMap[
+                String(user.id)
+            ] =
+                user.fullName ||
+                user.name ||
+                user.username ||
+                "Unknown Agent";
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Error loading user names:",
+            error
+        );
+    }
+}
+
+
+// ==========================================
+// GET LEAD DISPLAY NAME
+// ==========================================
+
+function getLeadName(leadId) {
+
+    if (!leadId) {
+        return "Unknown Lead";
+    }
+
+    return (
+        leadNameMap[String(leadId)] ||
+        "Unknown Lead"
+    );
+}
+
+
+// ==========================================
+// GET USER DISPLAY NAME
+// ==========================================
+
+function getUserName(agentId) {
+
+    if (!agentId) {
+        return "Unknown Agent";
+    }
+
+    return (
+        userNameMap[String(agentId)] ||
+        "Unknown Agent"
+    );
 }
 
 
@@ -63,8 +244,20 @@ async function loadFollowUps() {
 
     try {
 
-        const response =
-            await fetch(
+        /*
+         * Load Follow-ups, Leads and Users
+         * at the same time.
+         *
+         * This removes the old N+1 API pattern.
+         */
+
+        const [
+            followUpsResponse,
+            leadsResponse,
+            usersResponse
+        ] = await Promise.all([
+
+            fetch(
                 `${API_BASE_URL}/api/follow-ups`,
                 {
                     method: "GET",
@@ -74,9 +267,40 @@ async function loadFollowUps() {
                             `Bearer ${token}`
                     }
                 }
-            );
+            ),
 
-        if (!response.ok) {
+            fetch(
+                `${API_BASE_URL}/api/leads`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Authorization":
+                            `Bearer ${token}`
+                    }
+                }
+            ),
+
+            fetch(
+                `${API_BASE_URL}/api/users`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Authorization":
+                            `Bearer ${token}`
+                    }
+                }
+            )
+
+        ]);
+
+
+        // ==========================================
+        // CHECK FOLLOW-UP RESPONSE
+        // ==========================================
+
+        if (!followUpsResponse.ok) {
 
             showMessage(
                 "Failed to load follow-ups."
@@ -85,14 +309,80 @@ async function loadFollowUps() {
             return;
         }
 
+
+        // ==========================================
+        // READ FOLLOW-UPS
+        // ==========================================
+
         allFollowUps =
-            await response.json();
+            await followUpsResponse.json();
+
+
+        // ==========================================
+        // READ LEADS
+        // ==========================================
+
+        if (leadsResponse.ok) {
+
+            const leads =
+                await leadsResponse.json();
+
+
+            leadNameMap = {};
+
+
+            leads.forEach(function (lead) {
+
+                leadNameMap[
+                    String(lead.id)
+                ] =
+                    lead.fullName ||
+                    lead.name ||
+                    "Unknown Lead";
+            });
+        }
+
+
+        // ==========================================
+        // READ USERS
+        // ==========================================
+
+        if (usersResponse.ok) {
+
+            const users =
+                await usersResponse.json();
+
+
+            userNameMap = {};
+
+
+            users.forEach(function (user) {
+
+                userNameMap[
+                    String(user.id)
+                ] =
+                    user.fullName ||
+                    user.name ||
+                    user.username ||
+                    "Unknown Agent";
+            });
+        }
+
+
+        // ==========================================
+        // APPLY FILTERS + DISPLAY
+        // ==========================================
 
         applyFollowUpFilters();
 
+
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Error loading follow-ups:",
+            error
+        );
+
 
         showMessage(
             "Unable to connect to the backend."
@@ -111,33 +401,45 @@ function getFollowUpDueCategory(followUp) {
     // for Overdue / Today / Upcoming.
 
     if (followUp.status !== "PENDING") {
+
         return "OTHER";
     }
 
+
     if (!followUp.followUpDate) {
+
         return "OTHER";
     }
+
 
     const followUpDate =
         followUp.followUpDate
             .split("T")[0];
+
 
     const today =
         new Date()
             .toISOString()
             .split("T")[0];
 
+
     if (followUpDate < today) {
+
         return "OVERDUE";
     }
 
+
     if (followUpDate === today) {
+
         return "TODAY";
     }
 
+
     if (followUpDate > today) {
+
         return "UPCOMING";
     }
+
 
     return "OTHER";
 }
@@ -154,10 +456,12 @@ function applyFollowUpFilters() {
             "searchFollowUp"
         );
 
+
     const dueFilter =
         document.getElementById(
             "followUpDueFilter"
         );
+
 
     const searchText =
         searchInput
@@ -165,6 +469,7 @@ function applyFollowUpFilters() {
                 .toLowerCase()
                 .trim()
             : "";
+
 
     const selectedFilter =
         dueFilter
@@ -176,11 +481,13 @@ function applyFollowUpFilters() {
         allFollowUps.filter(
             function (followUp) {
 
+
                 // ------------------------------
                 // DUE FILTER
                 // ------------------------------
 
                 let matchesDueFilter = true;
+
 
                 if (selectedFilter !== "ALL") {
 
@@ -188,6 +495,7 @@ function applyFollowUpFilters() {
                         getFollowUpDueCategory(
                             followUp
                         );
+
 
                     matchesDueFilter =
                         category === selectedFilter;
@@ -199,10 +507,13 @@ function applyFollowUpFilters() {
                 // ------------------------------
 
                 if (!matchesDueFilter) {
+
                     return false;
                 }
 
+
                 if (!searchText) {
+
                     return true;
                 }
 
@@ -212,25 +523,42 @@ function applyFollowUpFilters() {
                         followUp.id ?? ""
                     ).toLowerCase();
 
+
                 const leadId =
                     String(
                         followUp.leadId ?? ""
                     ).toLowerCase();
+
 
                 const agentId =
                     String(
                         followUp.agentId ?? ""
                     ).toLowerCase();
 
+
+                const leadName =
+                    getLeadName(
+                        followUp.leadId
+                    ).toLowerCase();
+
+
+                const agentName =
+                    getUserName(
+                        followUp.agentId
+                    ).toLowerCase();
+
+
                 const followUpDate =
                     String(
                         followUp.followUpDate ?? ""
                     ).toLowerCase();
 
+
                 const status =
                     String(
                         followUp.status ?? ""
                     ).toLowerCase();
+
 
                 const remarks =
                     String(
@@ -239,13 +567,25 @@ function applyFollowUpFilters() {
 
 
                 return (
+
                     id.includes(searchText) ||
+
                     leadId.includes(searchText) ||
+
                     agentId.includes(searchText) ||
+
+                    leadName.includes(searchText) ||
+
+                    agentName.includes(searchText) ||
+
                     followUpDate.includes(searchText) ||
+
                     status.includes(searchText) ||
+
                     remarks.includes(searchText)
+
                 );
+
             }
         );
 
@@ -278,6 +618,7 @@ function applyFollowUpFilters() {
 
         showMessage("");
     }
+
 }
 
 
@@ -292,6 +633,7 @@ function displayFollowUps(followUps) {
             "followUpsTableBody"
         );
 
+
     if (!tableBody) {
 
         console.error(
@@ -300,6 +642,7 @@ function displayFollowUps(followUps) {
 
         return;
     }
+
 
     tableBody.innerHTML = "";
 
@@ -316,6 +659,7 @@ function displayFollowUps(followUps) {
     followUps.forEach(
         function (followUp) {
 
+
             const row =
                 document.createElement("tr");
 
@@ -325,6 +669,7 @@ function displayFollowUps(followUps) {
 
 
             let followUpDate = "";
+
             let followUpTime = "";
 
 
@@ -333,8 +678,10 @@ function displayFollowUps(followUps) {
                 const parts =
                     dateTime.split("T");
 
+
                 followUpDate =
                     parts[0];
+
 
                 followUpTime =
                     parts[1];
@@ -346,20 +693,62 @@ function displayFollowUps(followUps) {
             }
 
 
+            const leadName =
+                getLeadName(
+                    followUp.leadId
+                );
+
+
+            const agentName =
+                getUserName(
+                    followUp.agentId
+                );
+
+
             row.innerHTML = `
-                <td>${followUp.id ?? ""}</td>
 
-                <td>${followUp.leadId ?? ""}</td>
+                <td>
+                    ${followUp.id ?? ""}
+                </td>
 
-                <td>${followUp.agentId ?? ""}</td>
 
-                <td>${followUpDate}</td>
+                <td>
+                    ${leadName}
+                    <br>
+                    <small>
+                        ID: ${followUp.leadId ?? ""}
+                    </small>
+                </td>
 
-                <td>${followUpTime}</td>
 
-                <td>${followUp.status ?? ""}</td>
+                <td>
+                    ${agentName}
+                    <br>
+                    <small>
+                        ID: ${followUp.agentId ?? ""}
+                    </small>
+                </td>
 
-                <td>${followUp.remarks ?? ""}</td>
+
+                <td>
+                    ${followUpDate}
+                </td>
+
+
+                <td>
+                    ${followUpTime}
+                </td>
+
+
+                <td>
+                    ${followUp.status ?? ""}
+                </td>
+
+
+                <td>
+                    ${followUp.remarks ?? ""}
+                </td>
+
 
                 <td>
 
@@ -369,11 +758,13 @@ function displayFollowUps(followUps) {
                         View
                     </button>
 
+
                     <button
                         type="button"
                         onclick="editFollowUp(${followUp.id})">
                         Edit
                     </button>
+
 
                     <button
                         type="button"
@@ -382,12 +773,15 @@ function displayFollowUps(followUps) {
                     </button>
 
                 </td>
+
             `;
 
 
             tableBody.appendChild(row);
+
         }
     );
+
 }
 
 
@@ -426,6 +820,7 @@ async function deleteFollowUp(id) {
 
 
     if (!confirmed) {
+
         return;
     }
 
@@ -451,16 +846,19 @@ async function deleteFollowUp(id) {
             const errorText =
                 await response.text();
 
+
             console.error(
                 "Delete failed:",
                 response.status,
                 errorText
             );
 
+
             showMessage(
                 "Failed to delete follow-up. Status: " +
                 response.status
             );
+
 
             return;
         }
@@ -481,10 +879,12 @@ async function deleteFollowUp(id) {
             error
         );
 
+
         showMessage(
             "Unable to connect to the backend."
         );
     }
+
 }
 
 
@@ -517,6 +917,7 @@ const searchInput =
         "searchFollowUp"
     );
 
+
 if (searchInput) {
 
     searchInput.addEventListener(
@@ -531,6 +932,7 @@ const dueFilter =
         "followUpDueFilter"
     );
 
+
 if (dueFilter) {
 
     dueFilter.addEventListener(
@@ -544,6 +946,7 @@ const refreshButton =
     document.getElementById(
         "refreshFollowUps"
     );
+
 
 if (refreshButton) {
 

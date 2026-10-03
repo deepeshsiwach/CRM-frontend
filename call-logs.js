@@ -2,6 +2,9 @@ const token = localStorage.getItem("jwtToken");
 
 let allCallLogs = [];
 
+let leadNameMap = {};
+let userNameMap = {};
+
 
 // ================================
 // CHECK LOGIN
@@ -19,8 +22,7 @@ if (!token) {
 const userName = localStorage.getItem("userName");
 
 if (userName) {
-    document.getElementById("userName").textContent =
-        userName;
+    document.getElementById("userName").textContent = userName;
 }
 
 
@@ -42,21 +44,20 @@ document.getElementById("logoutButton")
 
 
 // ================================
-// LOAD CALL LOGS
+// LOAD LEADS FOR NAME MAPPING
 // ================================
 
-async function loadCallLogs() {
+async function loadLeadNames() {
 
     try {
 
         const response = await fetch(
-            `${API_BASE_URL}/api/call-logs`,
+            `${API_BASE_URL}/api/leads`,
             {
                 method: "GET",
 
                 headers: {
-                    "Authorization":
-                        "Bearer " + token
+                    "Authorization": "Bearer " + token
                 }
             }
         );
@@ -64,19 +65,257 @@ async function loadCallLogs() {
 
         if (!response.ok) {
 
+            console.warn(
+                "Unable to load leads for name mapping."
+            );
+
+            return;
+        }
+
+
+        const leads = await response.json();
+
+
+        leadNameMap = {};
+
+
+        leads.forEach(function (lead) {
+
+            leadNameMap[lead.id] =
+                lead.name ||
+                lead.fullName ||
+                "Unknown Lead";
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Error loading lead names:",
+            error
+        );
+    }
+}
+
+
+// ================================
+// LOAD USERS FOR NAME MAPPING
+// ================================
+
+async function loadUserNames() {
+
+    try {
+
+        const response = await fetch(
+            `${API_BASE_URL}/api/users`,
+            {
+                method: "GET",
+
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            }
+        );
+
+
+        if (!response.ok) {
+
+            console.warn(
+                "Unable to load users for name mapping."
+            );
+
+            return;
+        }
+
+
+        const users = await response.json();
+
+
+        userNameMap = {};
+
+
+        users.forEach(function (user) {
+
+            userNameMap[user.id] =
+                user.fullName ||
+                user.name ||
+                "Unknown User";
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Error loading user names:",
+            error
+        );
+    }
+}
+
+
+// ================================
+// GET LEAD DISPLAY NAME
+// ================================
+
+function getLeadDisplayName(leadId) {
+
+    return (
+        leadNameMap[leadId] ||
+        "Unknown Lead"
+    );
+}
+
+
+// ================================
+// GET USER DISPLAY NAME
+// ================================
+
+function getUserDisplayName(userId) {
+
+    return (
+        userNameMap[userId] ||
+        "Unknown User"
+    );
+}
+
+
+// ================================
+// LOAD CALL LOGS
+// ================================
+
+async function loadCallLogs() {
+
+    try {
+
+        /*
+         * Load all three datasets in parallel.
+         *
+         * OLD:
+         * Call Logs
+         * + many Lead API calls
+         * + many User API calls
+         *
+         * NEW:
+         * Call Logs + Leads + Users
+         */
+
+        const [
+            callLogsResponse,
+            leadsResponse,
+            usersResponse
+        ] = await Promise.all([
+
+            fetch(
+                `${API_BASE_URL}/api/call-logs`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Authorization":
+                            "Bearer " + token
+                    }
+                }
+            ),
+
+            fetch(
+                `${API_BASE_URL}/api/leads`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Authorization":
+                            "Bearer " + token
+                    }
+                }
+            ),
+
+            fetch(
+                `${API_BASE_URL}/api/users`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Authorization":
+                            "Bearer " + token
+                    }
+                }
+            )
+        ]);
+
+
+        // ================================
+        // CHECK CALL LOG RESPONSE
+        // ================================
+
+        if (!callLogsResponse.ok) {
+
             throw new Error(
                 "Failed to load call logs"
             );
         }
 
 
+        // ================================
+        // READ CALL LOGS
+        // ================================
+
         const callLogs =
-            await response.json();
+            await callLogsResponse.json();
 
 
         allCallLogs =
             callLogs;
 
+
+        // ================================
+        // READ LEADS
+        // ================================
+
+        if (leadsResponse.ok) {
+
+            const leads =
+                await leadsResponse.json();
+
+
+            leadNameMap = {};
+
+
+            leads.forEach(function (lead) {
+
+                leadNameMap[lead.id] =
+                    lead.name ||
+                    lead.fullName ||
+                    "Unknown Lead";
+            });
+        }
+
+
+        // ================================
+        // READ USERS
+        // ================================
+
+        if (usersResponse.ok) {
+
+            const users =
+                await usersResponse.json();
+
+
+            userNameMap = {};
+
+
+            users.forEach(function (user) {
+
+                userNameMap[user.id] =
+                    user.fullName ||
+                    user.name ||
+                    "Unknown User";
+            });
+        }
+
+
+        // ================================
+        // DISPLAY
+        // ================================
 
         displayCallLogs(
             callLogs
@@ -120,31 +359,72 @@ function displayCallLogs(callLogs) {
             document.createElement("tr");
 
 
+        const leadName =
+            getLeadDisplayName(
+                callLog.leadId
+            );
+
+
+        const agentName =
+            getUserDisplayName(
+                callLog.agentId
+            );
+
+
         row.innerHTML = `
-            <td>${callLog.id}</td>
 
-            <td>${callLog.leadId}</td>
+            <td>
+                ${callLog.id}
+            </td>
 
-            <td>${callLog.agentId}</td>
+            <td>
+                ${leadName}
+                <br>
+                <small>
+                    ID: ${callLog.leadId}
+                </small>
+            </td>
 
-            <td>${callLog.callStartTime || ""}</td>
+            <td>
+                ${agentName}
+                <br>
+                <small>
+                    ID: ${callLog.agentId}
+                </small>
+            </td>
 
-            <td>${callLog.callEndTime || ""}</td>
+            <td>
+                ${callLog.callStartTime || ""}
+            </td>
 
-            <td>${callLog.durationSeconds || ""}</td>
+            <td>
+                ${callLog.callEndTime || ""}
+            </td>
 
-            <td>${callLog.callStatus || ""}</td>
+            <td>
+                ${callLog.durationSeconds || ""}
+            </td>
 
-            <td>${callLog.callOutcome || ""}</td>
+            <td>
+                ${callLog.callStatus || ""}
+            </td>
 
-            <td>${callLog.remarks || ""}</td>
+            <td>
+                ${callLog.callOutcome || ""}
+            </td>
+
+            <td>
+                ${callLog.remarks || ""}
+            </td>
 
             <td>
 
                 <button
                     class="view-lead-button"
                     onclick="viewCallLog(${callLog.id})">
+
                     View
+
                 </button>
 
             </td>
@@ -164,11 +444,25 @@ document.getElementById("searchCallLog")
     .addEventListener("input", function () {
 
         const searchText =
-            this.value.toLowerCase().trim();
+            this.value
+                .toLowerCase()
+                .trim();
 
 
         const filteredCallLogs =
             allCallLogs.filter(function (callLog) {
+
+                const leadName =
+                    getLeadDisplayName(
+                        callLog.leadId
+                    ).toLowerCase();
+
+
+                const agentName =
+                    getUserDisplayName(
+                        callLog.agentId
+                    ).toLowerCase();
+
 
                 return (
 
@@ -183,6 +477,10 @@ document.getElementById("searchCallLog")
                     String(callLog.agentId)
                         .toLowerCase()
                         .includes(searchText) ||
+
+                    leadName.includes(searchText) ||
+
+                    agentName.includes(searchText) ||
 
                     String(callLog.callStartTime || "")
                         .toLowerCase()

@@ -2,177 +2,257 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>DERIVION - Call Logs</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css">
+
 </head>
+
 
 <body>
 
-    <div class="dashboard-container">
 
-        <!-- Header -->
-        <header class="dashboard-header">
+<div class="dashboard-container">
 
-            <h1 class="brand-logo">
-    <img src="assets/derivion_logo.png" alt="DERIVION">
-</h1>
 
-            <div class="user-info">
+    <!-- ================================
+         HEADER
+         ================================ -->
 
-                <span id="userName">Admin</span>
+    <header class="dashboard-header">
 
-                <button id="logoutButton">
-                    Logout
+        <h1 class="brand-logo">
+
+            <img
+                src="assets/derivion_logo.png"
+                alt="DERIVION">
+
+        </h1>
+
+
+        <div class="user-info">
+
+            <span id="userName">
+                Admin
+            </span>
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <div class="dashboard-layout">
+
+
+        <!-- ================================
+             SIDEBAR
+             ================================ -->
+
+        <aside class="sidebar">
+
+            <h2>
+                Menu
+            </h2>
+
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="leads.html">
+                    Leads
+                </a>
+
+                <a href="lead-assignments.html">
+                    Lead Assignments
+                </a>
+
+                <a href="closed-leads.html">
+                    Closed / Disposed Leads
+                </a>
+
+                <a
+                    href="call-logs.html"
+                    class="active">
+                    Call Logs
+                </a>
+
+                <a href="follow-ups.html">
+                    Follow-ups
+                </a>
+
+                <a href="notes.html">
+                    Notes
+                </a>
+
+                <a href="users.html">
+                    Users
+                </a>
+
+                <a href="teams.html">
+                    Teams
+                </a>
+
+                <a href="courses.html">
+                    Courses
+                </a>
+
+                <a href="campaigns.html">
+                    Campaigns
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+
+        <!-- ================================
+             MAIN CONTENT
+             ================================ -->
+
+        <main class="dashboard-content">
+
+
+            <h2>
+                Call Logs
+            </h2>
+
+
+
+            <!-- ================================
+                 TOOLBAR
+                 ================================ -->
+
+            <div class="leads-toolbar">
+
+                <input
+                    type="text"
+                    id="searchCallLog"
+                    placeholder="Search call logs...">
+
+
+                <button
+                    type="button"
+                    id="refreshCallLogs">
+
+                    Refresh
+
                 </button>
 
             </div>
 
-        </header>
 
 
-        <div class="dashboard-layout">
+            <!-- ================================
+                 MESSAGE
+                 ================================ -->
 
-            <!-- Sidebar -->
-            <aside class="sidebar">
-
-                <h2>Menu</h2>
-
-                <nav>
-
-                    <a href="dashboard.html">
-                        Dashboard
-                    </a>
-
-                    <a href="leads.html">
-                        Leads
-                    </a>
-
-                    <a href="lead-assignments.html">
-                        Lead Assignments
-                    </a>
-
-<a href="closed-leads.html">
-    Closed / Disposed Leads
-</a>
-
-                    <a href="call-logs.html" class="active">
-                        Call Logs
-                    </a>
-
-                    <a href="follow-ups.html">
-			    Follow-ups
-				</a>
-
-                    <a href="notes.html">Notes</a>
-
-                    <a href="users.html">
-			    Users
-			</a>
-
-                    <a href="teams.html">
-			    Teams
-			</a>
-
-                    <a href="courses.html">
-    Courses
-</a>
-
-                    <a href="campaigns.html">
-			    Campaigns
-			</a>
-
-                </nav>
-
-            </aside>
+            <p id="callLogMessage"></p>
 
 
-            <!-- Main Content -->
-            <main class="dashboard-content">
 
-                <h2>Call Logs</h2>
+            <!-- ================================
+                 CALL LOG TABLE
+                 ================================ -->
 
+            <div class="table-container">
 
-                <!-- Toolbar -->
-                <div class="leads-toolbar">
+                <table class="leads-table">
 
-                    <input
-                        type="text"
-                        id="searchCallLog"
-                        placeholder="Search call logs..."
-                    >
+                    <thead>
 
-                    <button id="refreshCallLogs">
-                        Refresh
-                    </button>
+                        <tr>
 
-                </div>
+                            <th>
+                                ID
+                            </th>
 
+                            <th>
+                                Lead
+                            </th>
 
-                <!-- Message -->
-                <p id="callLogMessage"></p>
+                            <th>
+                                Agent
+                            </th>
 
+                            <th>
+                                Start Time
+                            </th>
 
-                <!-- Call Logs Table -->
-                <div class="table-container">
+                            <th>
+                                End Time
+                            </th>
 
-                    <table class="leads-table">
+                            <th>
+                                Duration
+                            </th>
 
-                        <thead>
+                            <th>
+                                Call Status
+                            </th>
 
-                            <tr>
+                            <th>
+                                Outcome
+                            </th>
 
-                                <th>ID</th>
+                            <th>
+                                Remarks
+                            </th>
 
-                                <th>Lead ID</th>
+                            <th>
+                                Action
+                            </th>
 
-                                <th>Agent ID</th>
+                        </tr>
 
-                                <th>Start Time</th>
-
-                                <th>End Time</th>
-
-                                <th>Duration</th>
-
-                                <th>Call Status</th>
-
-                                <th>Outcome</th>
-
-                                <th>Remarks</th>
-
-                                <th>Action</th>
-
-                            </tr>
-
-                        </thead>
+                    </thead>
 
 
-                        <tbody id="callLogsTableBody">
+                    <tbody id="callLogsTableBody">
 
-                            <!-- Call logs will be loaded here -->
+                        <!-- Call logs loaded here -->
 
-                        </tbody>
+                    </tbody>
 
-                    </table>
+                </table>
 
-                </div>
+            </div>
 
-            </main>
 
-        </div>
+        </main>
+
 
     </div>
 
-	<script src="config.js"></script>
 
-<script src="notifications.js"></script>
-    <script src="call-logs.js"></script>
+</div>
 
+
+
+<script src="config.js"></script>
+
+<script src="call-logs.js"></script>
 
 <script src="access-control.js"></script>
+
+
 </body>
 
 </html>

@@ -1,4 +1,6 @@
-const token = localStorage.getItem("jwtToken");
+const token =
+    localStorage.getItem("jwtToken");
+
 
 // ========================================
 // CHECK LOGIN
@@ -6,13 +8,14 @@ const token = localStorage.getItem("jwtToken");
 
 if (!token) {
 
-    window.location.href = "index.html";
+    window.location.href =
+        "index.html";
 
 }
 
 
 // ========================================
-// SHOW USER
+// SHOW LOGGED-IN USER
 // ========================================
 
 const userName =
@@ -31,17 +34,21 @@ if (userName) {
 // ========================================
 
 document.getElementById("logoutButton")
-    .addEventListener("click", function () {
+    .addEventListener(
+        "click",
+        function () {
 
-        localStorage.removeItem("jwtToken");
-        localStorage.removeItem("userId");
-        localStorage.removeItem("userName");
-        localStorage.removeItem("userEmail");
-        localStorage.removeItem("userRole");
+            localStorage.removeItem("jwtToken");
+            localStorage.removeItem("userId");
+            localStorage.removeItem("userName");
+            localStorage.removeItem("userEmail");
+            localStorage.removeItem("userRole");
 
-        window.location.href = "index.html";
+            window.location.href =
+                "index.html";
 
-    });
+        }
+    );
 
 
 // ========================================
@@ -70,6 +77,83 @@ if (leadId) {
 
 
 // ========================================
+// LOAD LEAD NAME
+// ========================================
+
+async function loadLeadDetails() {
+
+    if (!leadId) {
+
+        document.getElementById(
+            "leadDisplay"
+        ).value =
+            "No Lead ID";
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE_URL}/api/leads/${leadId}`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Authorization":
+                            "Bearer " + token
+                    }
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to load lead"
+            );
+
+        }
+
+
+        const lead =
+            await response.json();
+
+
+        const leadName =
+            lead.fullName ||
+            lead.name ||
+            "Unknown Lead";
+
+
+        document.getElementById(
+            "leadDisplay"
+        ).value =
+            `${leadName} (ID: ${leadId})`;
+
+
+    } catch (error) {
+
+        console.error(
+            "Error loading lead:",
+            error
+        );
+
+
+        document.getElementById(
+            "leadDisplay"
+        ).value =
+            `Lead (ID: ${leadId})`;
+
+    }
+
+}
+
+
+// ========================================
 // SET CURRENT USER AS AGENT
 // ========================================
 
@@ -78,8 +162,87 @@ const currentUserId =
 
 if (currentUserId) {
 
-    document.getElementById("agentId").value =
+    document.getElementById(
+        "agentId"
+    ).value =
         currentUserId;
+
+}
+
+
+// ========================================
+// LOAD AGENT NAME
+// ========================================
+
+async function loadAgentDetails() {
+
+    if (!currentUserId) {
+
+        document.getElementById(
+            "agentDisplay"
+        ).value =
+            "No Agent ID";
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE_URL}/api/users/${currentUserId}`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Authorization":
+                            "Bearer " + token
+                    }
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to load agent"
+            );
+
+        }
+
+
+        const agent =
+            await response.json();
+
+
+        const agentName =
+            agent.fullName ||
+            agent.name ||
+            "Unknown Agent";
+
+
+        document.getElementById(
+            "agentDisplay"
+        ).value =
+            `${agentName} (ID: ${currentUserId})`;
+
+
+    } catch (error) {
+
+        console.error(
+            "Error loading agent:",
+            error
+        );
+
+
+        document.getElementById(
+            "agentDisplay"
+        ).value =
+            `Agent (ID: ${currentUserId})`;
+
+    }
 
 }
 
@@ -93,6 +256,7 @@ function setCurrentDateTime() {
     const now =
         new Date();
 
+
     const localDateTime =
         new Date(
             now.getTime() -
@@ -101,9 +265,11 @@ function setCurrentDateTime() {
         .toISOString()
         .slice(0, 16);
 
+
     document.getElementById(
         "callStartTime"
-    ).value = localDateTime;
+    ).value =
+        localDateTime;
 
 }
 
@@ -181,6 +347,7 @@ document.getElementById("callLogForm")
                         ).value
                     ),
 
+
                 agentId:
                     Number(
                         document.getElementById(
@@ -188,15 +355,19 @@ document.getElementById("callLogForm")
                         ).value
                     ),
 
+
                 callStartTime:
                     document.getElementById(
                         "callStartTime"
                     ).value,
 
+
                 callEndTime:
                     document.getElementById(
                         "callEndTime"
-                    ).value || null,
+                    ).value ||
+                    null,
+
 
                 durationSeconds:
                     document.getElementById(
@@ -209,50 +380,46 @@ document.getElementById("callLogForm")
                         )
                         : null,
 
+
                 callStatus:
                     document.getElementById(
                         "callStatus"
                     ).value,
 
+
                 callOutcome:
                     document.getElementById(
                         "callOutcome"
-                    ).value || null,
+                    ).value ||
+                    null,
 
 
-                // ========================================
-                // NEW: CITY
-                // ========================================
+                // CITY
 
                 city:
                     document.getElementById(
                         "city"
-                    ).value.trim() || null,
+                    ).value.trim() ||
+                    null,
 
 
-                // ========================================
                 // EDUCATION
-                // ========================================
 
                 education:
                     document.getElementById(
                         "education"
-                    ).value.trim() || null,
+                    ).value.trim() ||
+                    null,
 
 
-                // ========================================
                 // INTERESTED AREA
-                // ========================================
 
                 interestedArea:
                     document.getElementById(
                         "interestedArea"
-                    ).value.trim() || null,
+                    ).value.trim() ||
+                    null,
 
-
-                // ========================================
-                // REMARKS
-                // ========================================
 
                 remarks:
                     document.getElementById(
@@ -263,7 +430,7 @@ document.getElementById("callLogForm")
 
 
             // ========================================
-            // BASIC VALIDATION
+            // VALIDATION
             // ========================================
 
             if (!callLog.leadId) {
@@ -318,6 +485,10 @@ document.getElementById("callLogForm")
             }
 
 
+            // ========================================
+            // SAVE CALL LOG
+            // ========================================
+
             try {
 
                 const response =
@@ -327,18 +498,21 @@ document.getElementById("callLogForm")
                             method: "POST",
 
                             headers: {
+
                                 "Content-Type":
                                     "application/json",
 
                                 "Authorization":
                                     "Bearer " +
                                     token
+
                             },
 
                             body:
                                 JSON.stringify(
                                     callLog
                                 )
+
                         }
                     );
 
@@ -360,17 +534,17 @@ document.getElementById("callLogForm")
                 message.textContent =
                     "Call log saved successfully.";
 
+
                 message.style.color =
                     "green";
 
 
-                // Return to lead details
                 setTimeout(
                     function () {
 
                         window.location.href =
                             "lead-details.html?id=" +
-                            leadId;
+                            callLog.leadId;
 
                     },
                     800
@@ -387,7 +561,8 @@ document.getElementById("callLogForm")
 
                 message.textContent =
                     error.message ||
-                    "Unable to save call log.";
+                    "Unable to connect to CRM server.";
+
 
                 message.style.color =
                     "red";
@@ -396,3 +571,12 @@ document.getElementById("callLogForm")
 
         }
     );
+
+
+// ========================================
+// INITIAL LOAD
+// ========================================
+
+loadLeadDetails();
+
+loadAgentDetails();

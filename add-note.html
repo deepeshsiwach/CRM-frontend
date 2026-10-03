@@ -5,31 +5,47 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>DERIVION - Add Note</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css">
 
 </head>
 
+
 <body>
+
 
 <div class="dashboard-container">
 
-    <!-- Header -->
+
+    <!-- ================================
+         HEADER
+         ================================ -->
+
     <header class="dashboard-header">
 
         <h1 class="brand-logo">
-    <img src="assets/derivion_logo.png" alt="DERIVION">
-</h1>
 
-        <div>
+            <img
+                src="assets/derivion_logo.png"
+                alt="DERIVION">
 
-            <span id="userName"></span>
+        </h1>
 
-            <button onclick="logout()">
+
+        <div class="user-info">
+
+            <span id="userName">
+                Admin
+            </span>
+
+            <button id="logoutButton">
                 Logout
             </button>
 
@@ -38,164 +54,269 @@
     </header>
 
 
+
+    <!-- ================================
+         LAYOUT
+         ================================ -->
+
     <div class="dashboard-layout">
 
-        <!-- Sidebar -->
+
+        <!-- ================================
+             SIDEBAR
+             ================================ -->
+
         <aside class="sidebar">
 
-            <h2>Menu</h2>
+            <h2>
+                Menu
+            </h2>
 
-            <a href="dashboard.html">
-                Dashboard
-            </a>
 
-            <a href="leads.html">
-                Leads
-            </a>
+            <nav>
 
-            <a href="lead-assignments.html">
-                Lead Assignments
-            </a>
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
 
-<a href="closed-leads.html">
-    Closed / Disposed Leads
-</a>
+                <a href="leads.html">
+                    Leads
+                </a>
 
-            <a href="call-logs.html">
-                Call Logs
-            </a>
+                <a href="lead-assignments.html">
+                    Lead Assignments
+                </a>
 
-            <a href="follow-ups.html">
-                Follow-ups
-            </a>
+                <a href="closed-leads.html">
+                    Closed / Disposed Leads
+                </a>
 
-            <a href="notes.html">
-                Notes
-            </a>
+                <a href="call-logs.html">
+                    Call Logs
+                </a>
 
-            <a href="#">
-                Users
-            </a>
+                <a href="follow-ups.html">
+                    Follow-ups
+                </a>
 
-            <a href="#">
-                Teams
-            </a>
+                <a
+                    href="notes.html"
+                    class="active">
+                    Notes
+                </a>
 
-            <a href="#">
-                Courses
-            </a>
+                <a href="users.html">
+                    Users
+                </a>
 
-            <a href="#">
-                Campaigns
-            </a>
+                <a href="teams.html">
+                    Teams
+                </a>
+
+                <a href="courses.html">
+                    Courses
+                </a>
+
+                <a href="campaigns.html">
+                    Campaigns
+                </a>
+
+            </nav>
 
         </aside>
 
 
-        <!-- Main Content -->
+
+        <!-- ================================
+             MAIN CONTENT
+             ================================ -->
+
         <main class="dashboard-content">
 
-            <h2>Add Note</h2>
 
-            <div id="message"></div>
+            <div class="lead-details-header">
 
-
-            <form id="addNoteForm">
-
-                <!-- Lead ID -->
                 <div>
 
-                    <label for="leadId">
-                        Lead ID
-                    </label>
+                    <h2>
+                        Add Note
+                    </h2>
 
-                    <input
-                        type="number"
-                        id="leadId"
-                        placeholder="Enter Lead ID"
-                        required>
+                    <p>
+                        Add a note to this lead.
+                    </p>
 
                 </div>
-
-                <br>
-
-
-                <!-- User ID -->
-                <div>
-
-                    <label for="userId">
-                        User ID
-                    </label>
-
-                    <input
-                        type="number"
-                        id="userId"
-                        placeholder="Enter User ID"
-                        required>
-
-                </div>
-
-                <br>
-
-
-                <!-- Note -->
-                <div>
-
-                    <label for="note">
-                        Note
-                    </label>
-
-                    <br>
-
-                    <textarea
-                        id="note"
-                        rows="6"
-                        cols="50"
-                        placeholder="Enter your note..."
-                        required></textarea>
-
-                </div>
-
-                <br>
-
-
-                <!-- Buttons -->
-
-                <button type="submit">
-                    Add Note
-                </button>
 
 
                 <button
                     type="button"
-                    onclick="document.getElementById('addNoteForm').reset()">
+                    class="secondary-button"
+                    id="backButton">
 
-                    Clear
-
-                </button>
-
-
-                <button
-                    type="button"
-                    onclick="window.location.href='notes.html'">
-
-                    Cancel
+                    ← Back
 
                 </button>
 
-            </form>
+            </div>
+
+
+
+            <!-- ================================
+                 MESSAGE
+                 ================================ -->
+
+            <div
+                id="message"
+                style="margin-bottom: 15px;">
+            </div>
+
+
+
+            <!-- ================================
+                 FORM
+                 ================================ -->
+
+            <div class="form-container">
+
+
+                <form id="addNoteForm">
+
+
+                    <!-- ================================
+                         LEAD
+                         ================================= -->
+
+                    <div class="form-group">
+
+                        <label for="leadDisplay">
+                            Lead
+                        </label>
+
+                        <input
+                            type="text"
+                            id="leadDisplay"
+                            readonly
+                            placeholder="Loading lead...">
+
+                        <!-- Actual Lead ID -->
+
+                        <input
+                            type="hidden"
+                            id="leadId"
+                            name="leadId">
+
+                    </div>
+
+
+
+                    <!-- ================================
+                         USER / AGENT
+                         ================================= -->
+
+                    <div class="form-group">
+
+                        <label for="userDisplay">
+                            User
+                        </label>
+
+                        <input
+                            type="text"
+                            id="userDisplay"
+                            readonly
+                            placeholder="Loading user...">
+
+                        <!-- Actual User ID -->
+
+                        <input
+                            type="hidden"
+                            id="userId"
+                            name="userId">
+
+                    </div>
+
+
+
+                    <!-- ================================
+                         NOTE
+                         ================================= -->
+
+                    <div class="form-group">
+
+                        <label for="note">
+                            Note
+                        </label>
+
+                        <textarea
+                            id="note"
+                            name="note"
+                            rows="6"
+                            placeholder="Enter your note..."
+                            required></textarea>
+
+                    </div>
+
+
+
+                    <!-- ================================
+                         BUTTONS
+                         ================================= -->
+
+                    <div class="form-actions">
+
+                        <button
+                            type="submit"
+                            class="primary-button">
+
+                            Add Note
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="secondary-button"
+                            id="clearButton">
+
+                            Clear
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="secondary-button"
+                            id="cancelButton">
+
+                            Cancel
+
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+
 
         </main>
 
+
     </div>
+
 
 </div>
 
+
+
 <script src="config.js"></script>
-<script src="notifications.js"></script>
+
 <script src="add-note.js"></script>
 
 <script src="access-control.js"></script>
+
 
 </body>
 
