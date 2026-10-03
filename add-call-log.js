@@ -219,6 +219,27 @@ document.getElementById("callLogForm")
                         "callOutcome"
                     ).value || null,
 
+
+                // ========================================
+                // NEW: EDUCATION
+                // ========================================
+
+                education:
+                    document.getElementById(
+                        "education"
+                    ).value.trim() || null,
+
+
+                // ========================================
+                // NEW: INTERESTED AREA
+                // ========================================
+
+                interestedArea:
+                    document.getElementById(
+                        "interestedArea"
+                    ).value.trim() || null,
+
+
                 remarks:
                     document.getElementById(
                         "remarks"

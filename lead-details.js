@@ -5,6 +5,7 @@ if (!token) {
     window.location.href = "index.html";
 }
 
+
 // Show logged-in user
 const userName = localStorage.getItem("userName");
 
@@ -12,6 +13,7 @@ if (userName) {
     document.getElementById("userName").textContent =
         userName;
 }
+
 
 // Logout
 document.getElementById("logoutButton")
@@ -25,6 +27,7 @@ document.getElementById("logoutButton")
 
         window.location.href = "index.html";
     });
+
 
 // Get lead ID from URL
 const urlParams = new URLSearchParams(
@@ -59,40 +62,68 @@ async function loadLeadDetails() {
             }
         );
 
+
         if (!response.ok) {
             throw new Error(
                 "Failed to load lead"
             );
         }
 
+
         const lead = await response.json();
+
 
         document.getElementById("leadId").textContent =
             lead.id;
 
+
         document.getElementById("leadName").textContent =
             lead.fullName || "-";
+
 
         document.getElementById("leadEmail").textContent =
             lead.email || "-";
 
+
         document.getElementById("leadPhone").textContent =
             lead.phone || "-";
+
 
         document.getElementById("leadCourse").textContent =
             lead.courseInterested || "-";
 
+
         document.getElementById("leadSource").textContent =
             lead.leadSource || "-";
+
 
         document.getElementById("leadStatus").textContent =
             lead.status || "-";
 
+
         document.getElementById("leadPriority").textContent =
             lead.priority || "-";
 
+
         document.getElementById("leadCity").textContent =
             lead.city || "-";
+
+
+        // ========================================
+        // EDUCATION
+        // ========================================
+
+        document.getElementById("leadEducation").textContent =
+            lead.education || "-";
+
+
+        // ========================================
+        // INTERESTED AREA
+        // ========================================
+
+        document.getElementById("leadInterestedArea").textContent =
+            lead.interestedArea || "-";
+
 
     } catch (error) {
 
@@ -128,20 +159,25 @@ async function loadLeadCallLogs() {
             }
         );
 
+
         if (!response.ok) {
             throw new Error(
                 "Failed to load call logs"
             );
         }
 
+
         const callLogs = await response.json();
+
 
         const callLogsContainer =
             document.getElementById("leadCallLogs");
 
+
         if (!callLogsContainer) {
             return;
         }
+
 
         if (!callLogs || callLogs.length === 0) {
 
@@ -154,17 +190,22 @@ async function loadLeadCallLogs() {
             return;
         }
 
+
         callLogsContainer.innerHTML = "";
+
 
         callLogs.forEach(function (call) {
 
             const callCard =
                 document.createElement("div");
 
+
             callCard.className =
                 "lead-activity-card";
 
+
             callCard.innerHTML = `
+
                 <div class="activity-row">
                     <strong>Call ID</strong>
                     <span>${call.id ?? "-"}</span>
@@ -194,10 +235,14 @@ async function loadLeadCallLogs() {
                     <strong>Remarks</strong>
                     <span>${call.remarks ?? "-"}</span>
                 </div>
+
             `;
 
+
             callLogsContainer.appendChild(callCard);
+
         });
+
 
     } catch (error) {
 
@@ -233,21 +278,26 @@ async function loadLeadFollowUps() {
             }
         );
 
+
         if (!response.ok) {
             throw new Error(
                 "Failed to load follow-ups"
             );
         }
 
+
         const followUps =
             await response.json();
+
 
         const followUpsContainer =
             document.getElementById("leadFollowUps");
 
+
         if (!followUpsContainer) {
             return;
         }
+
 
         if (!followUps || followUps.length === 0) {
 
@@ -260,17 +310,22 @@ async function loadLeadFollowUps() {
             return;
         }
 
+
         followUpsContainer.innerHTML = "";
+
 
         followUps.forEach(function (followUp) {
 
             const followUpCard =
                 document.createElement("div");
 
+
             followUpCard.className =
                 "lead-activity-card";
 
+
             followUpCard.innerHTML = `
+
                 <div class="activity-row">
                     <strong>Follow-up ID</strong>
                     <span>${followUp.id ?? "-"}</span>
@@ -300,12 +355,16 @@ async function loadLeadFollowUps() {
                     <strong>Remarks</strong>
                     <span>${followUp.remarks ?? "-"}</span>
                 </div>
+
             `;
+
 
             followUpsContainer.appendChild(
                 followUpCard
             );
+
         });
+
 
     } catch (error) {
 
@@ -315,6 +374,8 @@ async function loadLeadFollowUps() {
         );
     }
 }
+
+
 // ========================================
 // LOAD NOTES FOR THIS LEAD
 // ========================================
@@ -339,21 +400,26 @@ async function loadLeadNotes() {
             }
         );
 
+
         if (!response.ok) {
             throw new Error(
                 "Failed to load notes"
             );
         }
 
+
         const allNotes =
             await response.json();
+
 
         const notesContainer =
             document.getElementById("leadNotes");
 
+
         if (!notesContainer) {
             return;
         }
+
 
         // Only show notes belonging to this lead
         const leadNotes =
@@ -363,6 +429,7 @@ async function loadLeadNotes() {
                     String(leadId);
 
             });
+
 
         if (!leadNotes || leadNotes.length === 0) {
 
@@ -375,17 +442,22 @@ async function loadLeadNotes() {
             return;
         }
 
+
         notesContainer.innerHTML = "";
+
 
         leadNotes.forEach(function (note) {
 
             const noteCard =
                 document.createElement("div");
 
+
             noteCard.className =
                 "lead-activity-card";
 
+
             noteCard.innerHTML = `
+
                 <div class="activity-row">
                     <strong>Note ID</strong>
                     <span>${note.id ?? "-"}</span>
@@ -400,13 +472,16 @@ async function loadLeadNotes() {
                     <strong>Note</strong>
                     <span>${note.note ?? "-"}</span>
                 </div>
+
             `;
+
 
             notesContainer.appendChild(
                 noteCard
             );
 
         });
+
 
     } catch (error) {
 
@@ -417,9 +492,11 @@ async function loadLeadNotes() {
     }
 }
 
+
 // ========================================
 // LOAD PAGE
 // ========================================
+
 loadLeadDetails();
 loadLeadCallLogs();
 loadLeadFollowUps();
@@ -431,16 +508,21 @@ document
     .getElementById("updateLeadStatusButton")
     .addEventListener("click", async function () {
 
+
         const selectedStatus =
             document.getElementById("leadStatusSelect").value;
+
 
         const messageElement =
             document.getElementById("leadStatusMessage");
 
+
         const userRole =
             localStorage.getItem("userRole");
 
+
         let endpoint;
+
 
         if (userRole === "AGENT") {
 
@@ -452,6 +534,7 @@ document
             endpoint =
                 `${API_BASE_URL}/api/leads/${leadId}/status`;
         }
+
 
         try {
 
@@ -470,31 +553,38 @@ document
                 }
             );
 
+
             if (!response.ok) {
 
                 const errorText =
                     await response.text();
+
 
                 throw new Error(
                     errorText || "Failed to update lead status"
                 );
             }
 
+
             const updatedLead =
                 await response.json();
+
 
             document.getElementById(
                 "leadStatus"
             ).textContent =
                 updatedLead.status;
 
+
             document.getElementById(
                 "leadStatusSelect"
             ).value =
                 updatedLead.status;
 
+
             messageElement.textContent =
                 "Lead status updated successfully.";
+
 
         } catch (error) {
 
@@ -502,6 +592,7 @@ document
                 "Error updating lead status:",
                 error
             );
+
 
             messageElement.textContent =
                 "Failed to update lead status.";
