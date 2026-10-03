@@ -205,27 +205,35 @@ function displayCampaigns(
                     ${campaign.createdAt ?? ""}
                 </td>
 
-                <td>
+                <td style="
+    position: sticky;
+    right: 0;
+    background: #ffffff;
+    z-index: 2;
+    white-space: nowrap;
+    min-width: 210px;
+    text-align: center;
+">
 
-                    <button
-                        type="button"
-                        onclick="viewCampaign(${campaign.id})">
-                        View
-                    </button>
+    <button
+        type="button"
+        onclick="viewCampaign(${campaign.id})">
+        View
+    </button>
 
-                    <button
-                        type="button"
-                        onclick="editCampaign(${campaign.id})">
-                        Edit
-                    </button>
+    <button
+        type="button"
+        onclick="editCampaign(${campaign.id})">
+        Edit
+    </button>
 
-                    <button
-                        type="button"
-                        onclick="deleteCampaign(${campaign.id})">
-                        Delete
-                    </button>
+    <button
+        type="button"
+        onclick="deleteCampaign(${campaign.id})">
+        Delete
+    </button>
 
-                </td>
+</td>
 
             `;
 
