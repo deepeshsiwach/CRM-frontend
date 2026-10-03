@@ -2222,6 +2222,131 @@ configureDashboardForRole();
 
 loadDashboardData();
 
+// ==========================================
+// DASHBOARD CARD NAVIGATION
+// ==========================================
+
+function makeDashboardCardClickable(
+    elementId,
+    targetPage
+) {
+
+    const element =
+        document.getElementById(elementId);
+
+    if (!element) {
+        return;
+    }
+
+
+    const card =
+        element.closest(".dashboard-card");
+
+    if (!card) {
+        return;
+    }
+
+
+    // Make the entire card clickable
+    card.style.cursor = "pointer";
+
+
+    // Small visual effect
+    card.addEventListener(
+        "mouseenter",
+        function () {
+
+            card.style.transform =
+                "translateY(-3px)";
+        }
+    );
+
+
+    card.addEventListener(
+        "mouseleave",
+        function () {
+
+            card.style.transform =
+                "";
+        }
+    );
+
+
+    // Redirect when card is clicked
+    card.addEventListener(
+        "click",
+        function () {
+
+            window.location.href =
+                targetPage;
+        }
+    );
+}
+
+
+// ==========================================
+// CARD → PAGE MAPPING
+// ==========================================
+
+makeDashboardCardClickable(
+    "totalLeads",
+    "leads.html"
+);
+
+
+makeDashboardCardClickable(
+    "assignedLeads",
+    "lead-assignments.html"
+);
+
+
+makeDashboardCardClickable(
+    "totalFollowUps",
+    "follow-ups.html"
+);
+
+
+makeDashboardCardClickable(
+    "totalCalls",
+    "call-logs.html"
+);
+
+
+makeDashboardCardClickable(
+    "pendingFollowUps",
+    "follow-ups.html"
+);
+
+
+makeDashboardCardClickable(
+    "completedFollowUps",
+    "follow-ups.html"
+);
+
+
+makeDashboardCardClickable(
+    "missedFollowUps",
+    "follow-ups.html"
+);
+
+
+makeDashboardCardClickable(
+    "cancelledFollowUps",
+    "follow-ups.html"
+);
+
+
+makeDashboardCardClickable(
+    "todayFollowUps",
+    "follow-ups.html"
+);
+
+
+makeDashboardCardClickable(
+    "unassignedLeads",
+    "lead-assignments.html"
+);
+
 
 // ================================
 // AUTO REFRESH
