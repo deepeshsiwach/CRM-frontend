@@ -221,7 +221,17 @@ document.getElementById("callLogForm")
 
 
                 // ========================================
-                // NEW: EDUCATION
+                // NEW: CITY
+                // ========================================
+
+                city:
+                    document.getElementById(
+                        "city"
+                    ).value.trim() || null,
+
+
+                // ========================================
+                // EDUCATION
                 // ========================================
 
                 education:
@@ -231,7 +241,7 @@ document.getElementById("callLogForm")
 
 
                 // ========================================
-                // NEW: INTERESTED AREA
+                // INTERESTED AREA
                 // ========================================
 
                 interestedArea:
@@ -239,6 +249,10 @@ document.getElementById("callLogForm")
                         "interestedArea"
                     ).value.trim() || null,
 
+
+                // ========================================
+                // REMARKS
+                // ========================================
 
                 remarks:
                     document.getElementById(
