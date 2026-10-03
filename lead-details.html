@@ -15,6 +15,316 @@
         rel="stylesheet"
         href="style.css">
 
+
+    <!-- =====================================================
+         LEAD DETAILS PAGE CUSTOM STYLING
+         ===================================================== -->
+
+    <style>
+
+        /* ==========================================
+           MAIN TWO COLUMN LAYOUT
+           ========================================== */
+
+        .lead-page-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.05fr)
+                minmax(0, 0.95fr);
+
+            gap: 20px;
+
+            align-items: start;
+
+            margin-top: 20px;
+
+        }
+
+
+        /* ==========================================
+           LEFT AND RIGHT COLUMNS
+           ========================================== */
+
+        .lead-left-column,
+        .lead-right-column {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 20px;
+
+            min-width: 0;
+
+        }
+
+
+        /* ==========================================
+           LEAD DETAILS CARD
+           ========================================== */
+
+        .lead-details-card {
+
+            margin-top: 0 !important;
+
+            font-size: 14px;
+
+            overflow: hidden;
+
+        }
+
+
+        /* ==========================================
+           SMALLER DETAIL ROWS
+           ========================================== */
+
+        .lead-details-card .detail-row {
+
+            min-height: 48px;
+
+        }
+
+
+        .lead-details-card .detail-label {
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        .lead-details-card .detail-value {
+
+            font-size: 14px;
+
+        }
+
+
+        /* ==========================================
+           STATUS SELECT
+           ========================================== */
+
+        .lead-details-card select {
+
+            font-size: 13px;
+
+            padding: 7px 9px;
+
+            max-width: 160px;
+
+        }
+
+
+        /* ==========================================
+           UPDATE STATUS BUTTON
+           ========================================== */
+
+        .lead-details-card .primary-button {
+
+            font-size: 12px;
+
+            padding: 8px 12px;
+
+            margin-left: 5px;
+
+        }
+
+
+        /* ==========================================
+           ACTIVITY SECTIONS
+           ========================================== */
+
+        .lead-left-column .lead-activity-section,
+        .lead-right-column .lead-activity-section {
+
+            width: 100%;
+
+            margin: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+        /* ==========================================
+           ACTIVITY HEADERS
+           ========================================== */
+
+        .lead-activity-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+
+        .lead-activity-header h3 {
+
+            font-size: 17px;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .lead-activity-header p {
+
+            font-size: 12px;
+
+            margin: 0;
+
+        }
+
+
+        /* ==========================================
+           ACTIVITY BUTTONS
+           ========================================== */
+
+        .lead-activity-header .primary-button {
+
+            white-space: nowrap;
+
+            font-size: 12px;
+
+            padding: 8px 12px;
+
+        }
+
+
+        /* ==========================================
+           ACTIVITY CONTENT
+           ========================================== */
+
+        #leadCallLogs,
+        #leadFollowUps,
+        #leadNotes {
+
+            font-size: 13px;
+
+        }
+
+
+        /* ==========================================
+           RIGHT COLUMN
+           ========================================== */
+
+        .lead-right-column {
+
+            position: sticky;
+
+            top: 20px;
+
+        }
+
+
+        /* ==========================================
+           FOLLOW-UP AND NOTES BOX
+           ========================================== */
+
+        .lead-right-column .lead-activity-section {
+
+            max-height: none;
+
+        }
+
+
+        /* ==========================================
+           ACTIVITY EMPTY MESSAGE
+           ========================================== */
+
+        .activity-empty {
+
+            font-size: 13px;
+
+            padding: 18px;
+
+        }
+
+
+        /* ==========================================
+           BOTTOM ACTION
+           ========================================== */
+
+        .lead-details-actions {
+
+            margin-top: 20px;
+
+        }
+
+
+        /* ==========================================
+           STATUS MESSAGE
+           ========================================== */
+
+        #leadStatusMessage {
+
+            font-size: 12px;
+
+        }
+
+
+        /* ==========================================
+           MOBILE / TABLET
+           ========================================== */
+
+        @media (max-width: 950px) {
+
+            .lead-page-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .lead-right-column {
+
+                position: static;
+
+            }
+
+        }
+
+
+        /* ==========================================
+           SMALL MOBILE
+           ========================================== */
+
+        @media (max-width: 600px) {
+
+            .lead-activity-header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+            }
+
+
+            .lead-activity-header .primary-button {
+
+                width: auto;
+
+            }
+
+
+            .lead-details-card .detail-row {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
 </head>
 
 
@@ -84,7 +394,9 @@
                 <a
                     href="leads.html"
                     class="active">
+
                     Leads
+
                 </a>
 
 
@@ -93,9 +405,9 @@
                 </a>
 
 
-<a href="closed-leads.html">
-    Closed / Disposed Leads
-</a>
+                <a href="closed-leads.html">
+                    Closed / Disposed Leads
+                </a>
 
 
                 <a href="call-logs.html">
@@ -147,6 +459,10 @@
         <main class="dashboard-content">
 
 
+            <!-- ==========================================
+                 PAGE HEADER
+                 ========================================== -->
+
             <div class="lead-details-header">
 
 
@@ -177,244 +493,477 @@
 
 
 
-            <!-- ================================
-                 LEAD DETAILS CARD
-                 ================================ -->
+            <!-- =====================================================
+                 TWO COLUMN LAYOUT
+                 ===================================================== -->
 
-            <div class="lead-details-card">
+            <div class="lead-page-grid">
 
 
-                <!-- LEAD ID -->
+                <!-- =================================================
+                     LEFT COLUMN
+                     ================================================= -->
 
-                <div class="detail-row">
+                <div class="lead-left-column">
 
-                    <div class="detail-label">
-                        Lead ID
+
+                    <!-- ==========================================
+                         LEAD DETAILS CARD
+                         ========================================== -->
+
+                    <div class="lead-details-card">
+
+
+                        <!-- LEAD ID -->
+
+                        <div class="detail-row">
+
+                            <div class="detail-label">
+                                Lead ID
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="leadId">
+
+                                -
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- NAME -->
+
+                        <div class="detail-row">
+
+                            <div class="detail-label">
+                                Full Name
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="leadName">
+
+                                -
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- EMAIL -->
+
+                        <div class="detail-row">
+
+                            <div class="detail-label">
+                                Email
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="leadEmail">
+
+                                -
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- PHONE -->
+
+                        <div class="detail-row">
+
+                            <div class="detail-label">
+                                Phone
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="leadPhone">
+
+                                -
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- COURSE -->
+
+                        <div class="detail-row">
+
+                            <div class="detail-label">
+                                Course
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="leadCourse">
+
+                                -
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- LEAD SOURCE -->
+
+                        <div class="detail-row">
+
+                            <div class="detail-label">
+                                Lead Source
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="leadSource">
+
+                                -
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- STATUS -->
+
+                        <div class="detail-row">
+
+                            <div class="detail-label">
+                                Status
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="leadStatus">
+
+                                -
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- ======================================
+                             UPDATE STATUS
+                             ====================================== -->
+
+                        <div class="detail-row">
+
+
+                            <div class="detail-label">
+
+                                Update Status
+
+                            </div>
+
+
+                            <div class="detail-value">
+
+
+                                <select id="leadStatusSelect">
+
+
+                                    <option value="NEW">
+                                        NEW
+                                    </option>
+
+
+                                    <option value="CONTACTED">
+                                        CONTACTED
+                                    </option>
+
+
+                                    <option value="INTERESTED">
+                                        INTERESTED
+                                    </option>
+
+
+                                    <option value="FOLLOW_UP">
+                                        FOLLOW_UP
+                                    </option>
+
+
+                                    <option value="COUNSELLING">
+                                        COUNSELLING
+                                    </option>
+
+
+                                    <option value="ENROLLED">
+                                        ENROLLED
+                                    </option>
+
+
+                                    <option value="NOT_INTERESTED">
+                                        NOT_INTERESTED
+                                    </option>
+
+
+                                    <option value="WRONG_NUMBER">
+                                        WRONG_NUMBER
+                                    </option>
+
+
+                                    <option value="NO_RESPONSE">
+                                        NO_RESPONSE
+                                    </option>
+
+
+                                    <option value="LOST">
+                                        LOST
+                                    </option>
+
+
+                                </select>
+
+
+                                <button
+                                    type="button"
+                                    class="primary-button"
+                                    id="updateLeadStatusButton">
+
+                                    Update Status
+
+                                </button>
+
+
+                                <div
+                                    id="leadStatusMessage"
+                                    style="margin-top: 8px;">
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- PRIORITY -->
+
+                        <div class="detail-row">
+
+                            <div class="detail-label">
+                                Priority
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="leadPriority">
+
+                                -
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- CITY -->
+
+                        <div class="detail-row">
+
+                            <div class="detail-label">
+                                City
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="leadCity">
+
+                                -
+
+                            </div>
+
+                        </div>
+
+
                     </div>
 
-                    <div
-                        class="detail-value"
-                        id="leadId">
-                        -
+
+
+                    <!-- =================================================
+                         CALL HISTORY
+                         ================================================= -->
+
+                    <div class="lead-activity-section">
+
+
+                        <div class="lead-activity-header">
+
+
+                            <div>
+
+                                <h3>
+                                    Call History
+                                </h3>
+
+                                <p>
+                                    All calls related to this lead.
+                                </p>
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                class="primary-button"
+                                onclick="window.location.href='add-call-log.html?leadId=' + leadId">
+
+                                + Add Call
+
+                            </button>
+
+
+                        </div>
+
+
+
+                        <div id="leadCallLogs">
+
+
+                            <div class="activity-empty">
+
+                                Loading call history...
+
+                            </div>
+
+
+                        </div>
+
+
                     </div>
+
 
                 </div>
 
 
 
-                <!-- NAME -->
+                <!-- =================================================
+                     RIGHT COLUMN
+                     ================================================= -->
 
-                <div class="detail-row">
+                <div class="lead-right-column">
 
-                    <div class="detail-label">
-                        Full Name
+
+                    <!-- =================================================
+                         FOLLOW-UP HISTORY
+                         ================================================= -->
+
+                    <div class="lead-activity-section">
+
+
+                        <div class="lead-activity-header">
+
+
+                            <div>
+
+                                <h3>
+                                    Follow-up History
+                                </h3>
+
+                                <p>
+                                    All follow-ups scheduled for this lead.
+                                </p>
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                class="primary-button"
+                                onclick="window.location.href='add-follow-up.html?leadId=' + leadId">
+
+                                + Add Follow-up
+
+                            </button>
+
+
+                        </div>
+
+
+
+                        <div id="leadFollowUps">
+
+
+                            <div class="activity-empty">
+
+                                Loading follow-ups...
+
+                            </div>
+
+
+                        </div>
+
+
                     </div>
 
-                    <div
-                        class="detail-value"
-                        id="leadName">
-                        -
+
+
+                    <!-- =================================================
+                         NOTES
+                         ================================================= -->
+
+                    <div class="lead-activity-section">
+
+
+                        <div class="lead-activity-header">
+
+
+                            <div>
+
+                                <h3>
+                                    Notes
+                                </h3>
+
+                                <p>
+                                    All notes related to this lead.
+                                </p>
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                class="primary-button"
+                                onclick="window.location.href='add-note.html?leadId=' + leadId">
+
+                                + Add Note
+
+                            </button>
+
+
+                        </div>
+
+
+
+                        <div id="leadNotes">
+
+
+                            <div class="activity-empty">
+
+                                Loading notes...
+
+                            </div>
+
+
+                        </div>
+
+
                     </div>
 
-                </div>
-
-
-
-                <!-- EMAIL -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Email
-                    </div>
-
-                    <div
-                        class="detail-value"
-                        id="leadEmail">
-                        -
-                    </div>
-
-                </div>
-
-
-
-                <!-- PHONE -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Phone
-                    </div>
-
-                    <div
-                        class="detail-value"
-                        id="leadPhone">
-                        -
-                    </div>
-
-                </div>
-
-
-
-                <!-- COURSE -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Course
-                    </div>
-
-                    <div
-                        class="detail-value"
-                        id="leadCourse">
-                        -
-                    </div>
-
-                </div>
-
-
-
-                <!-- SOURCE -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Lead Source
-                    </div>
-
-                    <div
-                        class="detail-value"
-                        id="leadSource">
-                        -
-                    </div>
-
-                </div>
-
-
-
-                <!-- STATUS -->
-
-<div class="detail-row">
-
-    <div class="detail-label">
-        Status
-    </div>
-
-    <div
-        class="detail-value"
-        id="leadStatus">
-        -
-    </div>
-
-</div>
-
-
-<!-- UPDATE STATUS -->
-
-<div class="detail-row">
-
-    <div class="detail-label">
-        Update Status
-    </div>
-
-    <div class="detail-value">
-
-        <select id="leadStatusSelect">
-
-            <option value="NEW">
-                NEW
-            </option>
-
-            <option value="CONTACTED">
-                CONTACTED
-            </option>
-
-            <option value="INTERESTED">
-                INTERESTED
-            </option>
-
-            <option value="FOLLOW_UP">
-                FOLLOW_UP
-            </option>
-
-            <option value="COUNSELLING">
-                COUNSELLING
-            </option>
-
-            <option value="ENROLLED">
-                ENROLLED
-            </option>
-
-            <option value="NOT_INTERESTED">
-                NOT_INTERESTED
-            </option>
-
-            <option value="WRONG_NUMBER">
-                WRONG_NUMBER
-            </option>
-
-            <option value="NO_RESPONSE">
-                NO_RESPONSE
-            </option>
-
-            <option value="LOST">
-                LOST
-            </option>
-
-        </select>
-
-        <button
-            type="button"
-            class="primary-button"
-            id="updateLeadStatusButton">
-
-            Update Status
-
-        </button>
-
-        <div
-            id="leadStatusMessage"
-            style="margin-top: 8px;">
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-                <!-- PRIORITY -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Priority
-                    </div>
-
-                    <div
-                        class="detail-value"
-                        id="leadPriority">
-                        -
-                    </div>
-
-                </div>
-
-
-
-                <!-- CITY -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        City
-                    </div>
-
-                    <div
-                        class="detail-value"
-                        id="leadCity">
-                        -
-                    </div>
 
                 </div>
 
@@ -423,141 +972,9 @@
 
 
 
-            <!-- ========================================
-                 CALL LOGS
-            ======================================== -->
-
-            <div class="lead-activity-section">
-
-                <div class="lead-activity-header">
-
-    <div>
-
-        <h3>
-            Call History
-        </h3>
-
-        <p>
-            All calls related to this lead.
-        </p>
-
-    </div>
-
-    <button
-        type="button"
-        class="primary-button"
-        onclick="window.location.href='add-call-log.html?leadId=' + leadId">
-
-        + Add Call
-
-    </button>
-
-</div>
-
-
-                <div id="leadCallLogs">
-
-                    <div class="activity-empty">
-                        Loading call history...
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- ========================================
-                 FOLLOW-UPS
-            ======================================== -->
-
-            <div class="lead-activity-section">
-
-                <div class="lead-activity-header">
-
-    <div>
-
-        <h3>
-            Follow-up History
-        </h3>
-
-        <p>
-            All follow-ups scheduled for this lead.
-        </p>
-
-    </div>
-
-    <button
-        type="button"
-        class="primary-button"
-        onclick="window.location.href='add-follow-up.html?leadId=' + leadId">
-
-        + Add Follow-up
-
-    </button>
-
-</div>
-
-
-                <div id="leadFollowUps">
-
-                    <div class="activity-empty">
-                        Loading follow-ups...
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- ========================================
-                 NOTES
-            ======================================== -->
-
-            <div class="lead-activity-section">
-
-                <div class="lead-activity-header">
-
-    <div>
-
-        <h3>
-            Notes
-        </h3>
-
-        <p>
-            All notes related to this lead.
-        </p>
-
-    </div>
-
-    <button
-        type="button"
-        class="primary-button"
-        onclick="window.location.href='add-note.html?leadId=' + leadId">
-
-        + Add Note
-
-    </button>
-
-</div>
-
-
-                <div id="leadNotes">
-
-                    <div class="activity-empty">
-                        Loading notes...
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- ================================
+            <!-- =====================================================
                  BOTTOM ACTION
-                 ================================ -->
+                 ===================================================== -->
 
             <div class="lead-details-actions">
 
@@ -590,8 +1007,6 @@
      ================================ -->
 
 <script src="config.js"></script>
-
-<script src="notifications.js"></script>
 
 <script src="lead-details.js"></script>
 
