@@ -1,7 +1,10 @@
 const token = localStorage.getItem("jwtToken");
 
+
 if (!token) {
+
     window.location.href = "index.html";
+
 }
 
 
@@ -9,11 +12,14 @@ if (!token) {
 // SHOW LOGGED-IN USER
 // ================================
 
-const userName = localStorage.getItem("userName");
+const userName =
+    localStorage.getItem("userName");
 
 if (userName) {
+
     document.getElementById("userName").textContent =
         userName;
+
 }
 
 
@@ -31,6 +37,7 @@ document.getElementById("logoutButton")
         localStorage.removeItem("userRole");
 
         window.location.href = "index.html";
+
     });
 
 
@@ -39,13 +46,18 @@ document.getElementById("logoutButton")
 // ================================
 
 const urlParams =
-    new URLSearchParams(window.location.search);
+    new URLSearchParams(
+        window.location.search
+    );
+
 
 const assignmentId =
     urlParams.get("id");
 
+
 const leadIdFromUrl =
     urlParams.get("leadId");
+
 
 let assignmentLeadId = null;
 
@@ -67,28 +79,32 @@ async function loadAssignment() {
 
         if (assignmentId) {
 
-            const response = await fetch(
-                `${API_BASE_URL}/api/lead-assignments/${assignmentId}`,
-                {
-                    method: "GET",
+            const response =
+                await fetch(
+                    `${API_BASE_URL}/api/lead-assignments/${assignmentId}`,
+                    {
+                        method: "GET",
 
-                    headers: {
-                        "Authorization":
-                            "Bearer " + token
+                        headers: {
+                            "Authorization":
+                                "Bearer " + token
+                        }
                     }
-                }
-            );
+                );
 
 
             if (!response.ok) {
+
                 throw new Error(
                     "Failed to load assignment"
                 );
+
             }
 
 
             assignment =
                 await response.json();
+
         }
 
 
@@ -98,17 +114,18 @@ async function loadAssignment() {
 
         else if (leadIdFromUrl) {
 
-            const response = await fetch(
-                `${API_BASE_URL}/api/lead-assignments/lead/${leadIdFromUrl}/active`,
-                {
-                    method: "GET",
+            const response =
+                await fetch(
+                    `${API_BASE_URL}/api/lead-assignments/lead/${leadIdFromUrl}/active`,
+                    {
+                        method: "GET",
 
-                    headers: {
-                        "Authorization":
-                            "Bearer " + token
+                        headers: {
+                            "Authorization":
+                                "Bearer " + token
+                        }
                     }
-                }
-            );
+                );
 
 
             if (!response.ok) {
@@ -121,22 +138,25 @@ async function loadAssignment() {
                         "This lead does not have an active assignment yet.";
 
                     return;
+
                 }
 
 
                 throw new Error(
                     "Failed to load active assignment"
                 );
+
             }
 
 
             assignment =
                 await response.json();
+
         }
 
 
         // --------------------------------
-        // No ID provided
+        // NO ID PROVIDED
         // --------------------------------
 
         else {
@@ -147,6 +167,7 @@ async function loadAssignment() {
                 "Assignment ID or Lead ID not found.";
 
             return;
+
         }
 
 
@@ -158,37 +179,46 @@ async function loadAssignment() {
             assignment.leadId;
 
 
-        document.getElementById("assignmentId")
-            .textContent =
+        document.getElementById(
+            "assignmentId"
+        ).textContent =
             assignment.id;
 
 
-        document.getElementById("leadId")
-            .textContent =
+        document.getElementById(
+            "leadId"
+        ).textContent =
             assignment.leadId;
 
 
-        document.getElementById("currentAgentId")
-            .textContent =
+        document.getElementById(
+            "currentAgentId"
+        ).textContent =
             assignment.agentId;
 
 
-        document.getElementById("currentTeamId")
-            .textContent =
+        document.getElementById(
+            "currentTeamId"
+        ).textContent =
             assignment.teamId || "-";
 
 
-        document.getElementById("assignedAt")
-            .textContent =
+        document.getElementById(
+            "assignedAt"
+        ).textContent =
             assignment.assignedAt || "-";
 
 
-        document.getElementById("assignmentStatus")
-            .textContent =
+        document.getElementById(
+            "assignmentStatus"
+        ).textContent =
             assignment.status || "-";
 
 
-        // Load dropdowns
+        // ================================
+        // LOAD DROPDOWNS
+        // ================================
+
         await loadAgents();
 
         await loadTeams();
@@ -205,7 +235,9 @@ async function loadAssignment() {
             "reassignMessage"
         ).textContent =
             "Unable to load assignment.";
+
     }
+
 }
 
 
@@ -217,23 +249,26 @@ async function loadAgents() {
 
     try {
 
-        const response = await fetch(
-            `${API_BASE_URL}/api/users`,
-            {
-                method: "GET",
+        const response =
+            await fetch(
+                `${API_BASE_URL}/api/users`,
+                {
+                    method: "GET",
 
-                headers: {
-                    "Authorization":
-                        "Bearer " + token
+                    headers: {
+                        "Authorization":
+                            "Bearer " + token
+                    }
                 }
-            }
-        );
+            );
 
 
         if (!response.ok) {
+
             throw new Error(
                 "Failed to load users"
             );
+
         }
 
 
@@ -242,7 +277,16 @@ async function loadAgents() {
 
 
         const agentSelect =
-            document.getElementById("agentSelect");
+            document.getElementById(
+                "agentSelect"
+            );
+
+
+        agentSelect.innerHTML = `
+            <option value="">
+                Select Agent
+            </option>
+        `;
 
 
         users
@@ -252,11 +296,14 @@ async function loadAgents() {
                     user.role === "AGENT" &&
                     user.status === "ACTIVE"
                 );
+
             })
             .forEach(function (agent) {
 
                 const option =
-                    document.createElement("option");
+                    document.createElement(
+                        "option"
+                    );
 
 
                 option.value =
@@ -267,7 +314,10 @@ async function loadAgents() {
                     `${agent.fullName} (${agent.email})`;
 
 
-                agentSelect.appendChild(option);
+                agentSelect.appendChild(
+                    option
+                );
+
             });
 
 
@@ -277,7 +327,26 @@ async function loadAgents() {
             "Error loading agents:",
             error
         );
+
+
+        const agentSelect =
+            document.getElementById(
+                "agentSelect"
+            );
+
+
+        if (agentSelect) {
+
+            agentSelect.innerHTML = `
+                <option value="">
+                    Failed to load agents
+                </option>
+            `;
+
+        }
+
     }
+
 }
 
 
@@ -289,23 +358,26 @@ async function loadTeams() {
 
     try {
 
-        const response = await fetch(
-            `${API_BASE_URL}/api/teams`,
-            {
-                method: "GET",
+        const response =
+            await fetch(
+                `${API_BASE_URL}/api/teams`,
+                {
+                    method: "GET",
 
-                headers: {
-                    "Authorization":
-                        "Bearer " + token
+                    headers: {
+                        "Authorization":
+                            "Bearer " + token
+                    }
                 }
-            }
-        );
+            );
 
 
         if (!response.ok) {
+
             throw new Error(
                 "Failed to load teams"
             );
+
         }
 
 
@@ -314,18 +386,30 @@ async function loadTeams() {
 
 
         const teamSelect =
-            document.getElementById("teamSelect");
+            document.getElementById(
+                "teamSelect"
+            );
+
+
+        teamSelect.innerHTML = `
+            <option value="">
+                Select Team
+            </option>
+        `;
 
 
         teams
             .filter(function (team) {
 
                 return team.status === "ACTIVE";
+
             })
             .forEach(function (team) {
 
                 const option =
-                    document.createElement("option");
+                    document.createElement(
+                        "option"
+                    );
 
 
                 option.value =
@@ -336,7 +420,10 @@ async function loadTeams() {
                     team.teamName;
 
 
-                teamSelect.appendChild(option);
+                teamSelect.appendChild(
+                    option
+                );
+
             });
 
 
@@ -346,119 +433,260 @@ async function loadTeams() {
             "Error loading teams:",
             error
         );
+
+
+        const teamSelect =
+            document.getElementById(
+                "teamSelect"
+            );
+
+
+        if (teamSelect) {
+
+            teamSelect.innerHTML = `
+                <option value="">
+                    Failed to load teams
+                </option>
+            `;
+
+        }
+
     }
+
 }
 
 
 // ================================
-// REASSIGN LEAD
+// REASSIGN / TRANSFER LEAD
 // ================================
 
 document.getElementById("reassignForm")
-    .addEventListener("submit", async function (event) {
+    .addEventListener(
+        "submit",
+        async function (event) {
 
-        event.preventDefault();
-
-
-        const newAgentId =
-            document.getElementById("agentSelect").value;
+            event.preventDefault();
 
 
-        const newTeamId =
-            document.getElementById("teamSelect").value;
+            const newAgentId =
+                document.getElementById(
+                    "agentSelect"
+                ).value;
 
 
-        const message =
-            document.getElementById("reassignMessage");
+            const newTeamId =
+                document.getElementById(
+                    "teamSelect"
+                ).value;
 
 
-        if (!assignmentLeadId) {
+            const message =
+                document.getElementById(
+                    "reassignMessage"
+                );
+
+
+            // ================================
+            // VALIDATE LEAD
+            // ================================
+
+            if (!assignmentLeadId) {
+
+                message.textContent =
+                    "Lead ID not available.";
+
+                return;
+
+            }
+
+
+            // ================================
+            // VALIDATE AGENT + TEAM
+            // ================================
+
+            if (!newAgentId) {
+
+                message.textContent =
+                    "Please select an agent.";
+
+                return;
+
+            }
+
+
+            if (!newTeamId) {
+
+                message.textContent =
+                    "Please select a team.";
+
+                return;
+
+            }
+
+
+            // ================================
+            // SHOW PROCESSING MESSAGE
+            // ================================
 
             message.textContent =
-                "Lead ID not available.";
-
-            return;
-        }
-
-
-        if (!newAgentId || !newTeamId) {
-
-            message.textContent =
-                "Please select an agent and team.";
-
-            return;
-        }
-
-
-        message.textContent =
-            "Reassigning lead...";
-
-
-        try {
-
-            const response = await fetch(
-                `${API_BASE_URL}/api/lead-assignments/reassign?leadId=${assignmentLeadId}&newAgentId=${newAgentId}&newTeamId=${newTeamId}`,
-                {
-                    method: "PUT",
-
-                    headers: {
-                        "Authorization":
-                            "Bearer " + token
-                    }
-                }
-            );
-
-
-            let data = null;
+                "Reassigning lead...";
 
 
             try {
 
-                data =
-                    await response.json();
+                // ==========================================
+                // IMPORTANT
+                //
+                // Backend endpoint:
+                //
+                // PUT
+                // /api/lead-assignments/{leadId}/reassign
+                //
+                // Request body:
+                // {
+                //     newAgentId: ...,
+                //     newTeamId: ...
+                // }
+                // ==========================================
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/lead-assignments/${assignmentLeadId}/reassign`,
+                        {
+                            method: "PUT",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                "Authorization":
+                                    "Bearer " + token
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    newAgentId:
+                                        Number(
+                                            newAgentId
+                                        ),
+
+                                    newTeamId:
+                                        Number(
+                                            newTeamId
+                                        )
+
+                                })
+
+                        }
+                    );
+
+
+                // ================================
+                // READ RESPONSE
+                // ================================
+
+                const responseText =
+                    await response.text();
+
+
+                let data = null;
+
+
+                try {
+
+                    if (responseText) {
+
+                        data =
+                            JSON.parse(
+                                responseText
+                            );
+
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        "Unable to parse response:",
+                        error
+                    );
+
+                }
+
+
+                // ================================
+                // ERROR
+                // ================================
+
+                if (!response.ok) {
+
+                    console.error(
+                        "Transfer failed:",
+                        response.status,
+                        responseText
+                    );
+
+
+                    message.textContent =
+                        (
+                            data &&
+                            (
+                                data.message ||
+                                data.error
+                            )
+                        ) ||
+                        responseText ||
+                        `Failed to reassign lead. HTTP ${response.status}`;
+
+                    return;
+
+                }
+
+
+                // ================================
+                // SUCCESS
+                // ================================
+
+                message.textContent =
+                    "Lead transferred successfully!";
+
+
+                message.style.color =
+                    "green";
+
+
+                // ================================
+                // REDIRECT
+                // ================================
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            "lead-assignments.html";
+
+                    },
+                    1000
+                );
+
 
             } catch (error) {
 
-                // Response may have no JSON body
+                console.error(
+                    "Error reassigning lead:",
+                    error
+                );
 
-            }
-
-
-            if (!response.ok) {
 
                 message.textContent =
-                    (data && data.error) ||
-                    "Failed to reassign lead.";
+                    "Unable to connect to CRM server.";
 
-                return;
             }
 
-
-            message.textContent =
-                "Lead reassigned successfully!";
-
-
-            setTimeout(function () {
-
-                window.location.href =
-                    "lead-assignments.html";
-
-            }, 1000);
-
-
-        } catch (error) {
-
-            console.error(
-                "Error reassigning lead:",
-                error
-            );
-
-
-            message.textContent =
-                "Unable to connect to CRM server.";
         }
-
-    });
+    );
 
 
 // ================================
