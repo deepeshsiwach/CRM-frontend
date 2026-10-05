@@ -16,10 +16,6 @@
         href="style.css">
 
 
-    <!-- =====================================================
-         LEAD DETAILS PAGE CUSTOM STYLING
-         ===================================================== -->
-
     <style>
 
         /* ==========================================
@@ -42,10 +38,6 @@
 
         }
 
-
-        /* ==========================================
-           LEFT AND RIGHT COLUMNS
-           ========================================== */
 
         .lead-left-column,
         .lead-right-column {
@@ -76,10 +68,6 @@
         }
 
 
-        /* ==========================================
-           SMALLER DETAIL ROWS
-           ========================================== */
-
         .lead-details-card .detail-row {
 
             min-height: 48px;
@@ -104,16 +92,155 @@
 
 
         /* ==========================================
+           EDITABLE INPUTS
+           ========================================== */
+
+        .lead-edit-input,
+        .lead-edit-select {
+
+            width: 100%;
+
+            max-width: 360px;
+
+            box-sizing: border-box;
+
+            padding: 8px 10px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 6px;
+
+            background: #ffffff;
+
+            font-size: 13px;
+
+            color: #111827;
+
+        }
+
+
+        .lead-edit-input:focus,
+        .lead-edit-select:focus {
+
+            outline: none;
+
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 2px
+                rgba(37, 99, 235, 0.12);
+
+        }
+
+
+        .lead-readonly-value {
+
+            color: #374151;
+
+            font-size: 14px;
+
+        }
+
+
+        .lead-protected-badge {
+
+            display: inline-block;
+
+            margin-left: 8px;
+
+            padding: 3px 7px;
+
+            border-radius: 4px;
+
+            background: #f3f4f6;
+
+            color: #6b7280;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            vertical-align: middle;
+
+        }
+
+
+        /* ==========================================
+           SAVE BUTTON AREA
+           ========================================== */
+
+        .lead-save-section {
+
+            padding: 16px;
+
+            border-top: 1px solid #e5e7eb;
+
+            background: #fafafa;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .save-lead-details-button {
+
+            background: #2563eb !important;
+
+            background-color: #2563eb !important;
+
+            color: #ffffff !important;
+
+            border: 1px solid #2563eb !important;
+
+            font-weight: 600;
+
+            padding: 9px 16px;
+
+        }
+
+
+        .save-lead-details-button:hover {
+
+            background: #1d4ed8 !important;
+
+            background-color: #1d4ed8 !important;
+
+            border-color: #1d4ed8 !important;
+
+        }
+
+
+        .save-lead-details-button:disabled {
+
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+        }
+
+
+        #leadDetailsMessage {
+
+            font-size: 12px;
+
+            min-height: 18px;
+
+        }
+
+
+        /* ==========================================
            STATUS SELECT
            ========================================== */
 
         .lead-details-card select {
 
             font-size: 13px;
-
-            padding: 7px 9px;
-
-            max-width: 160px;
 
         }
 
@@ -149,10 +276,6 @@
         }
 
 
-        /* ==========================================
-           ACTIVITY HEADERS
-           ========================================== */
-
         .lead-activity-header {
 
             display: flex;
@@ -184,10 +307,6 @@
         }
 
 
-        /* ==========================================
-           ACTIVITY BUTTONS
-           ========================================== */
-
         .lead-activity-header .primary-button {
 
             white-space: nowrap;
@@ -198,10 +317,6 @@
 
         }
 
-
-        /* ==========================================
-           ACTIVITY CONTENT
-           ========================================== */
 
         #leadCallLogs,
         #leadFollowUps,
@@ -225,20 +340,12 @@
         }
 
 
-        /* ==========================================
-           FOLLOW-UP AND NOTES BOX
-           ========================================== */
-
         .lead-right-column .lead-activity-section {
 
             max-height: none;
 
         }
 
-
-        /* ==========================================
-           ACTIVITY EMPTY MESSAGE
-           ========================================== */
 
         .activity-empty {
 
@@ -259,10 +366,6 @@
 
         }
 
-
-        /* ==========================================
-           STATUS MESSAGE
-           ========================================== */
 
         #leadStatusMessage {
 
@@ -321,7 +424,7 @@
 
 
         /* ==========================================
-           TRANSFER MODAL OVERLAY
+           TRANSFER MODAL
            ========================================== */
 
         .transfer-modal-overlay {
@@ -360,10 +463,6 @@
         }
 
 
-        /* ==========================================
-           TRANSFER MODAL
-           ========================================== */
-
         .transfer-modal {
 
             width: 100%;
@@ -378,7 +477,9 @@
 
             box-sizing: border-box;
 
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            box-shadow:
+                0 20px 50px
+                rgba(0, 0, 0, 0.25);
 
         }
 
@@ -402,10 +503,6 @@
 
         }
 
-
-        /* ==========================================
-           TRANSFER LEAD INFO
-           ========================================== */
 
         .transfer-lead-info {
 
@@ -450,10 +547,6 @@
 
         }
 
-
-        /* ==========================================
-           TRANSFER FORM
-           ========================================== */
 
         .transfer-form-group {
 
@@ -500,14 +593,12 @@
 
             border-color: #2563eb;
 
-            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+            box-shadow:
+                0 0 0 2px
+                rgba(37, 99, 235, 0.12);
 
         }
 
-
-        /* ==========================================
-           TRANSFER MESSAGE
-           ========================================== */
 
         #transferMessage {
 
@@ -533,10 +624,6 @@
 
         }
 
-
-        /* ==========================================
-           TRANSFER MODAL ACTIONS
-           ========================================== */
 
         .transfer-modal-actions {
 
@@ -630,10 +717,6 @@
         }
 
 
-        /* ==========================================
-           SMALL MOBILE
-           ========================================== */
-
         @media (max-width: 600px) {
 
             .lead-activity-header {
@@ -671,6 +754,14 @@
                 width: 100%;
 
                 margin-right: 0;
+
+            }
+
+
+            .lead-edit-input,
+            .lead-edit-select {
+
+                max-width: 100%;
 
             }
 
@@ -714,7 +805,6 @@
 
     <header class="dashboard-header">
 
-
         <h1 class="brand-logo">
 
             <img
@@ -737,9 +827,7 @@
 
         </div>
 
-
     </header>
-
 
 
     <div class="dashboard-layout">
@@ -751,14 +839,12 @@
 
         <aside class="sidebar">
 
-
             <h2>
                 Menu
             </h2>
 
 
             <nav>
-
 
                 <a href="dashboard.html">
                     Dashboard
@@ -818,12 +904,9 @@
                     Campaigns
                 </a>
 
-
             </nav>
 
-
         </aside>
-
 
 
         <!-- ================================
@@ -833,12 +916,9 @@
         <main class="dashboard-content">
 
 
-            <!-- ==========================================
-                 PAGE HEADER
-                 ========================================== -->
+            <!-- PAGE HEADER -->
 
             <div class="lead-details-header">
-
 
                 <div>
 
@@ -847,7 +927,7 @@
                     </h2>
 
                     <p>
-                        View complete information about this lead.
+                        View and update complete information about this lead.
                     </p>
 
                 </div>
@@ -855,8 +935,6 @@
 
                 <div class="lead-header-actions">
 
-
-                    <!-- TRANSFER LEAD -->
 
                     <button
                         type="button"
@@ -868,8 +946,6 @@
                     </button>
 
 
-                    <!-- BACK -->
-
                     <button
                         type="button"
                         class="secondary-button"
@@ -879,12 +955,9 @@
 
                     </button>
 
-
                 </div>
 
-
             </div>
-
 
 
             <!-- =====================================================
@@ -927,8 +1000,7 @@
                         </div>
 
 
-
-                        <!-- NAME -->
+                        <!-- FULL NAME -->
 
                         <div class="detail-row">
 
@@ -936,16 +1008,17 @@
                                 Full Name
                             </div>
 
-                            <div
-                                class="detail-value"
-                                id="leadName">
+                            <div class="detail-value">
 
-                                -
+                                <input
+                                    type="text"
+                                    id="editLeadName"
+                                    class="lead-edit-input"
+                                    placeholder="Enter full name">
 
                             </div>
 
                         </div>
-
 
 
                         <!-- EMAIL -->
@@ -956,16 +1029,17 @@
                                 Email
                             </div>
 
-                            <div
-                                class="detail-value"
-                                id="leadEmail">
+                            <div class="detail-value">
 
-                                -
+                                <input
+                                    type="email"
+                                    id="editLeadEmail"
+                                    class="lead-edit-input"
+                                    placeholder="Enter email">
 
                             </div>
 
                         </div>
-
 
 
                         <!-- PHONE -->
@@ -976,19 +1050,43 @@
                                 Phone
                             </div>
 
-                            <div
-                                class="detail-value"
-                                id="leadPhone">
+                            <div class="detail-value">
 
-                                -
+                                <input
+                                    type="text"
+                                    id="editLeadPhone"
+                                    class="lead-edit-input"
+                                    placeholder="Enter phone number">
 
                             </div>
 
                         </div>
 
 
+                        <!-- AGE -->
 
-                        <!-- COURSE -->
+                        <div class="detail-row">
+
+                            <div class="detail-label">
+                                Age
+                            </div>
+
+                            <div class="detail-value">
+
+                                <input
+                                    type="number"
+                                    id="editLeadAge"
+                                    class="lead-edit-input"
+                                    min="1"
+                                    max="120"
+                                    placeholder="Enter age">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- COURSE - PROTECTED -->
 
                         <div class="detail-row">
 
@@ -997,18 +1095,21 @@
                             </div>
 
                             <div
-                                class="detail-value"
+                                class="detail-value lead-readonly-value"
                                 id="leadCourse">
 
                                 -
+
+                                <span class="lead-protected-badge">
+                                    Protected
+                                </span>
 
                             </div>
 
                         </div>
 
 
-
-                        <!-- LEAD SOURCE -->
+                        <!-- LEAD SOURCE - PROTECTED -->
 
                         <div class="detail-row">
 
@@ -1017,15 +1118,18 @@
                             </div>
 
                             <div
-                                class="detail-value"
+                                class="detail-value lead-readonly-value"
                                 id="leadSource">
 
                                 -
 
+                                <span class="lead-protected-badge">
+                                    Protected
+                                </span>
+
                             </div>
 
                         </div>
-
 
 
                         <!-- STATUS -->
@@ -1036,111 +1140,57 @@
                                 Status
                             </div>
 
-                            <div
-                                class="detail-value"
-                                id="leadStatus">
-
-                                -
-
-                            </div>
-
-                        </div>
-
-
-
-                        <!-- UPDATE STATUS -->
-
-                        <div class="detail-row">
-
-
-                            <div class="detail-label">
-
-                                Update Status
-
-                            </div>
-
-
                             <div class="detail-value">
 
-
-                                <select id="leadStatusSelect">
-
+                                <select
+                                    id="leadStatusSelect"
+                                    class="lead-edit-select">
 
                                     <option value="NEW">
                                         NEW
                                     </option>
 
-
                                     <option value="CONTACTED">
                                         CONTACTED
                                     </option>
-
 
                                     <option value="INTERESTED">
                                         INTERESTED
                                     </option>
 
-
                                     <option value="FOLLOW_UP">
                                         FOLLOW_UP
                                     </option>
-
 
                                     <option value="COUNSELLING">
                                         COUNSELLING
                                     </option>
 
-
                                     <option value="ENROLLED">
                                         ENROLLED
                                     </option>
-
 
                                     <option value="NOT_INTERESTED">
                                         NOT_INTERESTED
                                     </option>
 
-
                                     <option value="WRONG_NUMBER">
                                         WRONG_NUMBER
                                     </option>
-
 
                                     <option value="NO_RESPONSE">
                                         NO_RESPONSE
                                     </option>
 
-
                                     <option value="LOST">
                                         LOST
                                     </option>
 
-
                                 </select>
-
-
-                                <button
-                                    type="button"
-                                    class="primary-button"
-                                    id="updateLeadStatusButton">
-
-                                    Update Status
-
-                                </button>
-
-
-                                <div
-                                    id="leadStatusMessage"
-                                    style="margin-top: 8px;">
-
-                                </div>
-
 
                             </div>
 
-
                         </div>
-
 
 
                         <!-- PRIORITY -->
@@ -1151,16 +1201,33 @@
                                 Priority
                             </div>
 
-                            <div
-                                class="detail-value"
-                                id="leadPriority">
+                            <div class="detail-value">
 
-                                -
+                                <select
+                                    id="editLeadPriority"
+                                    class="lead-edit-select">
+
+                                    <option value="">
+                                        Select Priority
+                                    </option>
+
+                                    <option value="LOW">
+                                        LOW
+                                    </option>
+
+                                    <option value="MEDIUM">
+                                        MEDIUM
+                                    </option>
+
+                                    <option value="HIGH">
+                                        HIGH
+                                    </option>
+
+                                </select>
 
                             </div>
 
                         </div>
-
 
 
                         <!-- CITY -->
@@ -1171,16 +1238,17 @@
                                 City
                             </div>
 
-                            <div
-                                class="detail-value"
-                                id="leadCity">
+                            <div class="detail-value">
 
-                                -
+                                <input
+                                    type="text"
+                                    id="editLeadCity"
+                                    class="lead-edit-input"
+                                    placeholder="Enter city">
 
                             </div>
 
                         </div>
-
 
 
                         <!-- EDUCATION -->
@@ -1191,16 +1259,101 @@
                                 Education
                             </div>
 
-                            <div
-                                class="detail-value"
-                                id="leadEducation">
+                            <div class="detail-value">
 
-                                -
+                                <input
+                                    type="text"
+                                    id="editLeadEducation"
+                                    class="lead-edit-input"
+                                    placeholder="Enter education">
 
                             </div>
 
                         </div>
 
+
+                        <!-- CURRENT PROFESSION -->
+
+                        <div class="detail-row">
+
+                            <div class="detail-label">
+                                Current Profession
+                            </div>
+
+                            <div class="detail-value">
+
+                                <input
+                                    type="text"
+                                    id="editLeadCurrentProfession"
+                                    class="lead-edit-input"
+                                    placeholder="Enter current profession">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PRIMARY OBJECTIVE -->
+
+                        <div class="detail-row">
+
+                            <div class="detail-label">
+                                Primary Objective
+                            </div>
+
+                            <div class="detail-value">
+
+                                <input
+                                    type="text"
+                                    id="editLeadPrimaryObjective"
+                                    class="lead-edit-input"
+                                    placeholder="Enter primary objective">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- TRADING / INVESTMENT EXPERIENCE -->
+
+                        <div class="detail-row">
+
+                            <div class="detail-label">
+                                Trading / Investment Experience
+                            </div>
+
+                            <div class="detail-value">
+
+                                <input
+                                    type="text"
+                                    id="editLeadTradingInvestmentExperience"
+                                    class="lead-edit-input"
+                                    placeholder="Enter experience">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- CUSTOMER LOOKING FOR -->
+
+                        <div class="detail-row">
+
+                            <div class="detail-label">
+                                Customer Looking For
+                            </div>
+
+                            <div class="detail-value">
+
+                                <input
+                                    type="text"
+                                    id="editLeadCustomerLookingFor"
+                                    class="lead-edit-input"
+                                    placeholder="Enter what customer is looking for">
+
+                            </div>
+
+                        </div>
 
 
                         <!-- INTERESTED AREA -->
@@ -1211,11 +1364,35 @@
                                 Interested Area
                             </div>
 
-                            <div
-                                class="detail-value"
-                                id="leadInterestedArea">
+                            <div class="detail-value">
 
-                                -
+                                <input
+                                    type="text"
+                                    id="editLeadInterestedArea"
+                                    class="lead-edit-input"
+                                    placeholder="Enter interested area">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- SAVE -->
+
+                        <div class="lead-save-section">
+
+                            <button
+                                type="button"
+                                class="primary-button save-lead-details-button"
+                                id="saveLeadDetailsButton">
+
+                                Save Lead Details
+
+                            </button>
+
+
+                            <div
+                                id="leadDetailsMessage">
 
                             </div>
 
@@ -1223,7 +1400,6 @@
 
 
                     </div>
-
 
 
                     <!-- =================================================
@@ -1234,7 +1410,6 @@
 
 
                         <div class="lead-activity-header">
-
 
                             <div>
 
@@ -1258,9 +1433,7 @@
 
                             </button>
 
-
                         </div>
-
 
 
                         <div id="leadCallLogs">
@@ -1280,7 +1453,6 @@
                 </div>
 
 
-
                 <!-- =================================================
                      RIGHT COLUMN
                      ================================================= -->
@@ -1294,7 +1466,6 @@
 
 
                         <div class="lead-activity-header">
-
 
                             <div>
 
@@ -1318,9 +1489,7 @@
 
                             </button>
 
-
                         </div>
-
 
 
                         <div id="leadFollowUps">
@@ -1337,14 +1506,12 @@
                     </div>
 
 
-
                     <!-- NOTES -->
 
                     <div class="lead-activity-section">
 
 
                         <div class="lead-activity-header">
-
 
                             <div>
 
@@ -1368,9 +1535,7 @@
 
                             </button>
 
-
                         </div>
-
 
 
                         <div id="leadNotes">
@@ -1393,11 +1558,9 @@
             </div>
 
 
-
             <!-- BOTTOM ACTION -->
 
             <div class="lead-details-actions">
-
 
                 <button
                     type="button"
@@ -1407,7 +1570,6 @@
                     ← Back to Leads
 
                 </button>
-
 
             </div>
 
@@ -1419,7 +1581,6 @@
 
 
 </div>
-
 
 
 <!-- =====================================================
@@ -1447,8 +1608,6 @@
             Transfer this lead to another product team and agent.
         </p>
 
-
-        <!-- LEAD INFORMATION -->
 
         <div class="transfer-lead-info">
 
@@ -1482,11 +1641,7 @@
         </div>
 
 
-
-        <!-- TEAM -->
-
         <div class="transfer-form-group">
-
 
             <label for="transferTeamSelect">
                 Transfer To Team
@@ -1501,15 +1656,10 @@
 
             </select>
 
-
         </div>
 
 
-
-        <!-- AGENT -->
-
         <div class="transfer-form-group">
-
 
             <label for="transferAgentSelect">
                 Transfer To Agent
@@ -1524,21 +1674,13 @@
 
             </select>
 
-
         </div>
 
-
-
-        <!-- MESSAGE -->
 
         <div id="transferMessage"></div>
 
 
-
-        <!-- ACTIONS -->
-
         <div class="transfer-modal-actions">
-
 
             <button
                 type="button"
@@ -1559,14 +1701,12 @@
 
             </button>
 
-
         </div>
 
 
     </div>
 
 </div>
-
 
 
 <!-- ================================

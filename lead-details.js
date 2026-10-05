@@ -73,6 +73,7 @@ async function loadLeadDetails() {
         console.error("Lead ID not found");
 
         return;
+
     }
 
 
@@ -96,6 +97,7 @@ async function loadLeadDetails() {
             throw new Error(
                 "Failed to load lead"
             );
+
         }
 
 
@@ -106,56 +108,226 @@ async function loadLeadDetails() {
         currentLead = lead;
 
 
-        document.getElementById("leadId").textContent =
-            lead.id;
+        // ====================================================
+        // DISPLAY EXISTING LEAD DETAILS
+        // ====================================================
+
+        const leadIdElement =
+            document.getElementById("leadId");
+
+        if (leadIdElement) {
+
+            leadIdElement.textContent =
+                lead.id;
+
+        }
 
 
-        document.getElementById("leadName").textContent =
-            lead.fullName || "-";
+        const leadNameElement =
+            document.getElementById("leadName");
+
+        if (leadNameElement) {
+
+            leadNameElement.textContent =
+                lead.fullName || "-";
+
+        }
 
 
-        document.getElementById("leadEmail").textContent =
-            lead.email || "-";
+        const leadEmailElement =
+            document.getElementById("leadEmail");
+
+        if (leadEmailElement) {
+
+            leadEmailElement.textContent =
+                lead.email || "-";
+
+        }
 
 
-        document.getElementById("leadPhone").textContent =
-            lead.phone || "-";
+        const leadPhoneElement =
+            document.getElementById("leadPhone");
+
+        if (leadPhoneElement) {
+
+            leadPhoneElement.textContent =
+                lead.phone || "-";
+
+        }
 
 
-        document.getElementById("leadCourse").textContent =
-            lead.courseInterested || "-";
+        const leadCourseElement =
+            document.getElementById("leadCourse");
+
+        if (leadCourseElement) {
+
+            leadCourseElement.textContent =
+                lead.courseInterested || "-";
+
+        }
 
 
-        document.getElementById("leadSource").textContent =
-            lead.leadSource || "-";
+        const leadSourceElement =
+            document.getElementById("leadSource");
+
+        if (leadSourceElement) {
+
+            leadSourceElement.textContent =
+                lead.leadSource || "-";
+
+        }
 
 
-        document.getElementById("leadStatus").textContent =
-            lead.status || "-";
+        const leadStatusElement =
+            document.getElementById("leadStatus");
+
+        if (leadStatusElement) {
+
+            leadStatusElement.textContent =
+                lead.status || "-";
+
+        }
 
 
-        document.getElementById("leadPriority").textContent =
-            lead.priority || "-";
+        const leadPriorityElement =
+            document.getElementById("leadPriority");
+
+        if (leadPriorityElement) {
+
+            leadPriorityElement.textContent =
+                lead.priority || "-";
+
+        }
 
 
-        document.getElementById("leadCity").textContent =
-            lead.city || "-";
+        const leadCityElement =
+            document.getElementById("leadCity");
+
+        if (leadCityElement) {
+
+            leadCityElement.textContent =
+                lead.city || "-";
+
+        }
 
 
-        // ========================================================
-        // EDUCATION
-        // ========================================================
+        const leadEducationElement =
+            document.getElementById("leadEducation");
 
-        document.getElementById("leadEducation").textContent =
-            lead.education || "-";
+        if (leadEducationElement) {
+
+            leadEducationElement.textContent =
+                lead.education || "-";
+
+        }
 
 
-        // ========================================================
-        // INTERESTED AREA
-        // ========================================================
+        const leadInterestedAreaElement =
+            document.getElementById(
+                "leadInterestedArea"
+            );
 
-        document.getElementById("leadInterestedArea").textContent =
-            lead.interestedArea || "-";
+        if (leadInterestedAreaElement) {
+
+            leadInterestedAreaElement.textContent =
+                lead.interestedArea || "-";
+
+        }
+
+
+        // ====================================================
+        // SET CURRENT STATUS IN STATUS SELECT
+        // ====================================================
+
+        const statusSelect =
+            document.getElementById(
+                "leadStatusSelect"
+            );
+
+        if (statusSelect && lead.status) {
+
+            statusSelect.value =
+                lead.status;
+
+        }
+
+
+        // ====================================================
+        // FILL EDITABLE INPUTS
+        // These elements will be added in lead-details.html
+        // ====================================================
+
+        setInputValue(
+            "editLeadName",
+            lead.fullName
+        );
+
+        setInputValue(
+            "editLeadEmail",
+            lead.email
+        );
+
+        setInputValue(
+            "editLeadPhone",
+            lead.phone
+        );
+
+        setInputValue(
+            "editLeadAge",
+            lead.age
+        );
+
+        setInputValue(
+            "editLeadCity",
+            lead.city
+        );
+
+        setInputValue(
+            "editLeadEducation",
+            lead.education
+        );
+
+        setInputValue(
+            "editLeadCurrentProfession",
+            lead.currentProfession
+        );
+
+        setInputValue(
+            "editLeadPrimaryObjective",
+            lead.primaryObjective
+        );
+
+        setInputValue(
+            "editLeadTradingInvestmentExperience",
+            lead.tradingInvestmentExperience
+        );
+
+        setInputValue(
+            "editLeadCustomerLookingFor",
+            lead.customerLookingFor
+        );
+
+        setInputValue(
+            "editLeadInterestedArea",
+            lead.interestedArea
+        );
+
+
+        // ====================================================
+        // PRIORITY SELECT
+        // ====================================================
+
+        const prioritySelect =
+            document.getElementById(
+                "editLeadPriority"
+            );
+
+        if (prioritySelect && lead.priority) {
+
+            prioritySelect.value =
+                lead.priority;
+
+        }
 
 
     } catch (error) {
@@ -164,6 +336,592 @@ async function loadLeadDetails() {
             "Error loading lead:",
             error
         );
+
+    }
+
+}
+
+
+// ============================================================
+// SET INPUT VALUE SAFELY
+// ============================================================
+
+function setInputValue(
+    elementId,
+    value
+) {
+
+    const element =
+        document.getElementById(elementId);
+
+    if (!element) {
+
+        return;
+
+    }
+
+    element.value =
+        value !== null &&
+        value !== undefined
+            ? value
+            : "";
+
+}
+
+
+// ============================================================
+// SAVE EDITABLE LEAD DETAILS
+// ============================================================
+
+async function saveLeadDetails() {
+
+    if (!leadId) {
+
+        return;
+
+    }
+
+
+    const messageElement =
+        document.getElementById(
+            "leadDetailsMessage"
+        );
+
+
+    const saveButton =
+        document.getElementById(
+            "saveLeadDetailsButton"
+        );
+
+
+    // ========================================================
+    // GET VALUES
+    // ========================================================
+
+    const fullName =
+        getInputValue("editLeadName");
+
+    const email =
+        getInputValue("editLeadEmail");
+
+    const phone =
+        getInputValue("editLeadPhone");
+
+    const ageValue =
+        getInputValue("editLeadAge");
+
+    const city =
+        getInputValue("editLeadCity");
+
+    const education =
+        getInputValue("editLeadEducation");
+
+    const currentProfession =
+        getInputValue(
+            "editLeadCurrentProfession"
+        );
+
+    const primaryObjective =
+        getInputValue(
+            "editLeadPrimaryObjective"
+        );
+
+    const tradingInvestmentExperience =
+        getInputValue(
+            "editLeadTradingInvestmentExperience"
+        );
+
+    const customerLookingFor =
+        getInputValue(
+            "editLeadCustomerLookingFor"
+        );
+
+    const interestedArea =
+        getInputValue(
+            "editLeadInterestedArea"
+        );
+
+
+    const prioritySelect =
+        document.getElementById(
+            "editLeadPriority"
+        );
+
+    const priority =
+        prioritySelect
+            ? prioritySelect.value
+            : null;
+
+
+    const statusSelect =
+        document.getElementById(
+            "leadStatusSelect"
+        );
+
+    const status =
+        statusSelect
+            ? statusSelect.value
+            : null;
+
+
+    const age =
+        ageValue
+            ? Number(ageValue)
+            : null;
+
+
+    // ========================================================
+    // BASIC VALIDATION
+    // ========================================================
+
+    if (!fullName) {
+
+        showLeadDetailsMessage(
+            "Full name is required.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (!phone) {
+
+        showLeadDetailsMessage(
+            "Phone number is required.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (!/^\+?[0-9]{10,15}$/.test(phone)) {
+
+        showLeadDetailsMessage(
+            "Phone number must contain 10 to 15 digits.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        age !== null &&
+        (
+            Number.isNaN(age) ||
+            age < 1 ||
+            age > 120
+        )
+    ) {
+
+        showLeadDetailsMessage(
+            "Age must be between 1 and 120.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    // ========================================================
+    // REQUEST BODY
+    // ========================================================
+
+    const leadDetails = {
+
+        fullName:
+            fullName,
+
+        email:
+            email || null,
+
+        phone:
+            phone,
+
+        age:
+            age,
+
+        city:
+            city || null,
+
+        education:
+            education || null,
+
+        currentProfession:
+            currentProfession || null,
+
+        primaryObjective:
+            primaryObjective || null,
+
+        tradingInvestmentExperience:
+            tradingInvestmentExperience || null,
+
+        customerLookingFor:
+            customerLookingFor || null,
+
+        interestedArea:
+            interestedArea || null,
+
+        priority:
+            priority || null,
+
+        status:
+            status || null
+
+    };
+
+
+    // ========================================================
+    // DISABLE SAVE BUTTON
+    // ========================================================
+
+    if (saveButton) {
+
+        saveButton.disabled =
+            true;
+
+        saveButton.textContent =
+            "Saving...";
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE_URL}/api/agent/leads/${leadId}/details`,
+                {
+                    method: "PUT",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Authorization":
+                            "Bearer " + token
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            leadDetails
+                        )
+
+                }
+            );
+
+
+        const responseText =
+            await response.text();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                responseText ||
+                "Failed to update lead details"
+            );
+
+        }
+
+
+        const updatedLead =
+            responseText
+                ? JSON.parse(responseText)
+                : null;
+
+
+        // ====================================================
+        // UPDATE CURRENT LEAD
+        // ====================================================
+
+        if (updatedLead) {
+
+            currentLead =
+                updatedLead;
+
+        }
+
+
+        // ====================================================
+        // UPDATE DISPLAY VALUES
+        // ====================================================
+
+        updateDisplayedLeadDetails(
+            updatedLead || leadDetails
+        );
+
+
+        showLeadDetailsMessage(
+            "Lead details updated successfully.",
+            "success"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Error updating lead details:",
+            error
+        );
+
+
+        showLeadDetailsMessage(
+            error.message ||
+            "Failed to update lead details.",
+            "error"
+        );
+
+
+    } finally {
+
+        if (saveButton) {
+
+            saveButton.disabled =
+                false;
+
+            saveButton.textContent =
+                "Save Lead Details";
+
+        }
+
+    }
+
+}
+
+
+// ============================================================
+// GET INPUT VALUE
+// ============================================================
+
+function getInputValue(elementId) {
+
+    const element =
+        document.getElementById(
+            elementId
+        );
+
+    if (!element) {
+
+        return "";
+
+    }
+
+    return element.value.trim();
+
+}
+
+
+// ============================================================
+// UPDATE DISPLAYED LEAD DETAILS
+// ============================================================
+
+function updateDisplayedLeadDetails(
+    lead
+) {
+
+    const fullName =
+        lead.fullName;
+
+    const email =
+        lead.email;
+
+    const phone =
+        lead.phone;
+
+    const city =
+        lead.city;
+
+    const education =
+        lead.education;
+
+    const interestedArea =
+        lead.interestedArea;
+
+
+    const leadNameElement =
+        document.getElementById(
+            "leadName"
+        );
+
+    if (leadNameElement) {
+
+        leadNameElement.textContent =
+            fullName || "-";
+
+    }
+
+
+    const leadEmailElement =
+        document.getElementById(
+            "leadEmail"
+        );
+
+    if (leadEmailElement) {
+
+        leadEmailElement.textContent =
+            email || "-";
+
+    }
+
+
+    const leadPhoneElement =
+        document.getElementById(
+            "leadPhone"
+        );
+
+    if (leadPhoneElement) {
+
+        leadPhoneElement.textContent =
+            phone || "-";
+
+    }
+
+
+    const leadCityElement =
+        document.getElementById(
+            "leadCity"
+        );
+
+    if (leadCityElement) {
+
+        leadCityElement.textContent =
+            city || "-";
+
+    }
+
+
+    const leadEducationElement =
+        document.getElementById(
+            "leadEducation"
+        );
+
+    if (leadEducationElement) {
+
+        leadEducationElement.textContent =
+            education || "-";
+
+    }
+
+
+    const leadInterestedAreaElement =
+        document.getElementById(
+            "leadInterestedArea"
+        );
+
+    if (leadInterestedAreaElement) {
+
+        leadInterestedAreaElement.textContent =
+            interestedArea || "-";
+
+    }
+
+
+    if (lead.status) {
+
+        const statusElement =
+            document.getElementById(
+                "leadStatus"
+            );
+
+        if (statusElement) {
+
+            statusElement.textContent =
+                lead.status;
+
+        }
+
+
+        const statusSelect =
+            document.getElementById(
+                "leadStatusSelect"
+            );
+
+        if (statusSelect) {
+
+            statusSelect.value =
+                lead.status;
+
+        }
+
+    }
+
+
+    if (lead.priority) {
+
+        const priorityElement =
+            document.getElementById(
+                "leadPriority"
+            );
+
+        if (priorityElement) {
+
+            priorityElement.textContent =
+                lead.priority;
+
+        }
+
+
+        const prioritySelect =
+            document.getElementById(
+                "editLeadPriority"
+            );
+
+        if (prioritySelect) {
+
+            prioritySelect.value =
+                lead.priority;
+
+        }
+
+    }
+
+}
+
+
+// ============================================================
+// LEAD DETAILS MESSAGE
+// ============================================================
+
+function showLeadDetailsMessage(
+    message,
+    type
+) {
+
+    const messageElement =
+        document.getElementById(
+            "leadDetailsMessage"
+        );
+
+
+    if (!messageElement) {
+
+        return;
+
+    }
+
+
+    messageElement.textContent =
+        message;
+
+
+    if (type === "success") {
+
+        messageElement.style.color =
+            "#15803d";
+
+    } else {
+
+        messageElement.style.color =
+            "#dc2626";
 
     }
 
@@ -212,7 +970,9 @@ async function loadLeadCallLogs() {
 
 
         const callLogsContainer =
-            document.getElementById("leadCallLogs");
+            document.getElementById(
+                "leadCallLogs"
+            );
 
 
         if (!callLogsContainer) {
@@ -222,8 +982,10 @@ async function loadLeadCallLogs() {
         }
 
 
-        if (!callLogs ||
-            callLogs.length === 0) {
+        if (
+            !callLogs ||
+            callLogs.length === 0
+        ) {
 
             callLogsContainer.innerHTML = `
                 <div class="activity-empty">
@@ -345,7 +1107,9 @@ async function loadLeadFollowUps() {
 
 
         const followUpsContainer =
-            document.getElementById("leadFollowUps");
+            document.getElementById(
+                "leadFollowUps"
+            );
 
 
         if (!followUpsContainer) {
@@ -355,8 +1119,10 @@ async function loadLeadFollowUps() {
         }
 
 
-        if (!followUps ||
-            followUps.length === 0) {
+        if (
+            !followUps ||
+            followUps.length === 0
+        ) {
 
             followUpsContainer.innerHTML = `
                 <div class="activity-empty">
@@ -478,7 +1244,9 @@ async function loadLeadNotes() {
 
 
         const notesContainer =
-            document.getElementById("leadNotes");
+            document.getElementById(
+                "leadNotes"
+            );
 
 
         if (!notesContainer) {
@@ -499,8 +1267,10 @@ async function loadLeadNotes() {
             });
 
 
-        if (!leadNotes ||
-            leadNotes.length === 0) {
+        if (
+            !leadNotes ||
+            leadNotes.length === 0
+        ) {
 
             notesContainer.innerHTML = `
                 <div class="activity-empty">
@@ -577,6 +1347,13 @@ async function loadTransferTeams() {
         );
 
 
+    if (!teamSelect) {
+
+        return;
+
+    }
+
+
     teamSelect.innerHTML = `
         <option value="">
             Loading teams...
@@ -619,8 +1396,10 @@ async function loadTransferTeams() {
         `;
 
 
-        if (!teams ||
-            teams.length === 0) {
+        if (
+            !teams ||
+            teams.length === 0
+        ) {
 
             teamSelect.innerHTML = `
                 <option value="">
@@ -697,6 +1476,13 @@ async function loadTransferAgents(teamId) {
         );
 
 
+    if (!agentSelect) {
+
+        return;
+
+    }
+
+
     agentSelect.innerHTML = `
         <option value="">
             Loading agents...
@@ -752,8 +1538,10 @@ async function loadTransferAgents(teamId) {
         `;
 
 
-        if (!users ||
-            users.length === 0) {
+        if (
+            !users ||
+            users.length === 0
+        ) {
 
             agentSelect.innerHTML = `
                 <option value="">
@@ -880,6 +1668,13 @@ async function openTransferModal() {
         );
 
 
+    if (!overlay) {
+
+        return;
+
+    }
+
+
     const transferLeadId =
         document.getElementById(
             "transferLeadId"
@@ -898,29 +1693,48 @@ async function openTransferModal() {
         );
 
 
-    transferLeadId.textContent =
-        leadId || "-";
+    if (transferLeadId) {
+
+        transferLeadId.textContent =
+            leadId || "-";
+
+    }
 
 
-    transferLeadName.textContent =
-        currentLead?.fullName || "-";
+    if (transferLeadName) {
+
+        transferLeadName.textContent =
+            currentLead?.fullName || "-";
+
+    }
 
 
-    transferMessage.textContent =
-        "";
+    if (transferMessage) {
+
+        transferMessage.textContent =
+            "";
+
+        transferMessage.className =
+            "";
+
+    }
 
 
-    transferMessage.className =
-        "";
+    const transferAgentSelect =
+        document.getElementById(
+            "transferAgentSelect"
+        );
 
 
-    document.getElementById(
-        "transferAgentSelect"
-    ).innerHTML = `
-        <option value="">
-            Select team first
-        </option>
-    `;
+    if (transferAgentSelect) {
+
+        transferAgentSelect.innerHTML = `
+            <option value="">
+                Select team first
+            </option>
+        `;
+
+    }
 
 
     overlay.classList.add("show");
@@ -943,12 +1757,25 @@ function closeTransferModal() {
         );
 
 
-    overlay.classList.remove("show");
+    if (overlay) {
+
+        overlay.classList.remove("show");
+
+    }
 
 
-    document.getElementById(
-        "transferMessage"
-    ).textContent = "";
+    const transferMessage =
+        document.getElementById(
+            "transferMessage"
+        );
+
+
+    if (transferMessage) {
+
+        transferMessage.textContent =
+            "";
+
+    }
 
 }
 
@@ -957,9 +1784,15 @@ function closeTransferModal() {
 // TRANSFER TEAM CHANGE
 // ============================================================
 
-document
-    .getElementById("transferTeamSelect")
-    .addEventListener(
+const transferTeamSelect =
+    document.getElementById(
+        "transferTeamSelect"
+    );
+
+
+if (transferTeamSelect) {
+
+    transferTeamSelect.addEventListener(
         "change",
         async function () {
 
@@ -974,14 +1807,22 @@ document
         }
     );
 
+}
+
 
 // ============================================================
 // OPEN TRANSFER BUTTON
 // ============================================================
 
-document
-    .getElementById("openTransferButton")
-    .addEventListener(
+const openTransferButton =
+    document.getElementById(
+        "openTransferButton"
+    );
+
+
+if (openTransferButton) {
+
+    openTransferButton.addEventListener(
         "click",
         async function () {
 
@@ -990,14 +1831,22 @@ document
         }
     );
 
+}
+
 
 // ============================================================
 // CANCEL TRANSFER
 // ============================================================
 
-document
-    .getElementById("cancelTransferButton")
-    .addEventListener(
+const cancelTransferButton =
+    document.getElementById(
+        "cancelTransferButton"
+    );
+
+
+if (cancelTransferButton) {
+
+    cancelTransferButton.addEventListener(
         "click",
         function () {
 
@@ -1006,14 +1855,22 @@ document
         }
     );
 
+}
+
 
 // ============================================================
 // CLOSE MODAL WHEN CLICKING OUTSIDE
 // ============================================================
 
-document
-    .getElementById("transferModalOverlay")
-    .addEventListener(
+const transferModalOverlay =
+    document.getElementById(
+        "transferModalOverlay"
+    );
+
+
+if (transferModalOverlay) {
+
+    transferModalOverlay.addEventListener(
         "click",
         function (event) {
 
@@ -1029,14 +1886,22 @@ document
         }
     );
 
+}
+
 
 // ============================================================
 // CONFIRM TRANSFER
 // ============================================================
 
-document
-    .getElementById("confirmTransferButton")
-    .addEventListener(
+const confirmTransferButton =
+    document.getElementById(
+        "confirmTransferButton"
+    );
+
+
+if (confirmTransferButton) {
+
+    confirmTransferButton.addEventListener(
         "click",
         async function () {
 
@@ -1229,6 +2094,8 @@ document
         }
     );
 
+}
+
 
 // ============================================================
 // LOAD PAGE
@@ -1247,12 +2114,17 @@ loadLeadNotes();
 // UPDATE LEAD STATUS
 // ============================================================
 
-document
-    .getElementById("updateLeadStatusButton")
-    .addEventListener(
+const updateLeadStatusButton =
+    document.getElementById(
+        "updateLeadStatusButton"
+    );
+
+
+if (updateLeadStatusButton) {
+
+    updateLeadStatusButton.addEventListener(
         "click",
         async function () {
-
 
             const selectedStatus =
                 document.getElementById(
@@ -1355,9 +2227,32 @@ document
 
 
                 messageElement.textContent =
+                    error.message ||
                     "Failed to update lead status.";
 
             }
 
         }
     );
+
+}
+
+
+// ============================================================
+// SAVE LEAD DETAILS BUTTON
+// ============================================================
+
+const saveLeadDetailsButton =
+    document.getElementById(
+        "saveLeadDetailsButton"
+    );
+
+
+if (saveLeadDetailsButton) {
+
+    saveLeadDetailsButton.addEventListener(
+        "click",
+        saveLeadDetails
+    );
+
+}
