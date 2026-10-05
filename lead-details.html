@@ -272,6 +272,343 @@
 
 
         /* ==========================================
+           TRANSFER BUTTON
+           ========================================== */
+
+        .transfer-lead-button {
+
+            background: #f59e0b !important;
+
+            background-color: #f59e0b !important;
+
+            color: #ffffff !important;
+
+            border: 1px solid #f59e0b !important;
+
+            font-weight: 700;
+
+            margin-right: 8px;
+
+        }
+
+
+        .transfer-lead-button:hover {
+
+            background: #d97706 !important;
+
+            background-color: #d97706 !important;
+
+            border-color: #d97706 !important;
+
+        }
+
+
+        /* ==========================================
+           HEADER ACTIONS
+           ========================================== */
+
+        .lead-header-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        /* ==========================================
+           TRANSFER MODAL OVERLAY
+           ========================================== */
+
+        .transfer-modal-overlay {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: rgba(0, 0, 0, 0.55);
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            z-index: 9999;
+
+            padding: 20px;
+
+            box-sizing: border-box;
+
+        }
+
+
+        .transfer-modal-overlay.show {
+
+            display: flex;
+
+        }
+
+
+        /* ==========================================
+           TRANSFER MODAL
+           ========================================== */
+
+        .transfer-modal {
+
+            width: 100%;
+
+            max-width: 520px;
+
+            background: #ffffff;
+
+            border-radius: 12px;
+
+            padding: 25px;
+
+            box-sizing: border-box;
+
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+
+        }
+
+
+        .transfer-modal h3 {
+
+            margin: 0 0 6px 0;
+
+            font-size: 20px;
+
+        }
+
+
+        .transfer-modal-subtitle {
+
+            margin: 0 0 20px 0;
+
+            color: #666;
+
+            font-size: 13px;
+
+        }
+
+
+        /* ==========================================
+           TRANSFER LEAD INFO
+           ========================================== */
+
+        .transfer-lead-info {
+
+            background: #f5f7fa;
+
+            border-radius: 8px;
+
+            padding: 12px 14px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .transfer-lead-info-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 5px 0;
+
+            font-size: 13px;
+
+        }
+
+
+        .transfer-lead-info-row strong {
+
+            color: #555;
+
+        }
+
+
+        .transfer-lead-info-row span {
+
+            text-align: right;
+
+            font-weight: 600;
+
+        }
+
+
+        /* ==========================================
+           TRANSFER FORM
+           ========================================== */
+
+        .transfer-form-group {
+
+            margin-bottom: 16px;
+
+        }
+
+
+        .transfer-form-group label {
+
+            display: block;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .transfer-form-group select {
+
+            width: 100%;
+
+            padding: 10px 11px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            background: #ffffff;
+
+            box-sizing: border-box;
+
+        }
+
+
+        .transfer-form-group select:focus {
+
+            outline: none;
+
+            border-color: #2563eb;
+
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+
+        }
+
+
+        /* ==========================================
+           TRANSFER MESSAGE
+           ========================================== */
+
+        #transferMessage {
+
+            min-height: 20px;
+
+            font-size: 13px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .transfer-success {
+
+            color: #15803d;
+
+        }
+
+
+        .transfer-error {
+
+            color: #dc2626;
+
+        }
+
+
+        /* ==========================================
+           TRANSFER MODAL ACTIONS
+           ========================================== */
+
+        .transfer-modal-actions {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .transfer-cancel-button {
+
+            background: #6b7280 !important;
+
+            background-color: #6b7280 !important;
+
+            color: #ffffff !important;
+
+            border: 1px solid #6b7280 !important;
+
+        }
+
+
+        .transfer-cancel-button:hover {
+
+            background: #4b5563 !important;
+
+            background-color: #4b5563 !important;
+
+            border-color: #4b5563 !important;
+
+        }
+
+
+        .transfer-confirm-button {
+
+            background: #2563eb !important;
+
+            background-color: #2563eb !important;
+
+            color: #ffffff !important;
+
+            border: 1px solid #2563eb !important;
+
+        }
+
+
+        .transfer-confirm-button:hover {
+
+            background: #1d4ed8 !important;
+
+            background-color: #1d4ed8 !important;
+
+            border-color: #1d4ed8 !important;
+
+        }
+
+
+        .transfer-confirm-button:disabled {
+
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+        }
+
+
+        /* ==========================================
            MOBILE / TABLET
            ========================================== */
 
@@ -318,6 +655,43 @@
             .lead-details-card .detail-row {
 
                 grid-template-columns: 1fr;
+
+            }
+
+
+            .lead-header-actions {
+
+                width: 100%;
+
+            }
+
+
+            .lead-header-actions button {
+
+                width: 100%;
+
+                margin-right: 0;
+
+            }
+
+
+            .transfer-modal {
+
+                padding: 18px;
+
+            }
+
+
+            .transfer-modal-actions {
+
+                flex-direction: column;
+
+            }
+
+
+            .transfer-modal-actions button {
+
+                width: 100%;
 
             }
 
@@ -479,14 +853,34 @@
                 </div>
 
 
-                <button
-                    type="button"
-                    class="secondary-button"
-                    onclick="window.location.href='leads.html'">
+                <div class="lead-header-actions">
 
-                    ← Back to Leads
 
-                </button>
+                    <!-- TRANSFER LEAD -->
+
+                    <button
+                        type="button"
+                        class="primary-button transfer-lead-button"
+                        id="openTransferButton">
+
+                        ⇄ Transfer Lead
+
+                    </button>
+
+
+                    <!-- BACK -->
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        onclick="window.location.href='leads.html'">
+
+                        ← Back to Leads
+
+                    </button>
+
+
+                </div>
 
 
             </div>
@@ -654,9 +1048,7 @@
 
 
 
-                        <!-- ======================================
-                             UPDATE STATUS
-                             ====================================== -->
+                        <!-- UPDATE STATUS -->
 
                         <div class="detail-row">
 
@@ -788,42 +1180,46 @@
                             </div>
 
                         </div>
-<!-- EDUCATION -->
-
-<div class="detail-row">
-
-    <div class="detail-label">
-        Education
-    </div>
-
-    <div
-        class="detail-value"
-        id="leadEducation">
-
-        -
-
-    </div>
-
-</div>
 
 
-<!-- INTERESTED AREA -->
 
-<div class="detail-row">
+                        <!-- EDUCATION -->
 
-    <div class="detail-label">
-        Interested Area
-    </div>
+                        <div class="detail-row">
 
-    <div
-        class="detail-value"
-        id="leadInterestedArea">
+                            <div class="detail-label">
+                                Education
+                            </div>
 
-        -
+                            <div
+                                class="detail-value"
+                                id="leadEducation">
 
-    </div>
+                                -
 
-</div>
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- INTERESTED AREA -->
+
+                        <div class="detail-row">
+
+                            <div class="detail-label">
+                                Interested Area
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="leadInterestedArea">
+
+                                -
+
+                            </div>
+
+                        </div>
 
 
                     </div>
@@ -869,13 +1265,11 @@
 
                         <div id="leadCallLogs">
 
-
                             <div class="activity-empty">
 
                                 Loading call history...
 
                             </div>
-
 
                         </div>
 
@@ -894,9 +1288,7 @@
                 <div class="lead-right-column">
 
 
-                    <!-- =================================================
-                         FOLLOW-UP HISTORY
-                         ================================================= -->
+                    <!-- FOLLOW-UP HISTORY -->
 
                     <div class="lead-activity-section">
 
@@ -933,13 +1325,11 @@
 
                         <div id="leadFollowUps">
 
-
                             <div class="activity-empty">
 
                                 Loading follow-ups...
 
                             </div>
-
 
                         </div>
 
@@ -948,9 +1338,7 @@
 
 
 
-                    <!-- =================================================
-                         NOTES
-                         ================================================= -->
+                    <!-- NOTES -->
 
                     <div class="lead-activity-section">
 
@@ -987,13 +1375,11 @@
 
                         <div id="leadNotes">
 
-
                             <div class="activity-empty">
 
                                 Loading notes...
 
                             </div>
-
 
                         </div>
 
@@ -1008,9 +1394,7 @@
 
 
 
-            <!-- =====================================================
-                 BOTTOM ACTION
-                 ===================================================== -->
+            <!-- BOTTOM ACTION -->
 
             <div class="lead-details-actions">
 
@@ -1033,6 +1417,153 @@
 
     </div>
 
+
+</div>
+
+
+
+<!-- =====================================================
+     TRANSFER LEAD MODAL
+     ===================================================== -->
+
+<div
+    id="transferModalOverlay"
+    class="transfer-modal-overlay">
+
+
+    <div
+        class="transfer-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="transferModalTitle">
+
+
+        <h3 id="transferModalTitle">
+            Transfer Lead
+        </h3>
+
+
+        <p class="transfer-modal-subtitle">
+            Transfer this lead to another product team and agent.
+        </p>
+
+
+        <!-- LEAD INFORMATION -->
+
+        <div class="transfer-lead-info">
+
+
+            <div class="transfer-lead-info-row">
+
+                <strong>
+                    Lead ID
+                </strong>
+
+                <span id="transferLeadId">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="transfer-lead-info-row">
+
+                <strong>
+                    Lead Name
+                </strong>
+
+                <span id="transferLeadName">
+                    -
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- TEAM -->
+
+        <div class="transfer-form-group">
+
+
+            <label for="transferTeamSelect">
+                Transfer To Team
+            </label>
+
+
+            <select id="transferTeamSelect">
+
+                <option value="">
+                    Loading teams...
+                </option>
+
+            </select>
+
+
+        </div>
+
+
+
+        <!-- AGENT -->
+
+        <div class="transfer-form-group">
+
+
+            <label for="transferAgentSelect">
+                Transfer To Agent
+            </label>
+
+
+            <select id="transferAgentSelect">
+
+                <option value="">
+                    Select team first
+                </option>
+
+            </select>
+
+
+        </div>
+
+
+
+        <!-- MESSAGE -->
+
+        <div id="transferMessage"></div>
+
+
+
+        <!-- ACTIONS -->
+
+        <div class="transfer-modal-actions">
+
+
+            <button
+                type="button"
+                class="secondary-button transfer-cancel-button"
+                id="cancelTransferButton">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                type="button"
+                class="primary-button transfer-confirm-button"
+                id="confirmTransferButton">
+
+                Transfer Lead
+
+            </button>
+
+
+        </div>
+
+
+    </div>
 
 </div>
 
