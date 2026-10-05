@@ -5,161 +5,371 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>DERIVION - Note Details</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css">
 
 </head>
 
+
 <body>
+
 
 <div class="dashboard-container">
 
+
+    <!-- ================================
+         HEADER
+         ================================ -->
+
     <header class="dashboard-header">
 
+
         <h1 class="brand-logo">
-    <img src="assets/derivion_logo.png" alt="DERIVION">
-</h1>
 
-        <div>
+            <img
+                src="assets/derivion_logo.png"
+                alt="DERIVION">
 
-            <span id="userName"></span>
+        </h1>
 
-            <button onclick="logout()">
+
+        <div class="user-info">
+
+
+            <span id="userName">
+                Admin
+            </span>
+
+
+            <button id="logoutButton">
                 Logout
             </button>
 
+
         </div>
+
 
     </header>
 
 
+
     <div class="dashboard-layout">
+
+
+        <!-- ================================
+             SIDEBAR
+             ================================ -->
 
         <aside class="sidebar">
 
-            <h2>Menu</h2>
 
-            <a href="dashboard.html">
-                Dashboard
-            </a>
+            <h2>
+                Menu
+            </h2>
 
-            <a href="leads.html">
-                Leads
-            </a>
 
-            <a href="lead-assignments.html">
-                Lead Assignments
-            </a>
+            <nav>
 
-<a href="closed-leads.html">
-    Closed / Disposed Leads
-</a>
 
-            <a href="call-logs.html">
-                Call Logs
-            </a>
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
 
-            <a href="follow-ups.html">
-                Follow-ups
-            </a>
 
-            <a href="notes.html">
-                Notes
-            </a>
+                <a href="leads.html">
+                    Leads
+                </a>
 
-            <a href="#">
-                Users
-            </a>
 
-            <a href="#">
-                Teams
-            </a>
+                <a href="lead-assignments.html">
+                    Lead Assignments
+                </a>
 
-            <a href="#">
-                Courses
-            </a>
 
-            <a href="#">
-                Campaigns
-            </a>
+                <a href="closed-leads.html">
+                    Closed / Disposed Leads
+                </a>
+
+
+                <a href="call-logs.html">
+                    Call Logs
+                </a>
+
+
+                <a href="follow-ups.html">
+                    Follow-ups
+                </a>
+
+
+                <a
+                    href="notes.html"
+                    class="active">
+
+                    Notes
+
+                </a>
+
+
+                <a href="users.html">
+                    Users
+                </a>
+
+
+                <a href="teams.html">
+                    Teams
+                </a>
+
+
+                <a href="courses.html">
+                    Courses
+                </a>
+
+
+                <a href="campaigns.html">
+                    Campaigns
+                </a>
+
+
+            </nav>
+
 
         </aside>
 
 
+
+        <!-- ================================
+             MAIN CONTENT
+             ================================ -->
+
         <main class="dashboard-content">
 
-            <h2>Note Details</h2>
 
-            <div id="message"></div>
+            <!-- PAGE HEADER -->
 
-
-            <div id="noteDetails">
-
-                <p>
-                    <strong>Note ID:</strong>
-                    <span id="noteId"></span>
-                </p>
+            <div class="lead-details-header">
 
 
-                <p>
-                    <strong>Lead ID:</strong>
-                    <span id="leadId"></span>
-                </p>
+                <div>
+
+                    <h2>
+                        Note Details
+                    </h2>
 
 
-                <p>
-                    <strong>User ID:</strong>
-                    <span id="userId"></span>
-                </p>
+                    <p>
+                        View complete note information.
+                    </p>
+
+                </div>
 
 
-                <p>
-                    <strong>Note:</strong>
-                    <span id="note"></span>
-                </p>
+                <button
+                    type="button"
+                    class="secondary-button"
+                    onclick="window.location.href='notes.html'">
 
+                    ← Back to Notes
 
-                <p>
-                    <strong>Created At:</strong>
-                    <span id="createdAt"></span>
-                </p>
+                </button>
 
-
-                <p>
-                    <strong>Updated At:</strong>
-                    <span id="updatedAt"></span>
-                </p>
 
             </div>
 
 
-            <br>
+
+            <!-- MESSAGE -->
+
+            <div id="message"></div>
 
 
-            <button
-                type="button"
-                onclick="window.location.href='notes.html'">
 
-                Back to Notes
+            <!-- ================================
+                 NOTE DETAILS CARD
+                 ================================ -->
 
-            </button>
+            <div class="lead-details-card">
+
+
+                <!-- NOTE ID -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Note ID
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="noteId">
+
+                        -
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- LEAD ID -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Lead ID
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="leadId">
+
+                        -
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- USER ID -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        User ID
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="userId">
+
+                        -
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- NOTE -->
+
+                <div class="detail-row">
+
+
+                    <div class="detail-label">
+                        Note
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="note">
+
+                        -
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- CREATED AT -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Created At
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="createdAt">
+
+                        -
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- UPDATED AT -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Updated At
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="updatedAt">
+
+                        -
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================================
+                 BOTTOM ACTION
+                 ================================ -->
+
+            <div class="lead-details-actions">
+
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    onclick="window.location.href='notes.html'">
+
+                    ← Back to Notes
+
+                </button>
+
+
+            </div>
+
 
         </main>
 
+
     </div>
 
+
 </div>
+
+
+
+<!-- ================================
+     JAVASCRIPT
+     ================================ -->
 
 <script src="config.js"></script>
 
 <script src="notifications.js"></script>
+
 <script src="note-details.js"></script>
 
 <script src="access-control.js"></script>
+
 
 </body>
 
