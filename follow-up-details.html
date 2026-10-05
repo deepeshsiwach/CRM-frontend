@@ -1,148 +1,500 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
     <title>DERIVION - Follow-up Details</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css">
+
 </head>
+
 
 <body>
 
+
 <div class="dashboard-container">
 
-    <header class="dashboard-header">
-        <h1 class="brand-logo">
-    <img src="assets/derivion_logo.png" alt="DERIVION">
-</h1>
 
-        <div>
-            <span id="userName"></span>
-            <button onclick="logout()">Logout</button>
+    <!-- ================================
+         HEADER
+         ================================ -->
+
+    <header class="dashboard-header">
+
+
+        <h1 class="brand-logo">
+
+            <img
+                src="assets/derivion_logo.png"
+                alt="DERIVION">
+
+        </h1>
+
+
+        <div class="user-info">
+
+
+            <span id="userName">
+                Admin
+            </span>
+
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+
         </div>
+
+
     </header>
+
+
 
     <div class="dashboard-layout">
 
+
+        <!-- ================================
+             SIDEBAR
+             ================================ -->
+
         <aside class="sidebar">
 
-            <h2>Menu</h2>
 
-            <a href="dashboard.html">Dashboard</a>
-            <a href="leads.html">Leads</a>
-            <a href="lead-assignments.html">Lead Assignments</a>
-
-<a href="closed-leads.html">
-    Closed / Disposed Leads
-</a>
+            <h2>
+                Menu
+            </h2>
 
 
-            <a href="call-logs.html">Call Logs</a>
-            <a href="follow-ups.html">Follow-ups</a>
-            <a href="#">Notes</a>
-            <a href="#">Users</a>
-            <a href="#">Teams</a>
-            <a href="#">Courses</a>
-            <a href="#">Campaigns</a>
+            <nav>
+
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+
+                <a href="leads.html">
+                    Leads
+                </a>
+
+
+                <a href="lead-assignments.html">
+                    Lead Assignments
+                </a>
+
+
+                <a href="closed-leads.html">
+                    Closed / Disposed Leads
+                </a>
+
+
+                <a href="call-logs.html">
+                    Call Logs
+                </a>
+
+
+                <a
+                    href="follow-ups.html"
+                    class="active">
+
+                    Follow-ups
+
+                </a>
+
+
+                <a href="notes.html">
+                    Notes
+                </a>
+
+
+                <a href="users.html">
+                    Users
+                </a>
+
+
+                <a href="teams.html">
+                    Teams
+                </a>
+
+
+                <a href="courses.html">
+                    Courses
+                </a>
+
+
+                <a href="campaigns.html">
+                    Campaigns
+                </a>
+
+
+            </nav>
+
 
         </aside>
 
+
+
+        <!-- ================================
+             MAIN CONTENT
+             ================================ -->
+
         <main class="dashboard-content">
 
-            <h2>Follow-up Details</h2>
 
-            <div id="message"></div>
+            <!-- PAGE HEADER -->
 
-            <div id="followUpDetails">
+            <div class="lead-details-header">
 
-                <p>
-                    <strong>Follow-up ID:</strong>
-                    <span id="followUpId"></span>
-                </p>
 
-                <p>
-                    <strong>Lead ID:</strong>
-                    <span id="leadId"></span>
-                </p>
+                <div>
 
-                <p>
-                    <strong>Agent ID:</strong>
-                    <span id="agentId"></span>
-                </p>
+                    <h2>
+                        Follow-up Details
+                    </h2>
 
-                <p>
-                    <strong>Follow-up Date:</strong>
-                    <span id="followUpDate"></span>
-                </p>
 
-                <p>
-                    <strong>Purpose:</strong>
-                    <span id="purpose"></span>
-                </p>
+                    <p>
+                        View and manage this follow-up.
+                    </p>
 
-                <p>
-    <strong>Status:</strong>
-    <span id="status"></span>
-</p>
+                </div>
 
-<div style="margin-top: 10px;">
-    <select id="followUpStatusSelect">
-        <option value="PENDING">PENDING</option>
-        <option value="COMPLETED">COMPLETED</option>
-        <option value="CANCELLED">CANCELLED</option>
-        <option value="MISSED">MISSED</option>
-    </select>
 
-    <button
-        type="button"
-        class="primary-button"
-        id="updateFollowUpStatusButton">
-        Update Status
-    </button>
+                <button
+                    type="button"
+                    class="secondary-button"
+                    onclick="window.location.href='follow-ups.html'">
 
-    <div
-        id="followUpStatusMessage"
-        style="margin-top: 8px;">
-    </div>
-</div>
+                    ← Back to Follow-ups
 
-                <p>
-                    <strong>Remarks:</strong>
-                    <span id="remarks"></span>
-                </p>
+                </button>
 
-                <p>
-                    <strong>Created At:</strong>
-                    <span id="createdAt"></span>
-                </p>
-
-                <p>
-                    <strong>Updated At:</strong>
-                    <span id="updatedAt"></span>
-                </p>
 
             </div>
 
-            <br>
 
-            <button
-                type="button"
-                onclick="window.location.href='follow-ups.html'">
-                Back to Follow-ups
-            </button>
+
+            <!-- MESSAGE -->
+
+            <div id="message"></div>
+
+
+
+            <!-- ================================
+                 FOLLOW-UP DETAILS CARD
+                 ================================ -->
+
+            <div class="lead-details-card">
+
+
+                <!-- FOLLOW-UP ID -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Follow-up ID
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="followUpId">
+
+                        -
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- LEAD ID -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Lead ID
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="leadId">
+
+                        -
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- AGENT ID -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Agent ID
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="agentId">
+
+                        -
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FOLLOW-UP DATE -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Follow-up Date
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="followUpDate">
+
+                        -
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PURPOSE -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Purpose
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="purpose">
+
+                        -
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- STATUS -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Status
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="status">
+
+                        -
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- UPDATE STATUS -->
+
+                <div class="detail-row">
+
+
+                    <div class="detail-label">
+                        Update Status
+                    </div>
+
+
+                    <div class="detail-value">
+
+
+                        <select
+                            id="followUpStatusSelect">
+
+                            <option value="PENDING">
+                                PENDING
+                            </option>
+
+
+                            <option value="COMPLETED">
+                                COMPLETED
+                            </option>
+
+
+                            <option value="CANCELLED">
+                                CANCELLED
+                            </option>
+
+
+                            <option value="MISSED">
+                                MISSED
+                            </option>
+
+
+                        </select>
+
+
+                        <button
+                            type="button"
+                            class="primary-button"
+                            id="updateFollowUpStatusButton">
+
+                            Update Status
+
+                        </button>
+
+
+                        <div
+                            id="followUpStatusMessage"
+                            style="margin-top: 8px;">
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- REMARKS -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Remarks
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="remarks">
+
+                        -
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CREATED AT -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Created At
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="createdAt">
+
+                        -
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- UPDATED AT -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Updated At
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="updatedAt">
+
+                        -
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================================
+                 BOTTOM ACTION
+                 ================================ -->
+
+            <div class="lead-details-actions">
+
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    onclick="window.location.href='follow-ups.html'">
+
+                    ← Back to Follow-ups
+
+                </button>
+
+
+            </div>
+
 
         </main>
 
+
     </div>
 
-</div>
-<script src="config.js"></script>
-<script src="notifications.js"></script>
-<script src="follow-up-details.js"></script>
 
+</div>
+
+
+
+<!-- ================================
+     JAVASCRIPT
+     ================================ -->
+
+<script src="config.js"></script>
+
+<script src="notifications.js"></script>
+
+<script src="follow-up-details.js"></script>
 
 <script src="access-control.js"></script>
 
+
 </body>
+
 </html>
