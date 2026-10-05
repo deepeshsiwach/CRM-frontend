@@ -15,6 +15,262 @@
         rel="stylesheet"
         href="style.css">
 
+    <style>
+
+        /* ========================================
+           FOLLOW-UP + LEAD TWO COLUMN LAYOUT
+           ======================================== */
+
+        .followup-lead-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.15fr)
+                minmax(320px, 0.85fr);
+
+            gap: 20px;
+
+            align-items: start;
+
+        }
+
+
+        .followup-section-card {
+
+            background: #ffffff;
+
+            border: 1px solid #e2e8f0;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 4px 14px rgba(15, 23, 42, 0.06);
+
+        }
+
+
+        .section-card-header {
+
+            padding: 18px 20px;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            background: #f8fafc;
+
+        }
+
+
+        .section-card-header h3 {
+
+            margin: 0;
+
+            font-size: 18px;
+
+            color: #111827;
+
+        }
+
+
+        .section-card-header p {
+
+            margin: 5px 0 0;
+
+            font-size: 13px;
+
+            color: #64748b;
+
+        }
+
+
+        .detail-row {
+
+            display: grid;
+
+            grid-template-columns: 145px minmax(0, 1fr);
+
+            border-bottom: 1px solid #e5e7eb;
+
+            min-height: 48px;
+
+        }
+
+
+        .detail-row:last-child {
+
+            border-bottom: none;
+
+        }
+
+
+        .detail-label {
+
+            padding: 14px 16px;
+
+            background: #f8fafc;
+
+            font-weight: 600;
+
+            font-size: 13px;
+
+            color: #334155;
+
+        }
+
+
+        .detail-value {
+
+            padding: 14px 16px;
+
+            color: #0f172a;
+
+            font-size: 14px;
+
+            word-break: break-word;
+
+        }
+
+
+        /* ========================================
+           LEAD NAME
+           ======================================== */
+
+        .lead-name-display {
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            color: #111827;
+
+        }
+
+
+        .lead-id-display {
+
+            margin-top: 3px;
+
+            font-size: 12px;
+
+            color: #64748b;
+
+        }
+
+
+        /* ========================================
+           PHONE
+           ======================================== */
+
+        .lead-phone-link {
+
+            color: #2563eb;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+        }
+
+
+        .lead-phone-link:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* ========================================
+           STATUS / PRIORITY BADGES
+           ======================================== */
+
+        .lead-info-badge {
+
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 999px;
+
+            background: #eef2ff;
+
+            color: #3730a3;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+        }
+
+
+        /* ========================================
+           STATUS UPDATE AREA
+           ======================================== */
+
+        .status-update-container {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .status-update-container select {
+
+            min-width: 130px;
+
+        }
+
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+
+        @media (max-width: 1000px) {
+
+            .followup-lead-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .detail-row {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .detail-label {
+
+                padding-bottom: 6px;
+
+                border-bottom: none;
+
+            }
+
+
+            .detail-value {
+
+                padding-top: 6px;
+
+            }
+
+        }
+
+    </style>
+
 </head>
 
 
@@ -151,7 +407,9 @@
         <main class="dashboard-content">
 
 
-            <!-- PAGE HEADER -->
+            <!-- ================================
+                 PAGE HEADER
+                 ================================ -->
 
             <div class="lead-details-header">
 
@@ -190,191 +448,221 @@
 
 
 
-            <!-- ================================
-                 FOLLOW-UP DETAILS CARD
-                 ================================ -->
+            <!-- ==================================================
+                 FOLLOW-UP + LEAD INFORMATION
+                 ================================================== -->
 
-            <div class="lead-details-card">
-
-
-                <!-- FOLLOW-UP ID -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Follow-up ID
-                    </div>
+            <div class="followup-lead-grid">
 
 
-                    <div
-                        class="detail-value"
-                        id="followUpId">
+                <!-- ==================================================
+                     LEFT SIDE — FOLLOW-UP DETAILS
+                     ================================================== -->
 
-                        -
-
-                    </div>
-
-                </div>
+                <div class="followup-section-card">
 
 
+                    <div class="section-card-header">
 
-                <!-- LEAD ID -->
+                        <h3>
+                            Follow-up Information
+                        </h3>
 
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Lead ID
-                    </div>
-
-
-                    <div
-                        class="detail-value"
-                        id="leadId">
-
-                        -
+                        <p>
+                            Scheduled follow-up details
+                        </p>
 
                     </div>
 
-                </div>
 
 
+                    <!-- FOLLOW-UP ID -->
 
-                <!-- AGENT ID -->
+                    <div class="detail-row">
 
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Agent ID
-                    </div>
-
-
-                    <div
-                        class="detail-value"
-                        id="agentId">
-
-                        -
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- FOLLOW-UP DATE -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Follow-up Date
-                    </div>
-
-
-                    <div
-                        class="detail-value"
-                        id="followUpDate">
-
-                        -
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- PURPOSE -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Purpose
-                    </div>
-
-
-                    <div
-                        class="detail-value"
-                        id="purpose">
-
-                        -
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- STATUS -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Status
-                    </div>
-
-
-                    <div
-                        class="detail-value"
-                        id="status">
-
-                        -
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- UPDATE STATUS -->
-
-                <div class="detail-row">
-
-
-                    <div class="detail-label">
-                        Update Status
-                    </div>
-
-
-                    <div class="detail-value">
-
-
-                        <select
-                            id="followUpStatusSelect">
-
-                            <option value="PENDING">
-                                PENDING
-                            </option>
-
-
-                            <option value="COMPLETED">
-                                COMPLETED
-                            </option>
-
-
-                            <option value="CANCELLED">
-                                CANCELLED
-                            </option>
-
-
-                            <option value="MISSED">
-                                MISSED
-                            </option>
-
-
-                        </select>
-
-
-                        <button
-                            type="button"
-                            class="primary-button"
-                            id="updateFollowUpStatusButton">
-
-                            Update Status
-
-                        </button>
+                        <div class="detail-label">
+                            Follow-up ID
+                        </div>
 
 
                         <div
-                            id="followUpStatusMessage"
-                            style="margin-top: 8px;">
+                            class="detail-value"
+                            id="followUpId">
+
+                            -
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- LEAD ID -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Lead ID
+                        </div>
+
+
+                        <div
+                            class="detail-value"
+                            id="leadId">
+
+                            -
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- AGENT ID -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Agent ID
+                        </div>
+
+
+                        <div
+                            class="detail-value"
+                            id="agentId">
+
+                            -
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- FOLLOW-UP DATE -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Follow-up Date
+                        </div>
+
+
+                        <div
+                            class="detail-value"
+                            id="followUpDate">
+
+                            -
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PURPOSE -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Purpose
+                        </div>
+
+
+                        <div
+                            class="detail-value"
+                            id="purpose">
+
+                            -
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- STATUS -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Status
+                        </div>
+
+
+                        <div
+                            class="detail-value"
+                            id="status">
+
+                            -
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- UPDATE STATUS -->
+
+                    <div class="detail-row">
+
+
+                        <div class="detail-label">
+                            Update Status
+                        </div>
+
+
+                        <div class="detail-value">
+
+
+                            <div class="status-update-container">
+
+
+                                <select
+                                    id="followUpStatusSelect">
+
+                                    <option value="PENDING">
+                                        PENDING
+                                    </option>
+
+
+                                    <option value="COMPLETED">
+                                        COMPLETED
+                                    </option>
+
+
+                                    <option value="CANCELLED">
+                                        CANCELLED
+                                    </option>
+
+
+                                    <option value="MISSED">
+                                        MISSED
+                                    </option>
+
+
+                                </select>
+
+
+                                <button
+                                    type="button"
+                                    class="primary-button"
+                                    id="updateFollowUpStatusButton">
+
+                                    Update Status
+
+                                </button>
+
+
+                            </div>
+
+
+                            <div
+                                id="followUpStatusMessage"
+                                style="margin-top: 8px;">
+
+                            </div>
+
 
                         </div>
 
@@ -382,68 +670,334 @@
                     </div>
 
 
+
+                    <!-- REMARKS -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Remarks
+                        </div>
+
+
+                        <div
+                            class="detail-value"
+                            id="remarks">
+
+                            -
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CREATED AT -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Created At
+                        </div>
+
+
+                        <div
+                            class="detail-value"
+                            id="createdAt">
+
+                            -
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- UPDATED AT -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Updated At
+                        </div>
+
+
+                        <div
+                            class="detail-value"
+                            id="updatedAt">
+
+                            -
+
+                        </div>
+
+                    </div>
+
+
                 </div>
 
 
 
-                <!-- REMARKS -->
+                <!-- ==================================================
+                     RIGHT SIDE — LEAD INFORMATION
+                     ================================================== -->
 
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Remarks
-                    </div>
+                <div class="followup-section-card">
 
 
-                    <div
-                        class="detail-value"
-                        id="remarks">
+                    <div class="section-card-header">
 
-                        -
+                        <h3>
+                            Lead Information
+                        </h3>
 
-                    </div>
-
-                </div>
-
-
-
-                <!-- CREATED AT -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Created At
-                    </div>
-
-
-                    <div
-                        class="detail-value"
-                        id="createdAt">
-
-                        -
+                        <p>
+                            Customer details for this follow-up
+                        </p>
 
                     </div>
 
-                </div>
 
 
+                    <!-- LEAD NAME -->
 
-                <!-- UPDATED AT -->
+                    <div class="detail-row">
 
-                <div class="detail-row">
+                        <div class="detail-label">
+                            Lead Name
+                        </div>
 
-                    <div class="detail-label">
-                        Updated At
+
+                        <div class="detail-value">
+
+
+                            <div
+                                id="leadName"
+                                class="lead-name-display">
+
+                                -
+
+                            </div>
+
+
+                            <div
+                                id="leadIdDisplay"
+                                class="lead-id-display">
+
+                                Lead ID: -
+
+                            </div>
+
+
+                        </div>
+
                     </div>
 
 
-                    <div
-                        class="detail-value"
-                        id="updatedAt">
 
-                        -
+                    <!-- PHONE -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Phone
+                        </div>
+
+
+                        <div class="detail-value">
+
+                            <a
+                                id="leadPhone"
+                                class="lead-phone-link"
+                                href="#">
+
+                                -
+
+                            </a>
+
+                        </div>
 
                     </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Email
+                        </div>
+
+
+                        <div
+                            class="detail-value"
+                            id="leadEmail">
+
+                            -
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- COURSE -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Course
+                        </div>
+
+
+                        <div
+                            class="detail-value"
+                            id="leadCourse">
+
+                            -
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- SOURCE -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Source
+                        </div>
+
+
+                        <div
+                            class="detail-value"
+                            id="leadSource">
+
+                            -
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- STATUS -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Lead Status
+                        </div>
+
+
+                        <div class="detail-value">
+
+
+                            <span
+                                id="leadStatus"
+                                class="lead-info-badge">
+
+                                -
+
+                            </span>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PRIORITY -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Priority
+                        </div>
+
+
+                        <div class="detail-value">
+
+
+                            <span
+                                id="leadPriority"
+                                class="lead-info-badge">
+
+                                -
+
+                            </span>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CITY -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            City
+                        </div>
+
+
+                        <div
+                            class="detail-value"
+                            id="leadCity">
+
+                            -
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EDUCATION -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Education
+                        </div>
+
+
+                        <div
+                            class="detail-value"
+                            id="leadEducation">
+
+                            -
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- INTERESTED AREA -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Interested Area
+                        </div>
+
+
+                        <div
+                            class="detail-value"
+                            id="leadInterestedArea">
+
+                            -
+
+                        </div>
+
+                    </div>
+
 
                 </div>
 
