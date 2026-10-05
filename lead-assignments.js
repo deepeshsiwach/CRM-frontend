@@ -426,10 +426,7 @@ function populateBulkTeamSelect() {
 
 
         option.value = team.id;
-
-
-        option.textContent =
-            `${team.name} (ID: ${team.id})`;
+option.textContent = `${team.teamName} (ID: ${team.id})`;
 
 
         select.appendChild(option);
