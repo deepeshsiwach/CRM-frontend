@@ -473,7 +473,7 @@ function renderLeads(leads) {
 
 
     paginatedLeads.forEach(
-        function (lead) {
+    function (lead, index) {
 
             const row =
                 document.createElement(
@@ -484,8 +484,12 @@ function renderLeads(leads) {
             row.innerHTML = `
 
                 <td>
-                    ${lead.id ?? ""}
-                </td>
+    ${((currentPage - 1) * pageSize) + index + 1}
+</td>
+
+<td>
+    ${lead.id ?? ""}
+</td>
 
                 <td>
                     ${lead.fullName ?? ""}
