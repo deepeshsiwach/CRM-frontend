@@ -16,13 +16,6 @@ const userName =
 
 // ============================================================
 // NORMALIZE USER ROLE
-// Supports:
-// AGENT
-// ROLE_AGENT
-// ADMIN
-// ROLE_ADMIN
-// MANAGER
-// ROLE_MANAGER
 // ============================================================
 
 let userRole =
@@ -31,7 +24,6 @@ let userRole =
     )
     .trim()
     .toUpperCase();
-
 
 if (userRole.startsWith("ROLE_")) {
 
@@ -54,14 +46,13 @@ if (!token) {
 
 
 // ============================================================
-// SHOW LOGGED-IN USER
+// SHOW USER NAME
 // ============================================================
 
 const userNameElement =
     document.getElementById(
         "userName"
     );
-
 
 if (userNameElement) {
 
@@ -79,7 +70,6 @@ const logoutButton =
     document.getElementById(
         "logoutButton"
     );
-
 
 if (logoutButton) {
 
@@ -107,7 +97,6 @@ if (logoutButton) {
                 "userRole"
             );
 
-
             window.location.href =
                 "index.html";
 
@@ -118,7 +107,37 @@ if (logoutButton) {
 
 
 // ============================================================
-// HIDE MANAGEMENT INFORMATION FROM AGENTS
+// CHART VARIABLES
+// ============================================================
+
+let leadOverviewChart = null;
+
+let crmActivityChart = null;
+
+let agentLeadDistributionChart = null;
+
+
+// ============================================================
+// API HEADERS
+// ============================================================
+
+function getHeaders() {
+
+    return {
+
+        "Authorization":
+            "Bearer " + token,
+
+        "Content-Type":
+            "application/json"
+
+    };
+
+}
+
+
+// ============================================================
+// HIDE MANAGEMENT SECTIONS FOR AGENT
 // ============================================================
 
 function hideManagementSectionsForAgent() {
@@ -131,7 +150,7 @@ function hideManagementSectionsForAgent() {
 
 
     // --------------------------------------------------------
-    // MANAGEMENT ANALYTICS
+    // Elements marked management-only
     // --------------------------------------------------------
 
     document
@@ -152,12 +171,10 @@ function hideManagementSectionsForAgent() {
 
 
     // --------------------------------------------------------
-    // EXTRA SAFETY
-    // If any of these sections exist without the class,
-    // hide them by their IDs as well.
+    // Extra protection by IDs
     // --------------------------------------------------------
 
-    const restrictedElements = [
+    const restrictedIds = [
 
         "agentLeadDistributionChart",
 
@@ -167,19 +184,20 @@ function hideManagementSectionsForAgent() {
 
         "leadSourcePerformanceTable",
 
+        "unassignedLeads",
+
         "unassignedLeadsCard"
 
     ];
 
 
-    restrictedElements.forEach(
-        function (elementId) {
+    restrictedIds.forEach(
+        function (id) {
 
             const element =
                 document.getElementById(
-                    elementId
+                    id
                 );
-
 
             if (!element) {
 
@@ -188,15 +206,23 @@ function hideManagementSectionsForAgent() {
             }
 
 
-            const parentCard =
+            const card =
                 element.closest(
                     ".analytics-card, .dashboard-card"
                 );
 
 
-            if (parentCard) {
+            if (card) {
 
-                parentCard.style.setProperty(
+                card.style.setProperty(
+                    "display",
+                    "none",
+                    "important"
+                );
+
+            } else {
+
+                element.style.setProperty(
                     "display",
                     "none",
                     "important"
@@ -207,11 +233,71 @@ function hideManagementSectionsForAgent() {
         }
     );
 
+
+    // --------------------------------------------------------
+    // Extra protection by heading
+    // --------------------------------------------------------
+
+    const restrictedTitles = [
+
+        "agent lead distribution",
+
+        "agent performance",
+
+        "campaign performance",
+
+        "lead source performance",
+
+        "unassigned leads"
+
+    ];
+
+
+    document
+        .querySelectorAll("h3")
+        .forEach(
+            function (heading) {
+
+                const title =
+                    (
+                        heading.textContent || ""
+                    )
+                    .trim()
+                    .toLowerCase();
+
+
+                if (
+                    restrictedTitles.includes(
+                        title
+                    )
+                ) {
+
+                    const card =
+                        heading.closest(
+                            ".analytics-card, .dashboard-card"
+                        );
+
+
+                    if (card) {
+
+                        card.style.setProperty(
+                            "display",
+                            "none",
+                            "important"
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
 }
 
 
 // ============================================================
-// RUN ACCESS RESTRICTIONS
+// APPLY AGENT RESTRICTION
 // ============================================================
 
 hideManagementSectionsForAgent();
@@ -227,53 +313,26 @@ document.addEventListener(
 );
 
 
-// Extra protection after dashboard rendering
-
 setTimeout(
     hideManagementSectionsForAgent,
-    100
+    200
 );
 
 
 setTimeout(
     hideManagementSectionsForAgent,
-    500
+    700
 );
 
 
 setTimeout(
     hideManagementSectionsForAgent,
-    1000
+    1500
 );
 
 
 // ============================================================
-// CHART VARIABLES
-// ============================================================
-
-let leadOverviewChart = null;
-
-let crmActivityChart = null;
-
-
-// ============================================================
-// COMMON API HEADERS
-// ============================================================
-
-function getHeaders() {
-
-    return {
-
-        "Authorization":
-            "Bearer " + token
-
-    };
-
-}
-
-
-// ============================================================
-// GET TODAY'S DATE
+// TODAY DATE
 // ============================================================
 
 function getTodayDateString() {
@@ -281,10 +340,8 @@ function getTodayDateString() {
     const now =
         new Date();
 
-
     const year =
         now.getFullYear();
-
 
     const month =
         String(
@@ -295,7 +352,6 @@ function getTodayDateString() {
             "0"
         );
 
-
     const day =
         String(
             now.getDate()
@@ -305,14 +361,19 @@ function getTodayDateString() {
             "0"
         );
 
-
-    return `${year}-${month}-${day}`;
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
 
 }
 
 
 // ============================================================
-// CHECK WHETHER CALL IS TODAY
+// CHECK CALL IS TODAY
 // ============================================================
 
 function isCallFromToday(call) {
@@ -324,26 +385,22 @@ function isCallFromToday(call) {
     }
 
 
-    const callStartTime =
-        call.callStartTime;
-
-
-    if (!callStartTime) {
+    if (!call.callStartTime) {
 
         return false;
 
     }
 
 
-    const callDate =
+    const date =
         new Date(
-            callStartTime
+            call.callStartTime
         );
 
 
     if (
         Number.isNaN(
-            callDate.getTime()
+            date.getTime()
         )
     ) {
 
@@ -353,22 +410,20 @@ function isCallFromToday(call) {
 
 
     const year =
-        callDate.getFullYear();
-
+        date.getFullYear();
 
     const month =
         String(
-            callDate.getMonth() + 1
+            date.getMonth() + 1
         )
         .padStart(
             2,
             "0"
         );
-
 
     const day =
         String(
-            callDate.getDate()
+            date.getDate()
         )
         .padStart(
             2,
@@ -376,12 +431,8 @@ function isCallFromToday(call) {
         );
 
 
-    const callDateString =
-        `${year}-${month}-${day}`;
-
-
     return (
-        callDateString ===
+        `${year}-${month}-${day}` ===
         getTodayDateString()
     );
 
@@ -397,57 +448,42 @@ function calculateAgentWorkSummary(
     calls
 ) {
 
-    // --------------------------------------------------------
-    // TOTAL ACTIVE ASSIGNED LEADS
-    // --------------------------------------------------------
-
-    const totalLeads =
+    const assignmentList =
         Array.isArray(
             assignments
         )
-            ? assignments.length
-            : 0;
+            ? assignments
+            : [];
 
 
-    // --------------------------------------------------------
-    // GET TODAY'S CALLS
-    // --------------------------------------------------------
-
-    const todayCalls =
+    const callList =
         Array.isArray(
             calls
         )
-            ? calls.filter(
-                function (call) {
-
-                    return isCallFromToday(
-                        call
-                    );
-
-                }
-            )
+            ? calls
             : [];
 
 
     // --------------------------------------------------------
-    // UNIQUE LEADS ATTENDED TODAY
+    // CURRENT ACTIVE ASSIGNED LEADS
     // --------------------------------------------------------
 
-    const attendedLeadIds =
+    const assignedLeadIds =
         new Set();
 
 
-    todayCalls.forEach(
-        function (call) {
+    assignmentList.forEach(
+        function (assignment) {
 
             if (
-                call.leadId !== null &&
-                call.leadId !== undefined
+                assignment &&
+                assignment.leadId !== null &&
+                assignment.leadId !== undefined
             ) {
 
-                attendedLeadIds.add(
+                assignedLeadIds.add(
                     String(
-                        call.leadId
+                        assignment.leadId
                     )
                 );
 
@@ -458,59 +494,55 @@ function calculateAgentWorkSummary(
 
 
     // --------------------------------------------------------
-    // CURRENTLY ASSIGNED LEADS
+    // TODAY'S CALLS
     // --------------------------------------------------------
 
-    const assignedLeadIds =
-        new Set();
+    const todayCalls =
+        callList.filter(
+            function (call) {
 
-
-    if (Array.isArray(assignments)) {
-
-        assignments.forEach(
-            function (assignment) {
-
-                const leadId =
-                    assignment.leadId;
-
-
-                if (
-                    leadId !== null &&
-                    leadId !== undefined
-                ) {
-
-                    assignedLeadIds.add(
-                        String(
-                            leadId
-                        )
-                    );
-
-                }
+                return isCallFromToday(
+                    call
+                );
 
             }
         );
 
-    }
-
 
     // --------------------------------------------------------
-    // COUNT UNIQUE ATTENDED LEADS
-    // THAT ARE CURRENTLY ASSIGNED
+    // UNIQUE LEADS CALLED TODAY
     // --------------------------------------------------------
 
-    let attendedLeads = 0;
+    const attendedLeadIds =
+        new Set();
 
 
-    attendedLeadIds.forEach(
-        function (leadId) {
+    todayCalls.forEach(
+        function (call) {
 
             if (
-                assignedLeadIds.has(
-                    leadId
-                )
+                call &&
+                call.leadId !== null &&
+                call.leadId !== undefined
             ) {
 
-                attendedLeads++;
+                const leadId =
+                    String(
+                        call.leadId
+                    );
+
+
+                if (
+                    assignedLeadIds.has(
+                        leadId
+                    )
+                ) {
+
+                    attendedLeadIds.add(
+                        leadId
+                    );
+
+                }
 
             }
 
@@ -518,9 +550,13 @@ function calculateAgentWorkSummary(
     );
 
 
-    // --------------------------------------------------------
-    // REMAINING LEADS
-    // --------------------------------------------------------
+    const totalLeads =
+        assignedLeadIds.size;
+
+
+    const attendedLeads =
+        attendedLeadIds.size;
+
 
     const remainingLeads =
         Math.max(
@@ -555,50 +591,1436 @@ function updateAgentWorkCards(
     calls
 ) {
 
-    const totalLeadsElement =
+    if (userRole !== "AGENT") {
+
+        return;
+
+    }
+
+
+    const summary =
+        calculateAgentWorkSummary(
+            assignments,
+            calls
+        );
+
+
+    const totalElement =
         document.getElementById(
             "totalLeads"
         );
 
 
-    const attendedLeadsElement =
+    const attendedElement =
         document.getElementById(
             "attendedLeads"
         );
 
 
-    const remainingLeadsElement =
+    const remainingElement =
         document.getElementById(
             "remainingLeads"
         );
 
 
-    const attendedLeadsCard =
+    if (totalElement) {
+
+        totalElement.textContent =
+            summary.totalLeads;
+
+    }
+
+
+    if (attendedElement) {
+
+        attendedElement.textContent =
+            summary.attendedLeads;
+
+    }
+
+
+    if (remainingElement) {
+
+        remainingElement.textContent =
+            summary.remainingLeads;
+
+    }
+
+}
+
+
+// ============================================================
+// UPDATE FOLLOW-UP CARDS
+// ============================================================
+
+function updateFollowUpCards(
+    followUps
+) {
+
+    const list =
+        Array.isArray(
+            followUps
+        )
+            ? followUps
+            : [];
+
+
+    const totalElement =
         document.getElementById(
-            "attendedLeadsCard"
+            "totalFollowUps"
         );
 
 
-    const remainingLeadsCard =
+    const pendingElement =
         document.getElementById(
-            "remainingLeadsCard"
+            "pendingFollowUps"
         );
 
 
-    // ========================================================
-    // AGENT DASHBOARD
-    // ========================================================
+    const completedElement =
+        document.getElementById(
+            "completedFollowUps"
+        );
+
+
+    const missedElement =
+        document.getElementById(
+            "missedFollowUps"
+        );
+
+
+    const cancelledElement =
+        document.getElementById(
+            "cancelledFollowUps"
+        );
+
+
+    const todayElement =
+        document.getElementById(
+            "todayFollowUps"
+        );
+
+
+    if (totalElement) {
+
+        totalElement.textContent =
+            list.length;
+
+    }
+
+
+    let pending = 0;
+
+    let completed = 0;
+
+    let missed = 0;
+
+    let cancelled = 0;
+
+    let today = 0;
+
+
+    const todayString =
+        getTodayDateString();
+
+
+    list.forEach(
+        function (followUp) {
+
+            const status =
+                String(
+                    followUp.status ||
+                    ""
+                )
+                .toUpperCase();
+
+
+            if (
+                status ===
+                "PENDING"
+            ) {
+
+                pending++;
+
+            }
+
+
+            if (
+                status ===
+                "COMPLETED"
+            ) {
+
+                completed++;
+
+            }
+
+
+            if (
+                status ===
+                "MISSED"
+            ) {
+
+                missed++;
+
+            }
+
+
+            if (
+                status ===
+                "CANCELLED"
+            ) {
+
+                cancelled++;
+
+            }
+
+
+            const dateValue =
+                followUp.followUpDate ||
+                followUp.scheduledDate ||
+                followUp.date ||
+                followUp.followUpTime;
+
+
+            if (dateValue) {
+
+                const date =
+                    new Date(
+                        dateValue
+                    );
+
+
+                if (
+                    !Number.isNaN(
+                        date.getTime()
+                    )
+                ) {
+
+                    const year =
+                        date.getFullYear();
+
+                    const month =
+                        String(
+                            date.getMonth() + 1
+                        )
+                        .padStart(
+                            2,
+                            "0"
+                        );
+
+                    const day =
+                        String(
+                            date.getDate()
+                        )
+                        .padStart(
+                            2,
+                            "0"
+                        );
+
+
+                    const dateString =
+                        `${year}-${month}-${day}`;
+
+
+                    if (
+                        dateString ===
+                        todayString
+                    ) {
+
+                        today++;
+
+                    }
+
+                }
+
+            }
+
+        }
+    );
+
+
+    if (pendingElement) {
+
+        pendingElement.textContent =
+            pending;
+
+    }
+
+
+    if (completedElement) {
+
+        completedElement.textContent =
+            completed;
+
+    }
+
+
+    if (missedElement) {
+
+        missedElement.textContent =
+            missed;
+
+    }
+
+
+    if (cancelledElement) {
+
+        cancelledElement.textContent =
+            cancelled;
+
+    }
+
+
+    if (todayElement) {
+
+        todayElement.textContent =
+            today;
+
+    }
+
+}
+
+
+// ============================================================
+// UPDATE CALL COUNT
+// ============================================================
+
+function updateCallCount(
+    calls
+) {
+
+    const element =
+        document.getElementById(
+            "totalCalls"
+        );
+
+
+    if (element) {
+
+        element.textContent =
+            Array.isArray(calls)
+                ? calls.length
+                : 0;
+
+    }
+
+}
+
+
+// ============================================================
+// UPDATE UNASSIGNED LEADS
+// ADMIN / MANAGER ONLY
+// ============================================================
+
+function updateUnassignedLeads(
+    leads,
+    assignments
+) {
 
     if (userRole === "AGENT") {
 
-        const summary =
-            calculateAgentWorkSummary(
-                assignments,
-                calls
+        return;
+
+    }
+
+
+    const element =
+        document.getElementById(
+            "unassignedLeads"
+        );
+
+
+    if (!element) {
+
+        return;
+
+    }
+
+
+    const assignedIds =
+        new Set();
+
+
+    (
+        Array.isArray(assignments)
+            ? assignments
+            : []
+    )
+    .forEach(
+        function (assignment) {
+
+            if (
+                assignment &&
+                assignment.leadId !== null &&
+                assignment.leadId !== undefined
+            ) {
+
+                assignedIds.add(
+                    String(
+                        assignment.leadId
+                    )
+                );
+
+            }
+
+        }
+    );
+
+
+    const list =
+        Array.isArray(
+            leads
+        )
+            ? leads
+            : [];
+
+
+    let count = 0;
+
+
+    list.forEach(
+        function (lead) {
+
+            if (
+                !lead ||
+                lead.id === null ||
+                lead.id === undefined
+            ) {
+
+                return;
+
+            }
+
+
+            const status =
+                String(
+                    lead.status ||
+                    ""
+                )
+                .toUpperCase();
+
+
+            const closed =
+                status === "ENROLLED" ||
+                status === "NOT_INTERESTED" ||
+                status === "LOST" ||
+                status === "WRONG_NUMBER";
+
+
+            if (
+                !closed &&
+                !assignedIds.has(
+                    String(
+                        lead.id
+                    )
+                )
+            ) {
+
+                count++;
+
+            }
+
+        }
+    );
+
+
+    element.textContent =
+        count;
+
+}
+
+
+// ============================================================
+// LEAD OVERVIEW CHART
+// ============================================================
+
+function createLeadOverviewChart(
+    leads
+) {
+
+    const canvas =
+        document.getElementById(
+            "leadOverviewChart"
+        );
+
+
+    if (!canvas) {
+
+        return;
+
+    }
+
+
+    if (leadOverviewChart) {
+
+        leadOverviewChart.destroy();
+
+    }
+
+
+    const counts = {};
+
+
+    (
+        Array.isArray(leads)
+            ? leads
+            : []
+    )
+    .forEach(
+        function (lead) {
+
+            let status =
+                lead.status ||
+                lead.leadStatus ||
+                "UNSPECIFIED";
+
+
+            status =
+                String(
+                    status
+                )
+                .toUpperCase();
+
+
+            counts[status] =
+                (
+                    counts[status] ||
+                    0
+                ) + 1;
+
+        }
+    );
+
+
+    const labels =
+        Object.keys(
+            counts
+        );
+
+
+    const values =
+        Object.values(
+            counts
+        );
+
+
+    leadOverviewChart =
+        new Chart(
+            canvas,
+            {
+
+                type:
+                    "doughnut",
+
+                data: {
+
+                    labels:
+                        labels,
+
+                    datasets: [{
+
+                        data:
+                            values,
+
+                        borderWidth:
+                            0,
+
+                        hoverOffset:
+                            8
+
+                    }]
+
+                },
+
+                options: {
+
+                    responsive:
+                        true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    cutout:
+                        "68%",
+
+                    plugins: {
+
+                        legend: {
+
+                            position:
+                                "bottom",
+
+                            labels: {
+
+                                usePointStyle:
+                                    true,
+
+                                padding:
+                                    15
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
+
+// ============================================================
+// CRM ACTIVITY CHART
+// ============================================================
+
+function createCRMActivityChart(
+    leads,
+    assignments,
+    followUps,
+    calls
+) {
+
+    const canvas =
+        document.getElementById(
+            "crmActivityChart"
+        );
+
+
+    if (!canvas) {
+
+        return;
+
+    }
+
+
+    if (crmActivityChart) {
+
+        crmActivityChart.destroy();
+
+    }
+
+
+    const leadCount =
+        Array.isArray(leads)
+            ? leads.length
+            : 0;
+
+
+    const assignmentCount =
+        Array.isArray(assignments)
+            ? assignments.length
+            : 0;
+
+
+    const followUpCount =
+        Array.isArray(followUps)
+            ? followUps.length
+            : 0;
+
+
+    const callCount =
+        Array.isArray(calls)
+            ? calls.length
+            : 0;
+
+
+    crmActivityChart =
+        new Chart(
+            canvas,
+            {
+
+                type:
+                    "bar",
+
+                data: {
+
+                    labels: [
+
+                        "Leads",
+
+                        "Assigned",
+
+                        "Follow-ups",
+
+                        "Calls"
+
+                    ],
+
+                    datasets: [{
+
+                        label:
+                            "CRM Activity",
+
+                        data: [
+
+                            leadCount,
+
+                            assignmentCount,
+
+                            followUpCount,
+
+                            callCount
+
+                        ],
+
+                        borderRadius:
+                            8,
+
+                        maxBarThickness:
+                            60
+
+                    }]
+
+                },
+
+                options: {
+
+                    responsive:
+                        true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    plugins: {
+
+                        legend: {
+
+                            display:
+                                false
+
+                        }
+
+                    },
+
+                    scales: {
+
+                        y: {
+
+                            beginAtZero:
+                                true,
+
+                            ticks: {
+
+                                precision:
+                                    0
+
+                            }
+
+                        },
+
+                        x: {
+
+                            grid: {
+
+                                display:
+                                    false
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
+
+// ============================================================
+// AGENT LEAD DISTRIBUTION CHART
+// ADMIN / MANAGER ONLY
+// ============================================================
+
+function renderAgentLeadDistribution(
+    data
+) {
+
+    if (userRole === "AGENT") {
+
+        return;
+
+    }
+
+
+    const canvas =
+        document.getElementById(
+            "agentLeadDistributionChart"
+        );
+
+
+    if (!canvas) {
+
+        return;
+
+    }
+
+
+    if (agentLeadDistributionChart) {
+
+        agentLeadDistributionChart.destroy();
+
+    }
+
+
+    const list =
+        Array.isArray(data)
+            ? data
+            : [];
+
+
+    const labels =
+        list.map(
+            function (item) {
+
+                return (
+                    item.agentName ||
+                    (
+                        "Agent " +
+                        (
+                            item.agentId ||
+                            "-"
+                        )
+                    )
+                );
+
+            }
+        );
+
+
+    const values =
+        list.map(
+            function (item) {
+
+                return Number(
+                    item.activeLeads ||
+                    0
+                );
+
+            }
+        );
+
+
+    agentLeadDistributionChart =
+        new Chart(
+            canvas,
+            {
+
+                type:
+                    "bar",
+
+                data: {
+
+                    labels:
+                        labels,
+
+                    datasets: [{
+
+                        label:
+                            "Active Leads",
+
+                        data:
+                            values,
+
+                        borderRadius:
+                            8,
+
+                        maxBarThickness:
+                            60
+
+                    }]
+
+                },
+
+                options: {
+
+                    responsive:
+                        true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    plugins: {
+
+                        legend: {
+
+                            display:
+                                false
+
+                        }
+
+                    },
+
+                    scales: {
+
+                        y: {
+
+                            beginAtZero:
+                                true,
+
+                            ticks: {
+
+                                precision:
+                                    0
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
+
+// ============================================================
+// AGENT PERFORMANCE TABLE
+// ADMIN / MANAGER ONLY
+// ============================================================
+
+function renderAgentPerformance(
+    data
+) {
+
+    if (userRole === "AGENT") {
+
+        return;
+
+    }
+
+
+    const body =
+        document.getElementById(
+            "agentPerformanceTableBody"
+        );
+
+
+    if (!body) {
+
+        return;
+
+    }
+
+
+    const list =
+        Array.isArray(data)
+            ? data
+            : [];
+
+
+    body.innerHTML =
+        "";
+
+
+    if (!list.length) {
+
+        body.innerHTML =
+            `
+            <tr>
+                <td
+                    colspan="4"
+                    style="
+                        text-align:center;
+                        padding:20px;
+                    "
+                >
+                    No agent performance data available.
+                </td>
+            </tr>
+            `;
+
+        return;
+
+    }
+
+
+    list.forEach(
+        function (item) {
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            row.innerHTML =
+                `
+                <td style="padding:12px;">
+                    ${
+                        item.agentName ||
+                        "-"
+                    }
+                </td>
+
+                <td
+                    style="
+                        text-align:center;
+                        padding:12px;
+                    "
+                >
+                    ${
+                        Number(
+                            item.activeLeads ||
+                            0
+                        )
+                    }
+                </td>
+
+                <td
+                    style="
+                        text-align:center;
+                        padding:12px;
+                    "
+                >
+                    ${
+                        Number(
+                            item.totalCalls ||
+                            0
+                        )
+                    }
+                </td>
+
+                <td
+                    style="
+                        text-align:center;
+                        padding:12px;
+                    "
+                >
+                    ${
+                        Number(
+                            item.enrolledLeads ||
+                            0
+                        )
+                    }
+                </td>
+                `;
+
+
+            body.appendChild(
+                row
+            );
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// CAMPAIGN PERFORMANCE TABLE
+// ADMIN / MANAGER ONLY
+// ============================================================
+
+function renderCampaignPerformance(
+    data
+) {
+
+    if (userRole === "AGENT") {
+
+        return;
+
+    }
+
+
+    const body =
+        document.getElementById(
+            "campaignPerformanceTableBody"
+        );
+
+
+    if (!body) {
+
+        return;
+
+    }
+
+
+    const list =
+        Array.isArray(data)
+            ? data
+            : [];
+
+
+    body.innerHTML =
+        "";
+
+
+    if (!list.length) {
+
+        body.innerHTML =
+            `
+            <tr>
+                <td
+                    colspan="5"
+                    style="
+                        text-align:center;
+                        padding:20px;
+                    "
+                >
+                    No campaign performance data available.
+                </td>
+            </tr>
+            `;
+
+        return;
+
+    }
+
+
+    list.forEach(
+        function (item) {
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            row.innerHTML =
+                `
+                <td style="padding:12px;">
+                    ${
+                        item.campaignName ||
+                        "-"
+                    }
+                </td>
+
+                <td style="padding:12px;">
+                    ${
+                        item.source ||
+                        "-"
+                    }
+                </td>
+
+                <td
+                    style="
+                        text-align:center;
+                        padding:12px;
+                    "
+                >
+                    ${
+                        item.status ||
+                        "-"
+                    }
+                </td>
+
+                <td
+                    style="
+                        text-align:center;
+                        padding:12px;
+                    "
+                >
+                    ${
+                        Number(
+                            item.totalLeads ||
+                            0
+                        )
+                    }
+                </td>
+
+                <td
+                    style="
+                        text-align:center;
+                        padding:12px;
+                    "
+                >
+                    ${
+                        Number(
+                            item.enrolledLeads ||
+                            0
+                        )
+                    }
+                </td>
+                `;
+
+
+            body.appendChild(
+                row
+            );
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// LEAD SOURCE PERFORMANCE TABLE
+// ADMIN / MANAGER ONLY
+// ============================================================
+
+function renderLeadSourcePerformance(
+    data
+) {
+
+    if (userRole === "AGENT") {
+
+        return;
+
+    }
+
+
+    const body =
+        document.getElementById(
+            "leadSourcePerformanceTableBody"
+        );
+
+
+    if (!body) {
+
+        return;
+
+    }
+
+
+    const list =
+        Array.isArray(data)
+            ? data
+            : [];
+
+
+    body.innerHTML =
+        "";
+
+
+    if (!list.length) {
+
+        body.innerHTML =
+            `
+            <tr>
+                <td
+                    colspan="4"
+                    style="
+                        text-align:center;
+                        padding:20px;
+                    "
+                >
+                    No lead source data available.
+                </td>
+            </tr>
+            `;
+
+        return;
+
+    }
+
+
+    list.forEach(
+        function (item) {
+
+            const total =
+                Number(
+                    item.totalLeads ||
+                    0
+                );
+
+
+            const enrolled =
+                Number(
+                    item.enrolledLeads ||
+                    0
+                );
+
+
+            let conversionRate;
+
+
+            if (
+                item.conversionRate !==
+                undefined &&
+                item.conversionRate !==
+                null
+            ) {
+
+                conversionRate =
+                    Number(
+                        item.conversionRate
+                    )
+                    .toFixed(
+                        1
+                    ) +
+                    "%";
+
+            } else {
+
+                conversionRate =
+                    total > 0
+                        ?
+                        (
+                            (
+                                enrolled /
+                                total
+                            ) *
+                            100
+                        )
+                        .toFixed(
+                            1
+                        ) +
+                        "%"
+                        :
+                        "0.0%";
+
+            }
+
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            row.innerHTML =
+                `
+                <td style="padding:12px;">
+                    ${
+                        item.source ||
+                        "Unknown"
+                    }
+                </td>
+
+                <td
+                    style="
+                        text-align:center;
+                        padding:12px;
+                    "
+                >
+                    ${total}
+                </td>
+
+                <td
+                    style="
+                        text-align:center;
+                        padding:12px;
+                    "
+                >
+                    ${enrolled}
+                </td>
+
+                <td
+                    style="
+                        text-align:center;
+                        padding:12px;
+                    "
+                >
+                    ${conversionRate}
+                </td>
+                `;
+
+
+            body.appendChild(
+                row
+            );
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// LOAD MANAGEMENT DASHBOARD SUMMARY
+// ADMIN / MANAGER ONLY
+// ============================================================
+
+async function loadManagementAnalytics() {
+
+    if (
+        userRole !== "ADMIN" &&
+        userRole !== "MANAGER"
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE_URL}/api/dashboard/summary`,
+                {
+
+                    method:
+                        "GET",
+
+                    headers:
+                        getHeaders()
+
+                }
             );
 
 
-        if (totalLeadsElement) {
+        if (!response.ok) {
+
+            console.error(
+                "Dashboard summary failed:",
+                response.status
+            );
+
+            return;
+
+        }
+
+
+        const summary =
+            await response.json();
+
+
+        console.log(
+            "Management dashboard summary:",
+            summary
+        );
+
+
+        // ----------------------------------------------------
+        // MANAGEMENT ANALYTICS
+        // ----------------------------------------------------
+
+        renderAgentLeadDistribution(
+            summary.agentLeadDistribution
+        );
+
+
+        renderAgentPerformance(
+            summary.agentPerformance
+        );
+
+
+        renderCampaignPerformance(
+            summary.campaignPerformance
+        );
+
+
+        renderLeadSourcePerformance(
+            summary.leadSourcePerformance
+        );
+
+
+        // ----------------------------------------------------
+        // SUMMARY VALUES
+        // ----------------------------------------------------
+
+        const totalLeadsElement =
+            document.getElementById(
+                "totalLeads"
+            );
+
+
+        if (
+            totalLeadsElement &&
+            summary.totalLeads !==
+                undefined
+        ) {
 
             totalLeadsElement.textContent =
                 summary.totalLeads;
@@ -606,94 +2028,119 @@ function updateAgentWorkCards(
         }
 
 
-        if (attendedLeadsElement) {
-
-            attendedLeadsElement.textContent =
-                summary.attendedLeads;
-
-        }
+        const totalFollowUpsElement =
+            document.getElementById(
+                "totalFollowUps"
+            );
 
 
-        if (remainingLeadsElement) {
+        if (
+            totalFollowUpsElement &&
+            summary.totalFollowUps !==
+                undefined
+        ) {
 
-            remainingLeadsElement.textContent =
-                summary.remainingLeads;
-
-        }
-
-
-        // Show Agent cards
-
-        if (attendedLeadsCard) {
-
-            attendedLeadsCard.style.display =
-                "";
+            totalFollowUpsElement.textContent =
+                summary.totalFollowUps;
 
         }
 
 
-        if (remainingLeadsCard) {
-
-            remainingLeadsCard.style.display =
-                "";
-
-        }
+        const pendingElement =
+            document.getElementById(
+                "pendingFollowUps"
+            );
 
 
-        // Total lead label
+        if (
+            pendingElement &&
+            summary.pendingFollowUps !==
+                undefined
+        ) {
 
-        const totalCard =
-            totalLeadsElement
-                ?.closest(
-                    ".dashboard-card"
-                );
-
-
-        if (totalCard) {
-
-            const label =
-                totalCard.querySelector(
-                    ".card-label"
-                );
-
-
-            if (label) {
-
-                label.textContent =
-                    "Currently assigned";
-
-            }
+            pendingElement.textContent =
+                summary.pendingFollowUps;
 
         }
 
 
-        // Make absolutely sure restricted
-        // dashboard sections stay hidden.
-
-        hideManagementSectionsForAgent();
-
-
-        return;
-
-    }
+        const completedElement =
+            document.getElementById(
+                "completedFollowUps"
+            );
 
 
-    // ========================================================
-    // ADMIN / MANAGER DASHBOARD
-    // ========================================================
+        if (
+            completedElement &&
+            summary.completedFollowUps !==
+                undefined
+        ) {
 
-    if (attendedLeadsCard) {
+            completedElement.textContent =
+                summary.completedFollowUps;
 
-        attendedLeadsCard.style.display =
-            "none";
-
-    }
+        }
 
 
-    if (remainingLeadsCard) {
+        const missedElement =
+            document.getElementById(
+                "missedFollowUps"
+            );
 
-        remainingLeadsCard.style.display =
-            "none";
+
+        if (
+            missedElement &&
+            summary.missedFollowUps !==
+                undefined
+        ) {
+
+            missedElement.textContent =
+                summary.missedFollowUps;
+
+        }
+
+
+        const cancelledElement =
+            document.getElementById(
+                "cancelledFollowUps"
+            );
+
+
+        if (
+            cancelledElement &&
+            summary.cancelledFollowUps !==
+                undefined
+        ) {
+
+            cancelledElement.textContent =
+                summary.cancelledFollowUps;
+
+        }
+
+
+        const unassignedElement =
+            document.getElementById(
+                "unassignedLeads"
+            );
+
+
+        if (
+            unassignedElement &&
+            summary.unassignedLeads !==
+                undefined
+        ) {
+
+            unassignedElement.textContent =
+                summary.unassignedLeads;
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Management analytics error:",
+            error
+        );
 
     }
 
@@ -708,6 +2155,34 @@ async function loadDashboardData() {
 
     try {
 
+        // ====================================================
+        // API URLS
+        // ====================================================
+
+        const leadsUrl =
+            `${API_BASE_URL}/api/leads`;
+
+
+        const assignmentsUrl =
+            userRole === "AGENT"
+                ?
+                `${API_BASE_URL}/api/agent/leads/${localStorage.getItem("userId")}`
+                :
+                `${API_BASE_URL}/api/lead-assignments/status/ACTIVE`;
+
+
+        const followUpsUrl =
+            `${API_BASE_URL}/api/follow-ups`;
+
+
+        const callsUrl =
+            `${API_BASE_URL}/api/call-logs`;
+
+
+        // ====================================================
+        // LOAD MAIN DATA
+        // ====================================================
+
         const [
 
             leadsResponse,
@@ -718,92 +2193,66 @@ async function loadDashboardData() {
 
             callsResponse
 
-        ] = await Promise.all([
+        ] =
+            await Promise.all([
 
+                fetch(
+                    leadsUrl,
+                    {
 
-            // ------------------------------------------------
-            // LEADS
-            // ------------------------------------------------
+                        method:
+                            "GET",
 
-            fetch(
-                `${API_BASE_URL}/api/leads`,
-                {
+                        headers:
+                            getHeaders()
 
-                    method: "GET",
+                    }
+                ),
 
-                    headers:
-                        getHeaders()
+                fetch(
+                    assignmentsUrl,
+                    {
 
-                }
-            ),
+                        method:
+                            "GET",
 
+                        headers:
+                            getHeaders()
 
-            // ------------------------------------------------
-            // ASSIGNMENTS
-            // ------------------------------------------------
+                    }
+                ),
 
-            fetch(
+                fetch(
+                    followUpsUrl,
+                    {
 
-                userRole === "AGENT"
+                        method:
+                            "GET",
 
-                    ?
+                        headers:
+                            getHeaders()
 
-                    `${API_BASE_URL}/api/agent/leads/${localStorage.getItem("userId")}`
+                    }
+                ),
 
-                    :
+                fetch(
+                    callsUrl,
+                    {
 
-                    `${API_BASE_URL}/api/lead-assignments/status/ACTIVE`,
+                        method:
+                            "GET",
 
-                {
+                        headers:
+                            getHeaders()
 
-                    method: "GET",
+                    }
+                )
 
-                    headers:
-                        getHeaders()
-
-                }
-
-            ),
-
-
-            // ------------------------------------------------
-            // FOLLOW-UPS
-            // ------------------------------------------------
-
-            fetch(
-                `${API_BASE_URL}/api/follow-ups`,
-                {
-
-                    method: "GET",
-
-                    headers:
-                        getHeaders()
-
-                }
-            ),
-
-
-            // ------------------------------------------------
-            // CALL LOGS
-            // ------------------------------------------------
-
-            fetch(
-                `${API_BASE_URL}/api/call-logs`,
-                {
-
-                    method: "GET",
-
-                    headers:
-                        getHeaders()
-
-                }
-            )
-
-        ]);
+            ]);
 
 
         // ====================================================
-        // CHECK RESPONSES
+        // CHECK API RESPONSES
         // ====================================================
 
         if (!leadsResponse.ok) {
@@ -843,7 +2292,7 @@ async function loadDashboardData() {
 
 
         // ====================================================
-        // CONVERT TO JSON
+        // PARSE JSON
         // ====================================================
 
         const leads =
@@ -863,125 +2312,155 @@ async function loadDashboardData() {
 
 
         // ====================================================
-        // TOTAL LEADS
+        // SAFETY ARRAYS
         // ====================================================
 
-        const totalLeadsElement =
-            document.getElementById(
-                "totalLeads"
-            );
+        const leadList =
+            Array.isArray(leads)
+                ? leads
+                : [];
+
+
+        const assignmentList =
+            Array.isArray(assignments)
+                ? assignments
+                : [];
+
+
+        const followUpList =
+            Array.isArray(followUps)
+                ? followUps
+                : [];
+
+
+        const callList =
+            Array.isArray(calls)
+                ? calls
+                : [];
 
 
         // ====================================================
-        // AGENT
+        // AGENT DASHBOARD
         // ====================================================
 
         if (userRole === "AGENT") {
 
             updateAgentWorkCards(
-                assignments,
-                calls
+                assignmentList,
+                callList
             );
 
         }
 
 
         // ====================================================
-        // ADMIN / MANAGER
+        // ADMIN / MANAGER DASHBOARD
         // ====================================================
 
         else {
 
+            const totalLeadsElement =
+                document.getElementById(
+                    "totalLeads"
+                );
+
+
             if (totalLeadsElement) {
 
                 totalLeadsElement.textContent =
-                    leads.length;
+                    leadList.length;
 
             }
 
 
-            const totalLeadCard =
-                totalLeadsElement
-                    ?.closest(
-                        ".dashboard-card"
-                    );
+            const attendedCard =
+                document.getElementById(
+                    "attendedLeadsCard"
+                );
 
 
-            if (totalLeadCard) {
-
-                const label =
-                    totalLeadCard.querySelector(
-                        ".card-label"
-                    );
+            const remainingCard =
+                document.getElementById(
+                    "remainingLeadsCard"
+                );
 
 
-                if (label) {
+            if (attendedCard) {
 
-                    label.textContent =
-                        "All CRM leads";
-
-                }
+                attendedCard.style.display =
+                    "none";
 
             }
 
-        }
+
+            if (remainingCard) {
+
+                remainingCard.style.display =
+                    "none";
+
+            }
 
 
-        // ====================================================
-        // FOLLOW-UPS
-        // ====================================================
-
-        const totalFollowUpsElement =
-            document.getElementById(
-                "totalFollowUps"
+            updateUnassignedLeads(
+                leadList,
+                assignmentList
             );
 
-
-        if (totalFollowUpsElement) {
-
-            totalFollowUpsElement.textContent =
-                followUps.length;
-
         }
 
 
         // ====================================================
-        // CALL LOGS
+        // FOLLOW-UP CARDS
         // ====================================================
 
-        const totalCallsElement =
-            document.getElementById(
-                "totalCalls"
-            );
-
-
-        if (totalCallsElement) {
-
-            totalCallsElement.textContent =
-                calls.length;
-
-        }
+        updateFollowUpCards(
+            followUpList
+        );
 
 
         // ====================================================
-        // CREATE CHARTS
+        // CALL COUNT
+        // ====================================================
+
+        updateCallCount(
+            callList
+        );
+
+
+        // ====================================================
+        // LEAD OVERVIEW
+        //
+        // IMPORTANT:
+        // For Agent, /api/leads already returns
+        // only the agent's permitted leads.
         // ====================================================
 
         createLeadOverviewChart(
-            leads
-        );
-
-
-        createCRMActivityChart(
-            leads,
-            assignments,
-            followUps,
-            calls
+            leadList
         );
 
 
         // ====================================================
-        // FINAL AGENT SECURITY CHECK
+        // CRM ACTIVITY
+        // ====================================================
+
+        createCRMActivityChart(
+            leadList,
+            assignmentList,
+            followUpList,
+            callList
+        );
+
+
+        // ====================================================
+        // ADMIN / MANAGER ANALYTICS
+        // ====================================================
+
+        await loadManagementAnalytics();
+
+
+        // ====================================================
+        // FINAL AGENT SECURITY
         // ====================================================
 
         hideManagementSectionsForAgent();
@@ -1000,431 +2479,6 @@ async function loadDashboardData() {
 
 
 // ============================================================
-// LEAD OVERVIEW CHART
-// ============================================================
-
-function createLeadOverviewChart(
-    leads
-) {
-
-    const canvas =
-        document.getElementById(
-            "leadOverviewChart"
-        );
-
-
-    if (!canvas) {
-
-        return;
-
-    }
-
-
-    // Destroy old chart
-
-    if (leadOverviewChart) {
-
-        leadOverviewChart.destroy();
-
-    }
-
-
-    // ========================================================
-    // GROUP LEADS BY STATUS
-    // ========================================================
-
-    const statusCounts = {};
-
-
-    if (Array.isArray(leads)) {
-
-        leads.forEach(
-            function (lead) {
-
-                let status =
-                    lead.status ||
-                    lead.leadStatus ||
-                    "UNSPECIFIED";
-
-
-                status =
-                    String(
-                        status
-                    ).toUpperCase();
-
-
-                if (
-                    !statusCounts[status]
-                ) {
-
-                    statusCounts[status] =
-                        0;
-
-                }
-
-
-                statusCounts[status]++;
-
-            }
-        );
-
-    }
-
-
-    const labels =
-        Object.keys(
-            statusCounts
-        );
-
-
-    const data =
-        Object.values(
-            statusCounts
-        );
-
-
-    // ========================================================
-    // CREATE DOUGHNUT CHART
-    // ========================================================
-
-    leadOverviewChart =
-        new Chart(
-            canvas,
-            {
-
-                type:
-                    "doughnut",
-
-
-                data: {
-
-                    labels:
-                        labels,
-
-                    datasets: [{
-
-                        data:
-                            data,
-
-                        borderWidth:
-                            0,
-
-                        hoverOffset:
-                            10
-
-                    }]
-
-                },
-
-
-                options: {
-
-                    responsive:
-                        true,
-
-                    maintainAspectRatio:
-                        false,
-
-                    cutout:
-                        "68%",
-
-
-                    plugins: {
-
-                        legend: {
-
-                            position:
-                                "bottom",
-
-                            labels: {
-
-                                padding:
-                                    18,
-
-                                usePointStyle:
-                                    true,
-
-                                font: {
-
-                                    size:
-                                        12
-
-                                }
-
-                            }
-
-                        },
-
-
-                        tooltip: {
-
-                            callbacks: {
-
-                                label:
-                                    function (
-                                        context
-                                    ) {
-
-                                        return (
-
-                                            " " +
-
-                                            context.label +
-
-                                            ": " +
-
-                                            context.raw
-
-                                        );
-
-                                    }
-
-                            }
-
-                        }
-
-                    },
-
-
-                    animation: {
-
-                        animateRotate:
-                            true,
-
-                        animateScale:
-                            true,
-
-                        duration:
-                            1200
-
-                    }
-
-                }
-
-            }
-        );
-
-}
-
-
-// ============================================================
-// CRM ACTIVITY CHART
-// ============================================================
-
-function createCRMActivityChart(
-    leads,
-    assignments,
-    followUps,
-    calls
-) {
-
-    const canvas =
-        document.getElementById(
-            "crmActivityChart"
-        );
-
-
-    if (!canvas) {
-
-        return;
-
-    }
-
-
-    // Destroy old chart
-
-    if (crmActivityChart) {
-
-        crmActivityChart.destroy();
-
-    }
-
-
-    // ========================================================
-    // CREATE BAR CHART
-    // ========================================================
-
-    crmActivityChart =
-        new Chart(
-            canvas,
-            {
-
-                type:
-                    "bar",
-
-
-                data: {
-
-                    labels: [
-
-                        "Leads",
-
-                        "Assigned",
-
-                        "Follow-ups",
-
-                        "Calls"
-
-                    ],
-
-
-                    datasets: [{
-
-                        label:
-                            "CRM Activity",
-
-                        data: [
-
-                            Array.isArray(leads)
-                                ? leads.length
-                                : 0,
-
-                            Array.isArray(assignments)
-                                ? assignments.length
-                                : 0,
-
-                            Array.isArray(followUps)
-                                ? followUps.length
-                                : 0,
-
-                            Array.isArray(calls)
-                                ? calls.length
-                                : 0
-
-                        ],
-
-                        borderRadius:
-                            10,
-
-                        borderSkipped:
-                            false,
-
-                        maxBarThickness:
-                            60
-
-                    }]
-
-                },
-
-
-                options: {
-
-                    responsive:
-                        true,
-
-                    maintainAspectRatio:
-                        false,
-
-
-                    plugins: {
-
-                        legend: {
-
-                            display:
-                                false
-
-                        },
-
-
-                        tooltip: {
-
-                            callbacks: {
-
-                                label:
-                                    function (
-                                        context
-                                    ) {
-
-                                        return (
-
-                                            " " +
-
-                                            context.raw +
-
-                                            " records"
-
-                                        );
-
-                                    }
-
-                            }
-
-                        }
-
-                    },
-
-
-                    scales: {
-
-                        x: {
-
-                            grid: {
-
-                                display:
-                                    false
-
-                            },
-
-
-                            ticks: {
-
-                                font: {
-
-                                    size:
-                                        12
-
-                                }
-
-                            }
-
-                        },
-
-
-                        y: {
-
-                            beginAtZero:
-                                true,
-
-
-                            ticks: {
-
-                                precision:
-                                    0
-
-                            },
-
-
-                            grid: {
-
-                                color:
-                                    "rgba(148,163,184,0.15)"
-
-                            }
-
-                        }
-
-                    },
-
-
-                    animation: {
-
-                        duration:
-                            1200,
-
-                        easing:
-                            "easeOutQuart"
-
-                    }
-
-                }
-
-            }
-        );
-
-}
-
-
-// ============================================================
 // START DASHBOARD
 // ============================================================
 
@@ -1432,15 +2486,22 @@ loadDashboardData();
 
 
 // ============================================================
-// FINAL SECURITY CHECKS
+// FINAL AGENT SECURITY CHECKS
 // ============================================================
 
 setTimeout(
     hideManagementSectionsForAgent,
-    1500
+    1000
 );
+
 
 setTimeout(
     hideManagementSectionsForAgent,
-    2500
+    2000
+);
+
+
+setTimeout(
+    hideManagementSectionsForAgent,
+    3000
 );
