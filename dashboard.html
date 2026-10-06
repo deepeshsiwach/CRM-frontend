@@ -17,6 +17,19 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <style>
+
+        /* =====================================================
+           AGENT DASHBOARD SECURITY
+           Management analytics are hidden for agents.
+           ===================================================== */
+
+        .management-only.agent-hidden {
+            display: none !important;
+        }
+
+    </style>
+
 </head>
 
 
@@ -26,9 +39,9 @@
 <div class="dashboard-container">
 
 
-    <!-- ================================
+    <!-- =====================================================
          HEADER
-         ================================ -->
+         ===================================================== -->
 
     <header class="dashboard-header">
 
@@ -59,9 +72,9 @@
     <div class="dashboard-layout">
 
 
-        <!-- ================================
+        <!-- =================================================
              SIDEBAR
-             ================================ -->
+             ================================================= -->
 
         <aside class="sidebar">
 
@@ -75,7 +88,9 @@
                 <a
                     href="#"
                     class="active">
+
                     Dashboard
+
                 </a>
 
 
@@ -133,9 +148,9 @@
         </aside>
 
 
-        <!-- ================================
+        <!-- =================================================
              MAIN CONTENT
-             ================================ -->
+             ================================================= -->
 
         <main class="dashboard-content">
 
@@ -155,9 +170,9 @@
             </button>
 
 
-            <!-- ==========================================
+            <!-- =================================================
                  DASHBOARD CARDS
-                 ========================================== -->
+                 ================================================= -->
 
             <div class="dashboard-cards">
 
@@ -396,9 +411,12 @@
                 </div>
 
 
-                <!-- UNASSIGNED LEADS -->
+                <!-- UNASSIGNED LEADS
+                     MANAGEMENT ONLY -->
 
-                <div class="dashboard-card">
+                <div
+                    class="dashboard-card management-only"
+                    id="unassignedLeadsCard">
 
                     <div class="card-icon">
                         📥
@@ -422,16 +440,16 @@
             </div>
 
 
-            <!-- =====================================================
+            <!-- =================================================
                  ANALYTICS AREA
-                 ===================================================== -->
+                 ================================================= -->
 
             <div class="dashboard-analytics">
 
 
-                <!-- ================================================
+                <!-- =================================================
                      LEAD OVERVIEW
-                     ================================================ -->
+                     ================================================= -->
 
                 <div class="analytics-card analytics-large">
 
@@ -463,9 +481,9 @@
                 </div>
 
 
-                <!-- ================================================
+                <!-- =================================================
                      CRM ACTIVITY
-                     ================================================ -->
+                     ================================================= -->
 
                 <div class="analytics-card">
 
@@ -497,11 +515,13 @@
                 </div>
 
 
-                <!-- ================================================
+                <!-- =================================================
                      AGENT LEAD DISTRIBUTION
-                     ================================================ -->
+                     MANAGEMENT ONLY
+                     ================================================= -->
 
-                <div class="analytics-card analytics-large">
+                <div
+                    class="analytics-card analytics-large management-only">
 
                     <div class="analytics-header">
 
@@ -531,11 +551,13 @@
                 </div>
 
 
-                <!-- ================================================
+                <!-- =================================================
                      AGENT PERFORMANCE
-                     ================================================ -->
+                     MANAGEMENT ONLY
+                     ================================================= -->
 
-                <div class="analytics-card analytics-large">
+                <div
+                    class="analytics-card analytics-large management-only">
 
                     <div class="analytics-header">
 
@@ -642,11 +664,13 @@
                 </div>
 
 
-                <!-- ================================================
+                <!-- =================================================
                      CAMPAIGN PERFORMANCE
-                     ================================================ -->
+                     MANAGEMENT ONLY
+                     ================================================= -->
 
-                <div class="analytics-card analytics-large">
+                <div
+                    class="analytics-card analytics-large management-only">
 
                     <div class="analytics-header">
 
@@ -764,11 +788,13 @@
                 </div>
 
 
-                <!-- ================================================
+                <!-- =================================================
                      LEAD SOURCE PERFORMANCE
-                     ================================================ -->
+                     MANAGEMENT ONLY
+                     ================================================= -->
 
-                <div class="analytics-card analytics-large">
+                <div
+                    class="analytics-card analytics-large management-only">
 
                     <div class="analytics-header">
 
@@ -883,16 +909,122 @@
     </div>
 
 
-    <!-- ================================
-         JAVASCRIPT
-         ================================ -->
+</div>
 
-    <script src="config.js"></script>
+
+<!-- =====================================================
+     AGENT DASHBOARD UI SECURITY
+     ===================================================== -->
+
+<script>
+
+(function () {
+
+    function normalizeRole(role) {
+
+        role =
+            (role || "")
+                .trim()
+                .toUpperCase();
+
+
+        if (
+            role.startsWith("ROLE_")
+        ) {
+
+            role =
+                role.substring(5);
+
+        }
+
+
+        return role;
+
+    }
+
+
+    function hideAgentRestrictedSections() {
+
+        const role =
+            normalizeRole(
+                localStorage.getItem("userRole")
+            );
+
+
+        if (role !== "AGENT") {
+
+            return;
+
+        }
+
+
+        document
+            .querySelectorAll(
+                ".management-only"
+            )
+            .forEach(
+                function (element) {
+
+                    element.classList.add(
+                        "agent-hidden"
+                    );
+
+                }
+            );
+
+    }
+
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            hideAgentRestrictedSections();
+
+        }
+    );
+
+
+    /*
+     * Run again shortly after page load.
+     * This protects against dashboard.js dynamically
+     * changing the dashboard after initial load.
+     */
+
+    setTimeout(
+        hideAgentRestrictedSections,
+        100
+    );
+
+
+    setTimeout(
+        hideAgentRestrictedSections,
+        500
+    );
+
+
+    setTimeout(
+        hideAgentRestrictedSections,
+        1000
+    );
+
+
+})();
+
+</script>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
+
+<script src="config.js"></script>
+
 <script src="notifications.js"></script>
-<script src="dashboard.js"></script>
-<script src="access-control.js"></script>
 
-</body>
+<script src="dashboard.js"></script>
+
+<script src="access-control.js"></script>
 
 
 </body>

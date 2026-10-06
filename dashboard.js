@@ -1,25 +1,67 @@
-const token = localStorage.getItem("jwtToken");
-const userName = localStorage.getItem("userName");
-const userRole = localStorage.getItem("userRole");
+// ============================================================
+// DERIVION CRM - DASHBOARD
+// ============================================================
 
 
-// ================================
-// CHECK LOGIN
-// ================================
+// ============================================================
+// LOGIN INFORMATION
+// ============================================================
 
-if (!token) {
+const token =
+    localStorage.getItem("jwtToken");
 
-    window.location.href = "index.html";
+const userName =
+    localStorage.getItem("userName");
+
+
+// ============================================================
+// NORMALIZE USER ROLE
+// Supports:
+// AGENT
+// ROLE_AGENT
+// ADMIN
+// ROLE_ADMIN
+// MANAGER
+// ROLE_MANAGER
+// ============================================================
+
+let userRole =
+    (
+        localStorage.getItem("userRole") || ""
+    )
+    .trim()
+    .toUpperCase();
+
+
+if (userRole.startsWith("ROLE_")) {
+
+    userRole =
+        userRole.substring(5);
 
 }
 
 
-// ================================
+// ============================================================
+// CHECK LOGIN
+// ============================================================
+
+if (!token) {
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+// ============================================================
 // SHOW LOGGED-IN USER
-// ================================
+// ============================================================
 
 const userNameElement =
-    document.getElementById("userName");
+    document.getElementById(
+        "userName"
+    );
+
 
 if (userNameElement) {
 
@@ -29,12 +71,15 @@ if (userNameElement) {
 }
 
 
-// ================================
+// ============================================================
 // LOGOUT
-// ================================
+// ============================================================
 
 const logoutButton =
-    document.getElementById("logoutButton");
+    document.getElementById(
+        "logoutButton"
+    );
+
 
 if (logoutButton) {
 
@@ -42,11 +87,26 @@ if (logoutButton) {
         "click",
         function () {
 
-            localStorage.removeItem("jwtToken");
-            localStorage.removeItem("userId");
-            localStorage.removeItem("userName");
-            localStorage.removeItem("userEmail");
-            localStorage.removeItem("userRole");
+            localStorage.removeItem(
+                "jwtToken"
+            );
+
+            localStorage.removeItem(
+                "userId"
+            );
+
+            localStorage.removeItem(
+                "userName"
+            );
+
+            localStorage.removeItem(
+                "userEmail"
+            );
+
+            localStorage.removeItem(
+                "userRole"
+            );
+
 
             window.location.href =
                 "index.html";
@@ -57,18 +117,148 @@ if (logoutButton) {
 }
 
 
-// ================================
+// ============================================================
+// HIDE MANAGEMENT INFORMATION FROM AGENTS
+// ============================================================
+
+function hideManagementSectionsForAgent() {
+
+    if (userRole !== "AGENT") {
+
+        return;
+
+    }
+
+
+    // --------------------------------------------------------
+    // MANAGEMENT ANALYTICS
+    // --------------------------------------------------------
+
+    document
+        .querySelectorAll(
+            ".management-only"
+        )
+        .forEach(
+            function (element) {
+
+                element.style.setProperty(
+                    "display",
+                    "none",
+                    "important"
+                );
+
+            }
+        );
+
+
+    // --------------------------------------------------------
+    // EXTRA SAFETY
+    // If any of these sections exist without the class,
+    // hide them by their IDs as well.
+    // --------------------------------------------------------
+
+    const restrictedElements = [
+
+        "agentLeadDistributionChart",
+
+        "agentPerformanceTable",
+
+        "campaignPerformanceTable",
+
+        "leadSourcePerformanceTable",
+
+        "unassignedLeadsCard"
+
+    ];
+
+
+    restrictedElements.forEach(
+        function (elementId) {
+
+            const element =
+                document.getElementById(
+                    elementId
+                );
+
+
+            if (!element) {
+
+                return;
+
+            }
+
+
+            const parentCard =
+                element.closest(
+                    ".analytics-card, .dashboard-card"
+                );
+
+
+            if (parentCard) {
+
+                parentCard.style.setProperty(
+                    "display",
+                    "none",
+                    "important"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// RUN ACCESS RESTRICTIONS
+// ============================================================
+
+hideManagementSectionsForAgent();
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        hideManagementSectionsForAgent();
+
+    }
+);
+
+
+// Extra protection after dashboard rendering
+
+setTimeout(
+    hideManagementSectionsForAgent,
+    100
+);
+
+
+setTimeout(
+    hideManagementSectionsForAgent,
+    500
+);
+
+
+setTimeout(
+    hideManagementSectionsForAgent,
+    1000
+);
+
+
+// ============================================================
 // CHART VARIABLES
-// ================================
+// ============================================================
 
 let leadOverviewChart = null;
 
 let crmActivityChart = null;
 
 
-// ================================
+// ============================================================
 // COMMON API HEADERS
-// ================================
+// ============================================================
 
 function getHeaders() {
 
@@ -82,37 +272,48 @@ function getHeaders() {
 }
 
 
-// ================================
-// HELPER:
+// ============================================================
 // GET TODAY'S DATE
-// ================================
+// ============================================================
 
 function getTodayDateString() {
 
-    const now = new Date();
+    const now =
+        new Date();
+
 
     const year =
         now.getFullYear();
 
+
     const month =
         String(
             now.getMonth() + 1
-        ).padStart(2, "0");
+        )
+        .padStart(
+            2,
+            "0"
+        );
+
 
     const day =
         String(
             now.getDate()
-        ).padStart(2, "0");
+        )
+        .padStart(
+            2,
+            "0"
+        );
+
 
     return `${year}-${month}-${day}`;
 
 }
 
 
-// ================================
-// HELPER:
+// ============================================================
 // CHECK WHETHER CALL IS TODAY
-// ================================
+// ============================================================
 
 function isCallFromToday(call) {
 
@@ -135,7 +336,9 @@ function isCallFromToday(call) {
 
 
     const callDate =
-        new Date(callStartTime);
+        new Date(
+            callStartTime
+        );
 
 
     if (
@@ -152,15 +355,25 @@ function isCallFromToday(call) {
     const year =
         callDate.getFullYear();
 
+
     const month =
         String(
             callDate.getMonth() + 1
-        ).padStart(2, "0");
+        )
+        .padStart(
+            2,
+            "0"
+        );
+
 
     const day =
         String(
             callDate.getDate()
-        ).padStart(2, "0");
+        )
+        .padStart(
+            2,
+            "0"
+        );
 
 
     const callDateString =
@@ -175,31 +388,35 @@ function isCallFromToday(call) {
 }
 
 
-// ================================
+// ============================================================
 // AGENT WORK SUMMARY
-// ================================
+// ============================================================
 
 function calculateAgentWorkSummary(
     assignments,
     calls
 ) {
 
-    // --------------------------------
+    // --------------------------------------------------------
     // TOTAL ACTIVE ASSIGNED LEADS
-    // --------------------------------
+    // --------------------------------------------------------
 
     const totalLeads =
-        Array.isArray(assignments)
+        Array.isArray(
+            assignments
+        )
             ? assignments.length
             : 0;
 
 
-    // --------------------------------
+    // --------------------------------------------------------
     // GET TODAY'S CALLS
-    // --------------------------------
+    // --------------------------------------------------------
 
     const todayCalls =
-        Array.isArray(calls)
+        Array.isArray(
+            calls
+        )
             ? calls.filter(
                 function (call) {
 
@@ -212,9 +429,9 @@ function calculateAgentWorkSummary(
             : [];
 
 
-    // --------------------------------
+    // --------------------------------------------------------
     // UNIQUE LEADS ATTENDED TODAY
-    // --------------------------------
+    // --------------------------------------------------------
 
     const attendedLeadIds =
         new Set();
@@ -229,7 +446,9 @@ function calculateAgentWorkSummary(
             ) {
 
                 attendedLeadIds.add(
-                    String(call.leadId)
+                    String(
+                        call.leadId
+                    )
                 );
 
             }
@@ -238,41 +457,46 @@ function calculateAgentWorkSummary(
     );
 
 
-    // --------------------------------
-    // ONLY COUNT LEADS THAT ARE
-    // CURRENTLY ASSIGNED TO THIS AGENT
-    // --------------------------------
+    // --------------------------------------------------------
+    // CURRENTLY ASSIGNED LEADS
+    // --------------------------------------------------------
 
     const assignedLeadIds =
         new Set();
 
 
-    assignments.forEach(
-        function (assignment) {
+    if (Array.isArray(assignments)) {
 
-            const leadId =
-                assignment.leadId;
+        assignments.forEach(
+            function (assignment) {
+
+                const leadId =
+                    assignment.leadId;
 
 
-            if (
-                leadId !== null &&
-                leadId !== undefined
-            ) {
+                if (
+                    leadId !== null &&
+                    leadId !== undefined
+                ) {
 
-                assignedLeadIds.add(
-                    String(leadId)
-                );
+                    assignedLeadIds.add(
+                        String(
+                            leadId
+                        )
+                    );
+
+                }
 
             }
+        );
 
-        }
-    );
+    }
 
 
-    // --------------------------------
+    // --------------------------------------------------------
     // COUNT UNIQUE ATTENDED LEADS
     // THAT ARE CURRENTLY ASSIGNED
-    // --------------------------------
+    // --------------------------------------------------------
 
     let attendedLeads = 0;
 
@@ -294,9 +518,9 @@ function calculateAgentWorkSummary(
     );
 
 
-    // --------------------------------
+    // --------------------------------------------------------
     // REMAINING LEADS
-    // --------------------------------
+    // --------------------------------------------------------
 
     const remainingLeads =
         Math.max(
@@ -322,9 +546,9 @@ function calculateAgentWorkSummary(
 }
 
 
-// ================================
+// ============================================================
 // UPDATE AGENT WORK CARDS
-// ================================
+// ============================================================
 
 function updateAgentWorkCards(
     assignments,
@@ -361,9 +585,9 @@ function updateAgentWorkCards(
         );
 
 
-    // --------------------------------
+    // ========================================================
     // AGENT DASHBOARD
-    // --------------------------------
+    // ========================================================
 
     if (userRole === "AGENT") {
 
@@ -398,7 +622,7 @@ function updateAgentWorkCards(
         }
 
 
-        // Show agent cards
+        // Show Agent cards
 
         if (attendedLeadsCard) {
 
@@ -416,40 +640,37 @@ function updateAgentWorkCards(
         }
 
 
-        // Update total lead label
+        // Total lead label
 
         const totalCard =
-            document.getElementById(
-                "totalLeads"
-            );
-
-
-        if (totalCard) {
-
-            const card =
-                totalCard.closest(
+            totalLeadsElement
+                ?.closest(
                     ".dashboard-card"
                 );
 
 
-            if (card) {
+        if (totalCard) {
 
-                const label =
-                    card.querySelector(
-                        ".card-label"
-                    );
+            const label =
+                totalCard.querySelector(
+                    ".card-label"
+                );
 
 
-                if (label) {
+            if (label) {
 
-                    label.textContent =
-                        "Currently assigned";
-
-                }
+                label.textContent =
+                    "Currently assigned";
 
             }
 
         }
+
+
+        // Make absolutely sure restricted
+        // dashboard sections stay hidden.
+
+        hideManagementSectionsForAgent();
 
 
         return;
@@ -457,9 +678,9 @@ function updateAgentWorkCards(
     }
 
 
-    // --------------------------------
+    // ========================================================
     // ADMIN / MANAGER DASHBOARD
-    // --------------------------------
+    // ========================================================
 
     if (attendedLeadsCard) {
 
@@ -479,9 +700,9 @@ function updateAgentWorkCards(
 }
 
 
-// ================================
+// ============================================================
 // LOAD DASHBOARD DATA
-// ================================
+// ============================================================
 
 async function loadDashboardData() {
 
@@ -500,22 +721,26 @@ async function loadDashboardData() {
         ] = await Promise.all([
 
 
-            // --------------------------------
+            // ------------------------------------------------
             // LEADS
-            // --------------------------------
+            // ------------------------------------------------
 
             fetch(
                 `${API_BASE_URL}/api/leads`,
                 {
+
                     method: "GET",
-                    headers: getHeaders()
+
+                    headers:
+                        getHeaders()
+
                 }
             ),
 
 
-            // --------------------------------
+            // ------------------------------------------------
             // ASSIGNMENTS
-            // --------------------------------
+            // ------------------------------------------------
 
             fetch(
 
@@ -541,37 +766,45 @@ async function loadDashboardData() {
             ),
 
 
-            // --------------------------------
+            // ------------------------------------------------
             // FOLLOW-UPS
-            // --------------------------------
+            // ------------------------------------------------
 
             fetch(
                 `${API_BASE_URL}/api/follow-ups`,
                 {
+
                     method: "GET",
-                    headers: getHeaders()
+
+                    headers:
+                        getHeaders()
+
                 }
             ),
 
 
-            // --------------------------------
+            // ------------------------------------------------
             // CALL LOGS
-            // --------------------------------
+            // ------------------------------------------------
 
             fetch(
                 `${API_BASE_URL}/api/call-logs`,
                 {
+
                     method: "GET",
-                    headers: getHeaders()
+
+                    headers:
+                        getHeaders()
+
                 }
             )
 
         ]);
 
 
-        // ================================
+        // ====================================================
         // CHECK RESPONSES
-        // ================================
+        // ====================================================
 
         if (!leadsResponse.ok) {
 
@@ -609,9 +842,9 @@ async function loadDashboardData() {
         }
 
 
-        // ================================
+        // ====================================================
         // CONVERT TO JSON
-        // ================================
+        // ====================================================
 
         const leads =
             await leadsResponse.json();
@@ -629,9 +862,9 @@ async function loadDashboardData() {
             await callsResponse.json();
 
 
-        // ================================
+        // ====================================================
         // TOTAL LEADS
-        // ================================
+        // ====================================================
 
         const totalLeadsElement =
             document.getElementById(
@@ -639,9 +872,9 @@ async function loadDashboardData() {
             );
 
 
-        // --------------------------------
+        // ====================================================
         // AGENT
-        // --------------------------------
+        // ====================================================
 
         if (userRole === "AGENT") {
 
@@ -652,9 +885,10 @@ async function loadDashboardData() {
 
         }
 
-        // --------------------------------
+
+        // ====================================================
         // ADMIN / MANAGER
-        // --------------------------------
+        // ====================================================
 
         else {
 
@@ -693,9 +927,9 @@ async function loadDashboardData() {
         }
 
 
-        // ================================
+        // ====================================================
         // FOLLOW-UPS
-        // ================================
+        // ====================================================
 
         const totalFollowUpsElement =
             document.getElementById(
@@ -711,9 +945,9 @@ async function loadDashboardData() {
         }
 
 
-        // ================================
+        // ====================================================
         // CALL LOGS
-        // ================================
+        // ====================================================
 
         const totalCallsElement =
             document.getElementById(
@@ -729,9 +963,9 @@ async function loadDashboardData() {
         }
 
 
-        // ================================
+        // ====================================================
         // CREATE CHARTS
-        // ================================
+        // ====================================================
 
         createLeadOverviewChart(
             leads
@@ -746,6 +980,13 @@ async function loadDashboardData() {
         );
 
 
+        // ====================================================
+        // FINAL AGENT SECURITY CHECK
+        // ====================================================
+
+        hideManagementSectionsForAgent();
+
+
     } catch (error) {
 
         console.error(
@@ -758,9 +999,9 @@ async function loadDashboardData() {
 }
 
 
-// ================================
+// ============================================================
 // LEAD OVERVIEW CHART
-// ================================
+// ============================================================
 
 function createLeadOverviewChart(
     leads
@@ -788,42 +1029,46 @@ function createLeadOverviewChart(
     }
 
 
-    // ================================
+    // ========================================================
     // GROUP LEADS BY STATUS
-    // ================================
+    // ========================================================
 
     const statusCounts = {};
 
 
-    leads.forEach(
-        function (lead) {
+    if (Array.isArray(leads)) {
 
-            let status =
-                lead.status ||
-                lead.leadStatus ||
-                "UNSPECIFIED";
+        leads.forEach(
+            function (lead) {
 
-
-            status =
-                String(
-                    status
-                ).toUpperCase();
+                let status =
+                    lead.status ||
+                    lead.leadStatus ||
+                    "UNSPECIFIED";
 
 
-            if (
-                !statusCounts[status]
-            ) {
+                status =
+                    String(
+                        status
+                    ).toUpperCase();
 
-                statusCounts[status] =
-                    0;
+
+                if (
+                    !statusCounts[status]
+                ) {
+
+                    statusCounts[status] =
+                        0;
+
+                }
+
+
+                statusCounts[status]++;
 
             }
+        );
 
-
-            statusCounts[status]++;
-
-        }
-    );
+    }
 
 
     const labels =
@@ -838,64 +1083,78 @@ function createLeadOverviewChart(
         );
 
 
-    // ================================
+    // ========================================================
     // CREATE DOUGHNUT CHART
-    // ================================
+    // ========================================================
 
     leadOverviewChart =
         new Chart(
             canvas,
             {
 
-                type: "doughnut",
+                type:
+                    "doughnut",
+
 
                 data: {
 
-                    labels: labels,
+                    labels:
+                        labels,
 
                     datasets: [{
 
-                        data: data,
+                        data:
+                            data,
 
-                        borderWidth: 0,
+                        borderWidth:
+                            0,
 
-                        hoverOffset: 10
+                        hoverOffset:
+                            10
 
                     }]
 
                 },
 
+
                 options: {
 
-                    responsive: true,
+                    responsive:
+                        true,
 
                     maintainAspectRatio:
                         false,
 
-                    cutout: "68%",
+                    cutout:
+                        "68%",
+
 
                     plugins: {
 
                         legend: {
 
-                            position: "bottom",
+                            position:
+                                "bottom",
 
                             labels: {
 
-                                padding: 18,
+                                padding:
+                                    18,
 
                                 usePointStyle:
                                     true,
 
                                 font: {
 
-                                    size: 12
+                                    size:
+                                        12
 
                                 }
 
                             }
 
                         },
+
 
                         tooltip: {
 
@@ -926,6 +1185,7 @@ function createLeadOverviewChart(
 
                     },
 
+
                     animation: {
 
                         animateRotate:
@@ -947,9 +1207,9 @@ function createLeadOverviewChart(
 }
 
 
-// ================================
+// ============================================================
 // CRM ACTIVITY CHART
-// ================================
+// ============================================================
 
 function createCRMActivityChart(
     leads,
@@ -980,16 +1240,18 @@ function createCRMActivityChart(
     }
 
 
-    // ================================
+    // ========================================================
     // CREATE BAR CHART
-    // ================================
+    // ========================================================
 
     crmActivityChart =
         new Chart(
             canvas,
             {
 
-                type: "bar",
+                type:
+                    "bar",
+
 
                 data: {
 
@@ -1005,6 +1267,7 @@ function createCRMActivityChart(
 
                     ],
 
+
                     datasets: [{
 
                         label:
@@ -1012,13 +1275,21 @@ function createCRMActivityChart(
 
                         data: [
 
-                            leads.length,
+                            Array.isArray(leads)
+                                ? leads.length
+                                : 0,
 
-                            assignments.length,
+                            Array.isArray(assignments)
+                                ? assignments.length
+                                : 0,
 
-                            followUps.length,
+                            Array.isArray(followUps)
+                                ? followUps.length
+                                : 0,
 
-                            calls.length
+                            Array.isArray(calls)
+                                ? calls.length
+                                : 0
 
                         ],
 
@@ -1035,20 +1306,25 @@ function createCRMActivityChart(
 
                 },
 
+
                 options: {
 
-                    responsive: true,
+                    responsive:
+                        true,
 
                     maintainAspectRatio:
                         false,
+
 
                     plugins: {
 
                         legend: {
 
-                            display: false
+                            display:
+                                false
 
                         },
+
 
                         tooltip: {
 
@@ -1077,21 +1353,25 @@ function createCRMActivityChart(
 
                     },
 
+
                     scales: {
 
                         x: {
 
                             grid: {
 
-                                display: false
+                                display:
+                                    false
 
                             },
+
 
                             ticks: {
 
                                 font: {
 
-                                    size: 12
+                                    size:
+                                        12
 
                                 }
 
@@ -1099,10 +1379,12 @@ function createCRMActivityChart(
 
                         },
 
+
                         y: {
 
                             beginAtZero:
                                 true,
+
 
                             ticks: {
 
@@ -1110,6 +1392,7 @@ function createCRMActivityChart(
                                     0
 
                             },
+
 
                             grid: {
 
@@ -1121,6 +1404,7 @@ function createCRMActivityChart(
                         }
 
                     },
+
 
                     animation: {
 
@@ -1140,8 +1424,23 @@ function createCRMActivityChart(
 }
 
 
-// ================================
+// ============================================================
 // START DASHBOARD
-// ================================
+// ============================================================
 
 loadDashboardData();
+
+
+// ============================================================
+// FINAL SECURITY CHECKS
+// ============================================================
+
+setTimeout(
+    hideManagementSectionsForAgent,
+    1500
+);
+
+setTimeout(
+    hideManagementSectionsForAgent,
+    2500
+);
