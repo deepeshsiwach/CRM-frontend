@@ -7,12 +7,13 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+        content="width=device-width, initial-scale=1.0">
 
     <title>DERIVION CRM</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -21,12 +22,13 @@
 
 <body>
 
+
 <div class="dashboard-container">
 
 
-    <!-- =====================================================
+    <!-- ================================
          HEADER
-         ===================================================== -->
+         ================================ -->
 
     <header class="dashboard-header">
 
@@ -34,8 +36,7 @@
 
             <img
                 src="assets/derivion_logo.png"
-                alt="DERIVION"
-            >
+                alt="DERIVION">
 
         </h1>
 
@@ -55,177 +56,86 @@
     </header>
 
 
-    <!-- =====================================================
-         DASHBOARD LAYOUT
-         ===================================================== -->
-
     <div class="dashboard-layout">
 
 
-        <!-- =================================================
+        <!-- ================================
              SIDEBAR
-             ================================================= -->
+             ================================ -->
 
         <aside class="sidebar">
 
-            <h2>Menu</h2>
+            <h2>
+                Menu
+            </h2>
 
 
             <nav>
 
-
-                <!-- ===============================
-                     DASHBOARD
-                     ALL USERS
-                     =============================== -->
-
                 <a
                     href="#"
-                    class="active"
-                    data-roles="ADMIN,MANAGER,AGENT"
-                >
+                    class="active">
                     Dashboard
                 </a>
 
 
-                <!-- ===============================
-                     LEADS
-                     ALL USERS
-                     =============================== -->
-
-                <a
-                    href="leads.html"
-                    data-roles="ADMIN,MANAGER,AGENT"
-                >
+                <a href="leads.html">
                     Leads
                 </a>
 
 
-                <!-- ===============================
-                     LEAD ASSIGNMENTS
-                     ADMIN + MANAGER
-                     =============================== -->
-
-                <a
-                    href="lead-assignments.html"
-                    data-roles="ADMIN,MANAGER"
-                >
+                <a href="lead-assignments.html">
                     Lead Assignments
                 </a>
 
 
-                <!-- ===============================
-                     CLOSED / DISPOSED LEADS
-                     ALL USERS
-                     =============================== -->
-
-                <a
-                    href="closed-leads.html"
-                    data-roles="ADMIN,MANAGER,AGENT"
-                >
+                <a href="closed-leads.html">
                     Closed / Disposed Leads
                 </a>
 
 
-                <!-- ===============================
-                     CALL LOGS
-                     ALL USERS
-                     =============================== -->
-
-                <a
-                    href="call-logs.html"
-                    data-roles="ADMIN,MANAGER,AGENT"
-                >
+                <a href="call-logs.html">
                     Call Logs
                 </a>
 
 
-                <!-- ===============================
-                     FOLLOW-UPS
-                     ALL USERS
-                     =============================== -->
-
-                <a
-                    href="follow-ups.html"
-                    data-roles="ADMIN,MANAGER,AGENT"
-                >
+                <a href="follow-ups.html">
                     Follow-ups
                 </a>
 
 
-                <!-- ===============================
-                     NOTES
-                     ALL USERS
-                     =============================== -->
-
-                <a
-                    href="notes.html"
-                    data-roles="ADMIN,MANAGER,AGENT"
-                >
+                <a href="notes.html">
                     Notes
                 </a>
 
 
-                <!-- ===============================
-                     USERS
-                     ADMIN ONLY
-                     =============================== -->
-
-                <a
-                    href="users.html"
-                    data-roles="ADMIN"
-                >
+                <a href="users.html">
                     Users
                 </a>
 
 
-                <!-- ===============================
-                     TEAMS
-                     ADMIN + MANAGER
-                     =============================== -->
-
-                <a
-                    href="teams.html"
-                    data-roles="ADMIN,MANAGER"
-                >
+                <a href="teams.html">
                     Teams
                 </a>
 
 
-                <!-- ===============================
-                     COURSES
-                     ADMIN + MANAGER
-                     =============================== -->
-
-                <a
-                    href="courses.html"
-                    data-roles="ADMIN,MANAGER"
-                >
+                <a href="courses.html">
                     Courses
                 </a>
 
 
-                <!-- ===============================
-                     CAMPAIGNS
-                     ADMIN + MANAGER
-                     =============================== -->
-
-                <a
-                    href="campaigns.html"
-                    data-roles="ADMIN,MANAGER"
-                >
+                <a href="campaigns.html">
                     Campaigns
                 </a>
-
 
             </nav>
 
         </aside>
 
 
-        <!-- =================================================
-             MAIN DASHBOARD
-             ================================================= -->
+        <!-- ================================
+             MAIN CONTENT
+             ================================ -->
 
         <main class="dashboard-content">
 
@@ -235,22 +145,19 @@
             </h2>
 
 
-            <!-- =================================================
-                 ADD LEAD
-                 ================================================= -->
-
             <button
                 type="button"
                 class="add-lead-button"
-                onclick="window.location.href='add-lead.html'"
-            >
+                onclick="window.location.href='add-lead.html'">
+
                 + Add Lead
+
             </button>
 
 
-            <!-- =================================================
+            <!-- ==========================================
                  DASHBOARD CARDS
-                 ================================================= -->
+                 ========================================== -->
 
             <div class="dashboard-cards">
 
@@ -272,30 +179,57 @@
                     </p>
 
                     <span class="card-label">
-                        All CRM leads
+                        Currently assigned
                     </span>
 
                 </div>
 
 
-                <!-- ASSIGNED LEADS -->
+                <!-- ATTENDED LEADS -->
 
-                <div class="dashboard-card">
+                <div
+                    class="dashboard-card"
+                    id="attendedLeadsCard">
 
                     <div class="card-icon">
-                        🎯
+                        ☎️
                     </div>
 
                     <h3>
-                        Assigned Leads
+                        Attended Leads
                     </h3>
 
-                    <p id="assignedLeads">
+                    <p id="attendedLeads">
                         0
                     </p>
 
                     <span class="card-label">
-                        Currently assigned
+                        Leads worked today
+                    </span>
+
+                </div>
+
+
+                <!-- REMAINING LEADS -->
+
+                <div
+                    class="dashboard-card"
+                    id="remainingLeadsCard">
+
+                    <div class="card-icon">
+                        ⏳
+                    </div>
+
+                    <h3>
+                        Remaining Leads
+                    </h3>
+
+                    <p id="remainingLeads">
+                        0
+                    </p>
+
+                    <span class="card-label">
+                        Yet to be worked
                     </span>
 
                 </div>
@@ -464,8 +398,7 @@
 
                 <!-- UNASSIGNED LEADS -->
 
-                <div class="dashboard-card"
-			id="unassignedLeadsCard">
+                <div class="dashboard-card">
 
                     <div class="card-icon">
                         📥
@@ -489,16 +422,16 @@
             </div>
 
 
-            <!-- =================================================
+            <!-- =====================================================
                  ANALYTICS AREA
-                 ================================================= -->
+                 ===================================================== -->
 
             <div class="dashboard-analytics">
 
 
-                <!-- =============================================
+                <!-- ================================================
                      LEAD OVERVIEW
-                     ============================================= -->
+                     ================================================ -->
 
                 <div class="analytics-card analytics-large">
 
@@ -522,17 +455,17 @@
                     <div class="chart-container">
 
                         <canvas
-                            id="leadOverviewChart"
-                        ></canvas>
+                            id="leadOverviewChart">
+                        </canvas>
 
                     </div>
 
                 </div>
 
 
-                <!-- =============================================
+                <!-- ================================================
                      CRM ACTIVITY
-                     ============================================= -->
+                     ================================================ -->
 
                 <div class="analytics-card">
 
@@ -556,20 +489,19 @@
                     <div class="chart-container">
 
                         <canvas
-                            id="crmActivityChart"
-                        ></canvas>
+                            id="crmActivityChart">
+                        </canvas>
 
                     </div>
 
                 </div>
 
 
-                <!-- =============================================
+                <!-- ================================================
                      AGENT LEAD DISTRIBUTION
-                     ============================================= -->
+                     ================================================ -->
 
-                <div class="analytics-card analytics-large"
-			id="agentLeadDistributionSection">
+                <div class="analytics-card analytics-large">
 
                     <div class="analytics-header">
 
@@ -591,22 +523,19 @@
                     <div class="chart-container">
 
                         <canvas
-                            id="agentLeadDistributionChart"
-                        ></canvas>
+                            id="agentLeadDistributionChart">
+                        </canvas>
 
                     </div>
 
                 </div>
 
 
-                <!-- =============================================
+                <!-- ================================================
                      AGENT PERFORMANCE
-                     ============================================= -->
+                     ================================================ -->
 
-                <div
-                    class="analytics-card analytics-large"
-                    id="agentPerformanceSection"
-                >
+                <div class="analytics-card analytics-large">
 
                     <div class="analytics-header">
 
@@ -633,8 +562,7 @@
                                 width:100%;
                                 border-collapse:collapse;
                                 margin-top:10px;
-                            "
-                        >
+                            ">
 
                             <thead>
 
@@ -644,36 +572,43 @@
                                         style="
                                             text-align:left;
                                             padding:12px;
-                                        "
-                                    >
+                                        ">
+
                                         Agent
+
                                     </th>
+
 
                                     <th
                                         style="
                                             text-align:center;
                                             padding:12px;
-                                        "
-                                    >
+                                        ">
+
                                         Active Leads
+
                                     </th>
+
 
                                     <th
                                         style="
                                             text-align:center;
                                             padding:12px;
-                                        "
-                                    >
+                                        ">
+
                                         Total Calls
+
                                     </th>
+
 
                                     <th
                                         style="
                                             text-align:center;
                                             padding:12px;
-                                        "
-                                    >
+                                        ">
+
                                         Enrolled
+
                                     </th>
 
                                 </tr>
@@ -681,9 +616,7 @@
                             </thead>
 
 
-                            <tbody
-                                id="agentPerformanceTableBody"
-                            >
+                            <tbody id="agentPerformanceTableBody">
 
                                 <tr>
 
@@ -692,9 +625,10 @@
                                         style="
                                             text-align:center;
                                             padding:20px;
-                                        "
-                                    >
+                                        ">
+
                                         Loading...
+
                                     </td>
 
                                 </tr>
@@ -708,14 +642,11 @@
                 </div>
 
 
-                <!-- =============================================
+                <!-- ================================================
                      CAMPAIGN PERFORMANCE
-                     ============================================= -->
+                     ================================================ -->
 
-                <div
-                    class="analytics-card analytics-large"
-                    id="campaignPerformanceSection"
-                >
+                <div class="analytics-card analytics-large">
 
                     <div class="analytics-header">
 
@@ -742,8 +673,7 @@
                                 width:100%;
                                 border-collapse:collapse;
                                 margin-top:10px;
-                            "
-                        >
+                            ">
 
                             <thead>
 
@@ -753,45 +683,54 @@
                                         style="
                                             text-align:left;
                                             padding:12px;
-                                        "
-                                    >
+                                        ">
+
                                         Campaign
+
                                     </th>
+
 
                                     <th
                                         style="
                                             text-align:left;
                                             padding:12px;
-                                        "
-                                    >
+                                        ">
+
                                         Source
+
                                     </th>
+
 
                                     <th
                                         style="
                                             text-align:center;
                                             padding:12px;
-                                        "
-                                    >
+                                        ">
+
                                         Status
+
                                     </th>
+
 
                                     <th
                                         style="
                                             text-align:center;
                                             padding:12px;
-                                        "
-                                    >
+                                        ">
+
                                         Total Leads
+
                                     </th>
+
 
                                     <th
                                         style="
                                             text-align:center;
                                             padding:12px;
-                                        "
-                                    >
+                                        ">
+
                                         Enrolled
+
                                     </th>
 
                                 </tr>
@@ -799,9 +738,7 @@
                             </thead>
 
 
-                            <tbody
-                                id="campaignPerformanceTableBody"
-                            >
+                            <tbody id="campaignPerformanceTableBody">
 
                                 <tr>
 
@@ -810,9 +747,10 @@
                                         style="
                                             text-align:center;
                                             padding:20px;
-                                        "
-                                    >
+                                        ">
+
                                         Loading...
+
                                     </td>
 
                                 </tr>
@@ -826,14 +764,11 @@
                 </div>
 
 
-                <!-- =============================================
+                <!-- ================================================
                      LEAD SOURCE PERFORMANCE
-                     ============================================= -->
+                     ================================================ -->
 
-                <div
-                    class="analytics-card analytics-large"
-                    id="leadSourcePerformanceSection"
-                >
+                <div class="analytics-card analytics-large">
 
                     <div class="analytics-header">
 
@@ -860,8 +795,7 @@
                                 width:100%;
                                 border-collapse:collapse;
                                 margin-top:10px;
-                            "
-                        >
+                            ">
 
                             <thead>
 
@@ -871,36 +805,43 @@
                                         style="
                                             text-align:left;
                                             padding:12px;
-                                        "
-                                    >
+                                        ">
+
                                         Lead Source
+
                                     </th>
+
 
                                     <th
                                         style="
                                             text-align:center;
                                             padding:12px;
-                                        "
-                                    >
+                                        ">
+
                                         Total Leads
+
                                     </th>
+
 
                                     <th
                                         style="
                                             text-align:center;
                                             padding:12px;
-                                        "
-                                    >
+                                        ">
+
                                         Enrolled
+
                                     </th>
+
 
                                     <th
                                         style="
                                             text-align:center;
                                             padding:12px;
-                                        "
-                                    >
+                                        ">
+
                                         Conversion Rate
+
                                     </th>
 
                                 </tr>
@@ -908,9 +849,7 @@
                             </thead>
 
 
-                            <tbody
-                                id="leadSourcePerformanceTableBody"
-                            >
+                            <tbody id="leadSourcePerformanceTableBody">
 
                                 <tr>
 
@@ -919,9 +858,10 @@
                                         style="
                                             text-align:center;
                                             padding:20px;
-                                        "
-                                    >
+                                        ">
+
                                         Loading...
+
                                     </td>
 
                                 </tr>
@@ -942,100 +882,14 @@
 
     </div>
 
-</div>
 
+    <!-- ================================
+         JAVASCRIPT
+         ================================ -->
 
-<!-- =========================================================
-     CONFIG
-     ========================================================= -->
+    <script src="config.js"></script>
 
-<script src="config.js"></script>
-<script src="notifications.js"></script>
-
-<script src="access-control.js"></script>
-
-
-<!-- =========================================================
-     DASHBOARD JAVASCRIPT
-     ========================================================= -->
-
-<script src="dashboard.js"></script>
-
-
-<!-- =========================================================
-     ROLE-BASED MENU
-     ========================================================= -->
-
-<script>
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        const userRole =
-            localStorage.getItem("userRole");
-
-        const menuLinks =
-            document.querySelectorAll(
-                ".sidebar nav a[data-roles]"
-            );
-
-
-        // ==========================================
-        // CHECK LOGIN ROLE
-        // ==========================================
-
-        if (!userRole) {
-
-            window.location.href =
-                "index.html";
-
-            return;
-
-        }
-
-
-        // ==========================================
-        // SHOW / HIDE MENU ITEMS
-        // ==========================================
-
-        menuLinks.forEach(
-            function (link) {
-
-                const allowedRoles =
-                    link
-                        .getAttribute("data-roles")
-                        .split(",")
-                        .map(
-                            function (role) {
-                                return role.trim();
-                            }
-                        );
-
-
-                if (
-                    !allowedRoles.includes(
-                        userRole
-                    )
-                ) {
-
-                    link.style.display =
-                        "none";
-
-                } else {
-
-                    link.style.display =
-                        "";
-
-                }
-
-            }
-        );
-
-    }
-);
-
-</script>
+    <script src="dashboard.js"></script>
 
 
 </body>
