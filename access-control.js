@@ -37,10 +37,6 @@
         .toUpperCase();
 
 
-    // Handle both:
-    // AGENT
-    // ROLE_AGENT
-
     if (userRole.startsWith("ROLE_")) {
 
         userRole =
@@ -56,14 +52,10 @@
 
 
     // ========================================================
-    // ROLE ACCESS
+    // PAGE ACCESS
     // ========================================================
 
     const PAGE_ACCESS = {
-
-        // -----------------------------
-        // ALL USERS
-        // -----------------------------
 
         "dashboard.html": [
             "ADMIN",
@@ -161,10 +153,7 @@
             "AGENT"
         ],
 
-
-        // -----------------------------
         // ADMIN + MANAGER ONLY
-        // -----------------------------
 
         "lead-assignments.html": [
             "ADMIN",
@@ -186,10 +175,7 @@
             "MANAGER"
         ],
 
-
-        // -----------------------------
         // ADMIN ONLY
-        // -----------------------------
 
         "users.html": [
             "ADMIN"
@@ -357,7 +343,7 @@
 
 
     // ========================================================
-    // FILTER SIDEBAR
+    // SIDEBAR ACCESS CONTROL
     // ========================================================
 
     function filterSidebar() {
@@ -383,9 +369,9 @@
                     .toLowerCase();
 
 
-                // =================================================
-                // RESTRICTED PAGE BY HREF
-                // =================================================
+                // ---------------------------------------------
+                // RESTRICTED BY PAGE
+                // ---------------------------------------------
 
                 if (
                     RESTRICTED_PAGES[
@@ -423,9 +409,9 @@
                 }
 
 
-                // =================================================
-                // RESTRICTED PAGE BY TEXT
-                // =================================================
+                // ---------------------------------------------
+                // RESTRICTED BY TEXT
+                // ---------------------------------------------
 
                 if (
 
@@ -458,7 +444,6 @@
                         false;
 
 
-                    // LEAD ASSIGNMENTS
                     if (
                         linkText ===
                         "lead assignments"
@@ -471,7 +456,6 @@
                     }
 
 
-                    // USERS
                     if (
                         linkText ===
                         "users"
@@ -483,7 +467,6 @@
                     }
 
 
-                    // TEAMS
                     if (
                         linkText ===
                         "teams"
@@ -496,7 +479,6 @@
                     }
 
 
-                    // COURSES
                     if (
                         linkText ===
                         "courses"
@@ -509,7 +491,6 @@
                     }
 
 
-                    // CAMPAIGNS
                     if (
                         linkText ===
                         "campaigns"
@@ -542,9 +523,9 @@
                 }
 
 
-                // =================================================
-                // DATA-ROLES SUPPORT
-                // =================================================
+                // ---------------------------------------------
+                // DATA ROLES
+                // ---------------------------------------------
 
                 const rolesAttribute =
                     link.getAttribute(
@@ -611,7 +592,164 @@
 
 
     // ========================================================
-    // PROTECT DIRECT PAGE ACCESS
+    // DASHBOARD MANAGEMENT SECTION CONTROL
+    // ========================================================
+
+    function filterDashboard() {
+
+        if (userRole !== "AGENT") {
+
+            return;
+
+        }
+
+
+        // ----------------------------------------------------
+        // 1. Hide sections using management-only class
+        // ----------------------------------------------------
+
+        document
+            .querySelectorAll(
+                ".management-only"
+            )
+            .forEach(
+                function (element) {
+
+                    hideElement(
+                        element
+                    );
+
+                }
+            );
+
+
+        // ----------------------------------------------------
+        // 2. Find dashboard cards/sections by their heading
+        // This works even if management-only class is missing.
+        // ----------------------------------------------------
+
+        const headings =
+            document.querySelectorAll(
+                "h3"
+            );
+
+
+        headings.forEach(
+            function (heading) {
+
+                const text =
+                    (
+                        heading.textContent || ""
+                    )
+                    .trim()
+                    .toLowerCase();
+
+
+                const restrictedTitles = [
+
+                    "agent lead distribution",
+
+                    "agent performance",
+
+                    "campaign performance",
+
+                    "lead source performance",
+
+                    "unassigned leads"
+
+                ];
+
+
+                if (
+                    restrictedTitles.includes(
+                        text
+                    )
+                ) {
+
+                    // Hide the complete surrounding card.
+                    const card =
+                        heading.closest(
+                            ".analytics-card, .dashboard-card"
+                        );
+
+
+                    if (card) {
+
+                        hideElement(
+                            card
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        // ----------------------------------------------------
+        // 3. Extra ID protection
+        // ----------------------------------------------------
+
+        const restrictedIds = [
+
+            "agentLeadDistributionChart",
+
+            "agentPerformanceTable",
+
+            "campaignPerformanceTable",
+
+            "leadSourcePerformanceTable",
+
+            "unassignedLeads"
+
+        ];
+
+
+        restrictedIds.forEach(
+            function (id) {
+
+                const element =
+                    document.getElementById(
+                        id
+                    );
+
+
+                if (!element) {
+
+                    return;
+
+                }
+
+
+                const card =
+                    element.closest(
+                        ".analytics-card, .dashboard-card"
+                    );
+
+
+                if (card) {
+
+                    hideElement(
+                        card
+                    );
+
+                } else {
+
+                    hideElement(
+                        element
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    // ========================================================
+    // DIRECT PAGE PROTECTION
     // ========================================================
 
     function protectCurrentPage() {
@@ -654,7 +792,7 @@
 
 
     // ========================================================
-    // PROTECT SIDEBAR CLICKS
+    // SIDEBAR CLICK PROTECTION
     // ========================================================
 
     function protectClicks() {
@@ -677,7 +815,9 @@
 
 
                 const pageName =
-                    getPageFromLink(link);
+                    getPageFromLink(
+                        link
+                    );
 
 
                 if (!pageName) {
@@ -727,10 +867,10 @@
 
 
     // ========================================================
-    // OBSERVE SIDEBAR CHANGES
+    // WATCH FOR DYNAMIC CHANGES
     // ========================================================
 
-    function watchSidebar() {
+    function watchPage() {
 
         if (!document.body) {
 
@@ -745,6 +885,8 @@
 
                     filterSidebar();
 
+                    filterDashboard();
+
                 }
             );
 
@@ -752,8 +894,11 @@
         observer.observe(
             document.body,
             {
+
                 childList: true,
+
                 subtree: true
+
             }
         );
 
@@ -770,9 +915,11 @@
 
         filterSidebar();
 
+        filterDashboard();
+
         protectClicks();
 
-        watchSidebar();
+        watchPage();
 
     }
 
@@ -790,16 +937,20 @@
 
             filterSidebar();
 
+            filterDashboard();
+
         }
     );
 
 
-    // Extra safety checks
+    // Extra checks
 
     setTimeout(
         function () {
 
             filterSidebar();
+
+            filterDashboard();
 
         },
         100
@@ -811,6 +962,8 @@
 
             filterSidebar();
 
+            filterDashboard();
+
         },
         500
     );
@@ -821,8 +974,22 @@
 
             filterSidebar();
 
+            filterDashboard();
+
         },
         1000
+    );
+
+
+    setTimeout(
+        function () {
+
+            filterSidebar();
+
+            filterDashboard();
+
+        },
+        2000
     );
 
 
