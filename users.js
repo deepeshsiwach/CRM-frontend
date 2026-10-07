@@ -169,33 +169,33 @@ function displayUsers(users) {
 
             <td>
 
-    <button
-        type="button"
-        onclick="viewUser(${user.id})">
+                <button
+                    type="button"
+                    onclick="viewUser(${user.id})">
 
-        View
+                    View
 
-    </button>
-
-
-    <button
-        type="button"
-        onclick="editUser(${user.id})">
-
-        Edit
-
-    </button>
+                </button>
 
 
-    <button
-        type="button"
-        onclick="deleteUser(${user.id})">
+                <button
+                    type="button"
+                    onclick="editUser(${user.id})">
 
-        Delete
+                    Edit
 
-    </button>
+                </button>
 
-</td>
+
+                <button
+                    type="button"
+                    onclick="deleteUser(${user.id})">
+
+                    Delete
+
+                </button>
+
+            </td>
 
         `;
 
@@ -221,6 +221,71 @@ function editUser(id) {
 
     window.location.href =
         `edit-user.html?id=${id}`;
+
+}
+
+
+// Delete user
+async function deleteUser(id) {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this user?"
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE_URL}/api/users/${id}`,
+                {
+                    method: "DELETE",
+
+                    headers: {
+                        "Authorization":
+                            "Bearer " + token
+                    }
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to delete user. Status: " +
+                response.status
+            );
+
+        }
+
+
+        showMessage(
+            "User deleted successfully."
+        );
+
+
+        loadUsers();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Error deleting user:",
+            error
+        );
+
+        showMessage(
+            "Unable to delete user.",
+            true
+        );
+
+    }
 
 }
 
