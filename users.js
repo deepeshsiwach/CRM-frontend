@@ -169,24 +169,33 @@ function displayUsers(users) {
 
             <td>
 
-                <button
-                    type="button"
-                    onclick="viewUser(${user.id})">
+    <button
+        type="button"
+        onclick="viewUser(${user.id})">
 
-                    View
+        View
 
-                </button>
+    </button>
 
 
-                <button
-                    type="button"
-                    onclick="editUser(${user.id})">
+    <button
+        type="button"
+        onclick="editUser(${user.id})">
 
-                    Edit
+        Edit
 
-                </button>
+    </button>
 
-            </td>
+
+    <button
+        type="button"
+        onclick="deleteUser(${user.id})">
+
+        Delete
+
+    </button>
+
+</td>
 
         `;
 
