@@ -2,11 +2,18 @@
 // DERIVION CRM - CLOSED / DISPOSED LEADS
 // ============================================================
 
+
+// ============================================================
+// AUTHENTICATION
+// ============================================================
+
 const token =
     localStorage.getItem("jwtToken");
 
+
 const userName =
     localStorage.getItem("userName");
+
 
 const userRole =
     (
@@ -14,6 +21,7 @@ const userRole =
     )
     .trim()
     .toUpperCase();
+
 
 const currentUserId =
     Number(
@@ -59,6 +67,7 @@ const userNameElement =
         "userName"
     );
 
+
 if (userNameElement) {
 
     userNameElement.textContent =
@@ -75,6 +84,7 @@ const logoutButton =
     document.getElementById(
         "logoutButton"
     );
+
 
 if (logoutButton) {
 
@@ -97,6 +107,7 @@ if (logoutButton) {
 
                 }
             );
+
 
             window.location.href =
                 "index.html";
@@ -138,44 +149,24 @@ async function loadClosedLeads() {
 
     try {
 
-        const [
-            leadsResponse,
-            assignmentsResponse,
-            usersResponse
-        ] = await Promise.all([
+        // ====================================================
+        // LOAD LEADS
+        // ====================================================
 
-            fetch(
+        const leadsResponse =
+            await fetch(
                 `${API_BASE_URL}/api/leads`,
                 {
-                    headers
+                    method: "GET",
+                    headers: headers
                 }
-            ),
-
-            fetch(
-                `${API_BASE_URL}/api/lead-assignments`,
-                {
-                    headers
-                }
-            ),
-
-            fetch(
-                `${API_BASE_URL}/api/users`,
-                {
-                    headers
-                }
-            )
-
-        ]);
+            );
 
 
-        if (
-            !leadsResponse.ok ||
-            !assignmentsResponse.ok ||
-            !usersResponse.ok
-        ) {
+        if (!leadsResponse.ok) {
 
             throw new Error(
-                "Failed to load closed lead data"
+                "Failed to load leads"
             );
 
         }
@@ -184,8 +175,85 @@ async function loadClosedLeads() {
         const leads =
             await leadsResponse.json();
 
+
+        // ====================================================
+        // LOAD ASSIGNMENTS
+        //
+        // ADMIN / MANAGER:
+        //     Load all assignments
+        //
+        // AGENT:
+        //     Load ONLY this agent's assignment history
+        //
+        // IMPORTANT:
+        //     We intentionally do NOT require ACTIVE status
+        //     because closed leads normally have INACTIVE
+        //     assignments.
+        // ====================================================
+
+        let assignmentsResponse;
+
+
+        if (userRole === "AGENT") {
+
+            assignmentsResponse =
+                await fetch(
+                    `${API_BASE_URL}/api/lead-assignments/agent/${currentUserId}`,
+                    {
+                        method: "GET",
+                        headers: headers
+                    }
+                );
+
+        } else {
+
+            assignmentsResponse =
+                await fetch(
+                    `${API_BASE_URL}/api/lead-assignments`,
+                    {
+                        method: "GET",
+                        headers: headers
+                    }
+                );
+
+        }
+
+
+        if (!assignmentsResponse.ok) {
+
+            throw new Error(
+                "Failed to load assignments"
+            );
+
+        }
+
+
         assignments =
             await assignmentsResponse.json();
+
+
+        // ====================================================
+        // LOAD USERS
+        // ====================================================
+
+        const usersResponse =
+            await fetch(
+                `${API_BASE_URL}/api/users`,
+                {
+                    method: "GET",
+                    headers: headers
+                }
+            );
+
+
+        if (!usersResponse.ok) {
+
+            throw new Error(
+                "Failed to load users"
+            );
+
+        }
+
 
         users =
             await usersResponse.json();
@@ -208,6 +276,10 @@ async function loadClosedLeads() {
         ];
 
 
+        // ====================================================
+        // GET CLOSED LEADS
+        // ====================================================
+
         let closedLeads =
             leads.filter(
                 function (lead) {
@@ -215,7 +287,8 @@ async function loadClosedLeads() {
                     return finalStatuses.includes(
                         String(
                             lead.status || ""
-                        ).toUpperCase()
+                        )
+                        .toUpperCase()
                     );
 
                 }
@@ -225,19 +298,17 @@ async function loadClosedLeads() {
         // ====================================================
         // AGENT FILTER
         //
-        // ADMIN:
-        //     All closed leads
-        //
-        // MANAGER:
-        //     All closed leads
-        //
         // AGENT:
-        //     Only ACTIVE assigned closed leads
+        //     Only leads that have EVER been assigned
+        //     to the logged-in agent.
+        //
+        //     ACTIVE + INACTIVE both count.
+        //
+        // ADMIN / MANAGER:
+        //     All closed leads.
         // ====================================================
 
-        if (
-            userRole === "AGENT"
-        ) {
+        if (userRole === "AGENT") {
 
             closedLeads =
                 closedLeads.filter(
@@ -261,14 +332,6 @@ async function loadClosedLeads() {
                                         assignment.agentId
                                     ) ===
                                     currentUserId
-
-                                    &&
-
-                                    String(
-                                        assignment.status || ""
-                                    ).toUpperCase()
-                                    ===
-                                    "ACTIVE"
 
                                 );
 
@@ -324,7 +387,9 @@ async function loadClosedLeads() {
                         colspan="8"
                         class="closed-empty"
                     >
+
                         Failed to load closed leads.
+
                     </td>
 
                 </tr>
@@ -351,12 +416,14 @@ function getAgentName(
             function (assignment) {
 
                 return (
+
                     Number(
                         assignment.leadId
                     ) ===
                     Number(
                         leadId
                     )
+
                 );
 
             }
@@ -372,7 +439,9 @@ function getAgentName(
     }
 
 
-    // Prefer ACTIVE assignment
+    // ========================================================
+    // PREFER ACTIVE ASSIGNMENT
+    // ========================================================
 
     const activeAssignment =
         leadAssignments.find(
@@ -388,6 +457,10 @@ function getAgentName(
             }
         );
 
+
+    // ========================================================
+    // OTHERWISE USE LATEST ASSIGNMENT
+    // ========================================================
 
     const latest =
         activeAssignment ||
@@ -431,7 +504,9 @@ function populateAgentFilter() {
 
 
     if (!select) {
+
         return;
+
     }
 
 
@@ -563,7 +638,8 @@ function updateSummary() {
             const status =
                 String(
                     lead.status || ""
-                ).toUpperCase();
+                )
+                .toUpperCase();
 
 
             if (
@@ -691,6 +767,7 @@ function updateSummary() {
         counts
     );
 
+
     createSuccessChart(
         counts
     );
@@ -713,7 +790,9 @@ function createOutcomeChart(
 
 
     if (!canvas) {
+
         return;
+
     }
 
 
@@ -810,7 +889,9 @@ function createSuccessChart(
 
 
     if (!canvas) {
+
         return;
+
     }
 
 
@@ -1006,6 +1087,7 @@ function filtered() {
 
             const matchesSearch =
                 !query ||
+
                 text.includes(
                     query
                 );
@@ -1051,7 +1133,9 @@ function renderTable() {
 
 
     if (!tableBody) {
+
         return;
+
     }
 
 
@@ -1073,7 +1157,9 @@ function renderTable() {
                     colspan="8"
                     class="closed-empty"
                 >
+
                     No closed/disposed leads found.
+
                 </td>
 
             </tr>
@@ -1120,12 +1206,14 @@ function renderTable() {
 
 
                 <td>
+
                     <strong>
                         ${esc(
                             lead.fullName ||
                             "-"
                         )}
                     </strong>
+
                 </td>
 
 
@@ -1159,7 +1247,9 @@ function renderTable() {
                     <span
                         class="status-badge ${statusClass}"
                     >
+
                         ${status}
+
                     </span>
 
                 </td>
@@ -1179,7 +1269,9 @@ function renderTable() {
                         type="button"
                         onclick="viewLead(${lead.id})"
                     >
+
                         View
+
                     </button>
 
                 </td>
